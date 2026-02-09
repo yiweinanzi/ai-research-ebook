@@ -16,6 +16,7 @@
 		return String(rawText || '')
 			.replace(/\u007f/g, '\n')
 			.replace(/\u001f/g, '\n')
+			.replace(/[\u2028\u2029]/g, '\n')
 			.replace(/\u00a0/g, ' ')
 			.replace(/\r\n?/g, '\n')
 			.replace(/[\u200B-\u200D\uFEFF]/g, '')
@@ -24,6 +25,23 @@
 			.map((line) => line.replace(/\s+$/g, ''))
 			.join('\n')
 			.trim();
+	}
+
+	function fixLegacySubgraphSyntax(code) {
+		return code
+			.split('\n')
+			.map((line) =>
+				line.replace(
+					/^(\s*subgraph\s+([A-Za-z_][\w-]*))\s+\((.+)\)\s*$/,
+					(_, prefix, _id, title) => `${prefix}["${String(title).replace(/"/g, '\\"')}"]`
+				)
+			)
+			.join('\n');
+	}
+
+	function finalizeMermaidCode(rawText) {
+		const normalized = normalizeMermaidCode(rawText);
+		return fixLegacySubgraphSyntax(normalized);
 	}
 
 	function getCodeFromEcLines(block) {
@@ -41,14 +59,14 @@
 
 	function extractMermaidSource(block) {
 		const fromEcLines = getCodeFromEcLines(block);
-		if (fromEcLines.trim()) return normalizeMermaidCode(fromEcLines);
+		if (fromEcLines.trim()) return finalizeMermaidCode(fromEcLines);
 
 		const fromCopy = getCodeFromCopyButton(block);
-		if (fromCopy.trim()) return normalizeMermaidCode(fromCopy);
+		if (fromCopy.trim()) return finalizeMermaidCode(fromCopy);
 
 		const codeNode = block.querySelector('code');
 		const fallback = codeNode ? codeNode.textContent || codeNode.innerText || '' : '';
-		return normalizeMermaidCode(fallback);
+		return finalizeMermaidCode(fallback);
 	}
 
 	function cleanupRenderedDiagrams() {
