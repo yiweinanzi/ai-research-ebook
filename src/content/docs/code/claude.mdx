@@ -425,3 +425,24 @@ claude mcp list
 4. 跑偏就 `Esc Esc` → rewind
 5. 想减少弹窗就 `/sandbox`
 6. 需要并行就用 Agent Teams
+
+---
+
+## Vibe 实战并集补充（融合版）
+
+> 本节把 `vibe/Vibe.md`、`vibe/Vibe Working.md`、`vibe/VIbe2.md` 的重合观点去重后并入当前章节，只保留与工程落地直接相关的增量。
+
+### 高频共识（去重后）
+
+1. **Plan 先行**：复杂任务默认 `/plan`，先给验收标准再改代码。
+2. **上下文治理**：高频使用 `/context` + `/clear` + `/rewind`，避免会话污染。
+3. **流程资产化**：把重复动作沉淀为 skills / hooks / agents，而不是靠临场提示词。
+4. **结果导向**：以“可运行 + 可测试 + 可评审（PR）”作为完成标准。
+
+### 团队落地的最小闭环
+
+- **Day 1-2**：整理 `CLAUDE.md` + `settings.json`（定义底线约束）
+- **Day 3-4**：落地 `/plan`、`/code-review` 两个核心 skill
+- **Day 5-7**：接入提醒型 hooks，再逐步升级到一致性/阻断型 hooks
+
+这条路线的目标是先稳定质量，再追求并行规模。

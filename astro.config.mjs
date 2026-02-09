@@ -91,7 +91,6 @@ export default defineConfig({
 				{
 					label: '7. 资料库',
 					items: [
-						{ label: 'AI research 全量原文', slug: 'library/ai-research-full' },
 						{ label: '根目录项目与论文资源', slug: 'library/root-assets' },
 					],
 				},

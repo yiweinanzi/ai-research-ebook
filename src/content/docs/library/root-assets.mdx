@@ -25,8 +25,53 @@ sidebar:
 
 ## 根目录文档
 
-- `AI research.md` 全量原文已保留在：[`library/ai-research-full`](ai-research-full)
+- `AI research.md` 内容已融合到现有章节正文（按主题去重补充）。
+- `vibe` 文件夹三文档已先做并集整合，再融入现有章节正文（未新增独立章节页）。
 - 过程文档（`context/log.md`、`improve.md`、`plan.md`）已用于站内内容更新与路线整理
+
+## 严格映射清单（来源 → 现有章节）
+
+### A. `AI research.md` 映射
+
+| 来源段落（AI research.md） | 目标章节（现有页面） | 对应位置 | 状态 |
+|---|---|---|---|
+| `1.1 调研` + `1.1.1~1.1.5` | `idea/research` | 调研目标 / 工具分工 / 产物清单 / 调研流程 / 文献工具 / 多模型协作 | 已融合（原有+补充） |
+| `1.2 调研项目` + `1.2.1~1.2.4` | `idea/projects` | Sci-Reasoning / Idea2Story / AI Scientist 系列 / 根目录论文整合 | 已融合（原有） |
+| `2.0 项目文档增强` + `2.1 Claude Code` | `code/claude` | 安装上手 / 交互命令 / Plan Mode / Skills/Hooks/MCP / 团队落地 | 已融合（原有+补充） |
+| `2.2 GPT-5.2 系列` | `code/gpt` | 模型矩阵 / 协作策略 / 项目文档生成流程 / Scitex | 已融合（原有） |
+| `2.3 多Agent框架` | `code/agents` | 框架对比 / Agent Teams / LangGraph / Execution-grounded | 已融合（原有+补充） |
+| `3.1 自动化学术插图工具` | `figures/tools` | PaperBanana / 工具生态 / GPT辅助绘图流程 | 已融合（原有） |
+| `3.2 专业绘图工具对比` | `figures/comparison` | Mermaid / draw.io / Figma / D3 对比 | 已融合（原有） |
+| `3.3 图表类型清单` + `3.4 图表设计规范` | `figures/design` | 配色 / 字体 / 线条 / 标注 / 常见错误 | 已融合（原有） |
+| `4.1 写作思路` + `4.1.1 MCP工具与Skills` | `writing/methods` | 论证链 / Outline / MCP+Skills / 检查清单 | 已融合（原有） |
+| `4.1.2 多模型协作写作` + `4.1.3 AI-research-SKILLs` | `writing/collaboration` | 多模型协作流程 / tmux 流程 / 术语表工作流 | 已融合（原有） |
+| `4.2 Prism` | `writing/prism` | Prism 工具定位与实践 | 已融合（原有） |
+| `4.3 写作最佳实践` | `writing/methods` + `writing/collaboration` | 论证链与协作规范 | 已融合（原有） |
+| `5.1 结构化审稿流水线` | `review/structured` | 模板化审稿 / TODO 转化 / 10+轮迭代 | 已融合（原有+补充） |
+| `5.2 会议模板` | `review/templates` | ICLR/NeurIPS/ICML 审稿模板 | 已融合（原有） |
+| `5.3 Rebuttal` | `writing/rebuttal` | Rebuttal 结构与策略 | 已融合（原有） |
+| `6.1 工具选择矩阵` + `6.3 快速参考` | `tools/overview` | 工具矩阵 / 能力对比 / 常用命令 / 关键链接 | 已融合（原有） |
+| `6.2 完整研究工作流` | `tools/workflow` | 14周流程 / 周度任务 / 时间线模板 | 已融合（原有+补充） |
+
+### B. `vibe` 三文档并集映射（`Vibe.md` ∪ `Vibe Working.md` ∪ `VIbe2.md`）
+
+| 并集主题（去重后） | 来源覆盖 | 目标章节（现有页面） | 状态 |
+|---|---|---|---|
+| Plan-first 与验收驱动开发 | 三文档共同覆盖 | `code/claude`（Plan Mode 优先闭环） | 已融合（原有+补充） |
+| 上下文治理（`/context`、`/clear`、`/rewind`、`/catchup`） | 三文档共同覆盖 | `code/claude`（上下文管理） | 已融合（原有） |
+| 权限/沙箱与工程护栏 | 三文档共同覆盖 | `code/claude`（权限与沙箱） | 已融合（原有） |
+| Skills / Hooks / Subagents / Agent Teams 体系化 | 三文档共同覆盖 | `code/claude` + `code/agents` | 已融合（原有+补充） |
+| 多Agent并行执行与执行闭环 | `Vibe.md` + `VIbe2.md` | `code/agents` + `tools/workflow` | 已融合（原有+补充） |
+| 团队落地路线（7天/分阶段） | `Vibe.md` + `VIbe2.md` | `code/claude`（7天落地路线） | 已融合（原有+补充） |
+| 工具栈与质量保障（lint/test/review） | `Vibe.md` + `Vibe Working.md` | `code/claude` + `tools/overview` | 已融合（原有） |
+| 实战案例（everything-claude-code / Superpowers / SciTeX） | 三文档覆盖 | `code/agents` + `code/gpt` | 已融合（原有） |
+
+### C. 并集规则（审计口径）
+
+1. **去重优先**：三文档同义结论只保留一份“规范化表述”。
+2. **就地扩展**：只补到原有章节正文，不新增来源页。
+3. **可追踪**：每个并集主题都能在上表定位到至少一个现有章节落点。
+4. **冲突处理**：同主题出现差异时，优先采用“可执行、可验证、可复现”的表达。
 
 ## 说明
 
