@@ -24,96 +24,369 @@ Claude Code 适合项目的**构建阶段**，可以开两三个（甚至更多�
 
 ---
 
-## Claude 使用思路
+## 安装与快速上手
 
-### 核心理念
+### 1.1 安装方式
 
-**使用更好的编排，而不是更多的算力。**
+```bash
+# macOS / Linux / WSL
+curl -fsSL https://claude.ai/install.sh | bash
 
-### 1. 并行协作
+# Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
 
-同时运行多个 Claude 实例（终端 5 个，浏览器 5–10 个），建议固定角色：
-
-| 角色 | 职责 |
-|------|------|
-| **Architect** | 盯总体结构与接口 |
-| **Implementer** | 写核心模块 |
-| **Tester** | 写单测/跑评测/抓报错 |
-| **Reviewer** | 做 code review + 找边界条件 |
-
-让每个实例各司其职，减少"一个模型又写又测又改"的低效循环。
-
-### 2. 模型选择
-
-反直觉地使用最大、最慢的 Opus 4.5 Thinking。
-
-因为它更能一次性把接口、边界、测试想清楚，减少返工。
-
-### 3. 计划先行
-
-重要任务开始时先用 Plan Mode（`shift+tab`）：
-
-- 让它先输出任务拆解（TODO list）
-- 明确输入输出与验收标准（Definition of Done）
-- 再进入实现
-
-### 4. 团队记忆
-
-维护 `CLAUDE.md` 并提交到 Git。建议至少包含：
-
-```markdown
-# 项目约定
-- 命名：snake_case for functions, PascalCase for classes
-- 目录：遵循 cookiecutter-data-science 结构
-
-# 常见坑
-- 数据路径：使用 pathlib 而非相对路径
-- 随机种子：每次实验固定 seed=42
-- 显存：batch_size 先从 32 开始调试
-
-# Debug 流程
-1. 复现 bug → 2. 最小化用例 → 3. 定位 → 4. 修复 → 5. 加测试
+# Windows CMD
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
 ```
 
-### 5. 自动化快捷命令
+### 1.2 启动方式
 
-把重复工作流封装：`format / test / eval / report` 一键化。
+```bash
+cd your-project
+claude
+```
 
-### 6. AI 互相审查
-
-用 Subagents 交叉检查：
-
-- 一个负责"能不能跑"
-- 一个负责"是不是对"
-- 一个负责"是不是公平对比"
-
-### 7. 建立验证循环 ⭐最关键
-
-- 每次实现必须有可验证输出：单测/脚本/最小样例
-- 每次修复必须补一个测试，防止回归
-- 没有验证闭环的"写代码"，最后一定会爆债务
+首次会提示登录。([Claude Code](https://code.claude.com/docs/en/overview))
 
 ---
 
-## Claude Code 2.0 新特性
+## 交互模式与快捷键
 
-### 核心能力升级
+### 2.1 核心快捷键
 
-| 特性 | 说明 | 研究用途 |
+| 快捷键 | 功能 |
+|--------|------|
+| `?` | 显示当前环境可用快捷键 |
+| `Esc Esc` | 回退/总结（rewind / summarize） |
+| `Shift+Tab` | 切换模式（普通 ↔ Plan ↔ Auto-accept ↔ Delegate） |
+| `Ctrl+B` | 把运行中的任务后台化 |
+| `Ctrl+T` | 显示/隐藏任务列表 |
+| `Option/Alt + P` | 切换模型 |
+| `Shift+Enter` | 多行输入 |
+
+### 2.2 内置斜杠命令
+
+| 命令 | 功能 |
+|------|------|
+| `/clear` | 清空对话 |
+| `/context` | 看上下文占用 |
+| `/export [filename]` | 导出对话 |
+| `/resume [session]` | 恢复历史会话 |
+| `/rename <name>` | 重命名会话 |
+| `/plan` | 进入 plan mode |
+| `/rewind` | 回退代码/对话或总结 |
+| `/doctor` | 安装健康检查 |
+| `/debug [desc]` | 读 debug log 排查 |
+| `/config` | 打开设置界面 |
+| `/status` | 状态页 |
+| `/permissions` | 权限规则 |
+| `/model` | 选模型 |
+| `/mcp` | 管 MCP 连接 |
+| `/tasks` | 背景任务管理 |
+
+---
+
+## 权限模式与安全边界
+
+### 3.1 四种模式
+
+| 模式 | 能力 | 适用场景 |
 |------|------|---------|
-| **Sub-agents** | 专业化子Agent，并行执行 | 文献分析/代码实现/测试分离 |
-| **MCP 集成** | 连接外部数据源和工具 | 访问Zotero/数据库/API |
-| **Hooks** | 事件驱动的自动化 | 格式检查/测试运行/文档生成 |
-| **Skills** | 可复用的能力包 | 领域特定工作流封装 |
-| **Plan Mode** | 结构化任务规划 | 复杂项目的任务拆解 |
-| **自定义命令** | 工作流快捷方式 | 一键运行常用操作 |
+| **default** | 先问再做 | 日常稳妥开发 |
+| **acceptEdits** | 自动允许文件编辑 | 你在旁边盯着、改动明确 |
+| **plan** | 只读分析+出计划 | 需求澄清、方案评审、审计 |
+| **delegate** | 只做 team 管理 | Agent Teams 并行协作时 |
 
-### MCP 工具生态
+按 `Shift+Tab` 循环切换。
+
+### 3.2 权限配置建议
+
+在 `.claude/settings.json` 中配置：
+
+```json
+{
+  "permissions": {
+    "allow": ["npm run test *", "Bash(git status)"],
+    "deny": [".env", "secrets/**", "Bash(curl *)"]
+  }
+}
+```
+
+---
+
+## 上下文管理
+
+### 4.1 核心原则
+
+**上下文再大也会被填满，可控上下文 = 可控质量。**
+
+### 4.2 工具对比
+
+| 命令 | 功能 | 何时用 |
+|------|------|--------|
+| `/context` | 看上下文占用 | 判断是否该清理了 |
+| `/clear` | 清掉对话但保留项目状态 | 任务切换、对话混乱 |
+| `/export` | 导出关键对话 | 交接、复盘、团队沉淀 |
+| `Esc Esc` / `/rewind` | 回退到之前状态 | 跑偏时回到正确轨道 |
+
+### 4.3 /catchup Skill 模板
+
+```markdown
+---
+name: catchup
+description: Rebuild context after /clear by reading repo state
+---
+
+1) 运行并总结：
+- git status
+- git diff --stat
+- git diff
+- git log -n 20 --oneline
+
+2) 优先阅读：
+- CLAUDE.md
+- README / docs/
+- TODO.md / PLAN.md（如存在）
+
+3) 输出三段：
+A. 当前仓库状态
+B. 当前目标与待办（按优先级）
+C. 风险点与建议的下一步命令
+```
+
+---
+
+## 项目记忆：CLAUDE.md
+
+### 5.1 必须包含的内容
+
+> **CLAUDE.md 是智能体的"宪法"，应保持简洁、聚焦高频使用场景和关键约束。**
+
+| 类别 | 内容示例 |
+|------|---------|
+| **项目启动** | `npm run dev` / `python main.py` |
+| **测试运行** | `pytest tests/` / `npm test` |
+| **代码风格** | `ruff check .` / `prettier --write` |
+| **代码约束** | 禁止读取 secrets、单测必写 |
+| **常见坑** | 数据路径用 pathlib、随机种子固定 |
+
+### 5.2 模板示例
+
+```markdown
+# 项目约定
+
+## 启动命令
+- 开发: `npm run dev`
+- 测试: `npm test`
+- 构建: `npm run build`
+
+## 代码风格
+- Python: ruff format + ruff check
+- 命名: snake_case 函数, PascalCase 类
+
+## 常见坑
+- 数据路径必须用 pathlib
+- 随机种子固定为 42
+- batch_size 先从 32 开始
+
+## Debug 流程
+1. 复现 bug
+2. 最小化用例
+3. 定位问题
+4. 修复
+5. 加测试
+```
+
+---
+
+## Plan Mode 优先闭环
+
+### 6.1 何时必须先 Plan
+
+- 影响架构、鉴权、支付、数据结构、跨模块重构
+- 需要写/改测试策略
+- 希望"一次性正确实现"
+
+### 6.2 标准三段式提示
+
+```text
+你先进入 /plan。
+1) 用要点列出：目标、非目标、约束（性能/兼容/安全）、验收标准。
+2) 给出分步实现计划（每步产出什么、改哪些文件）。
+3) 列出风险与回滚方案。
+等我确认后再开始编码实现。
+```
+
+---
+
+## 权限与沙箱
+
+### 7.1 沙箱模式
+
+运行 `/sandbox` 打开菜单选择沙箱模式。
+
+**WSL2 依赖安装：**
+```bash
+# Ubuntu/Debian
+sudo apt-get install bubblewrap socat
+
+# Fedora
+sudo dnf install bubblewrap socat
+```
+
+### 7.2 企业护栏策略
+
+- **轻量提醒**：发现 `console.log` / debug flag → 提醒但不阻断
+- **强拦截**：提交时如果 tests 未过 → 阻止并要求修复
+
+---
+
+## Skills：可复用工作流
+
+### 8.1 Skills 是什么
+
+Skills 把最佳实践固化成可调用、可共享、可组合的流程，解决"重复指导困境"。
+
+### 8.2 存放位置
+
+| 位置 | 说明 |
+|------|------|
+| 项目内 `.claude/skills/` | 团队共享 |
+| `~/.claude/skills/` | 个人全局 |
+| 插件内 `<plugin>/skills/` | 插件分发 |
+
+### 8.3 推荐技能模板
+
+#### `/plan` - 强制计划
+
+```markdown
+---
+name: plan
+description: Create an implementation plan with acceptance criteria
+---
+
+输出必须包含：
+1) Goals / Non-goals / Constraints
+2) Acceptance criteria（给出可运行命令）
+3) Step-by-step plan
+4) Risks + rollback
+除非用户明确批准，否则不要写代码。
+```
+
+#### `/code-review` - 代码审查
+
+```markdown
+---
+name: code-review
+description: Review current changes with a production checklist
+---
+
+执行：
+- git diff
+- git diff --stat
+
+按以下结构输出：
+1) Correctness（边界/错误处理）
+2) Security（输入校验/鉴权）
+3) Tests（覆盖、缺失用例）
+4) Performance（热点、N+1）
+5) Maintainability（复杂度、命名）
+最后给出"必须改/建议改/可不改"三类结论。
+```
+
+#### `/tdd` - 测试驱动
+
+```markdown
+---
+name: tdd
+description: Apply a TDD workflow
+---
+
+1) 先写失败测试（说明为什么失败）
+2) 再最小实现让测试通过
+3) 再重构（保持测试通过）
+每一步都给出运行的测试命令与结果摘要。
+```
+
+#### `/pr` - PR 准备
+
+```markdown
+---
+name: pr
+description: Prepare a PR: summarize changes, run checks
+---
+
+执行并总结：
+- git status
+- git diff --stat
+- lint/test/build 命令
+
+输出：
+1) PR Title（50字内）
+2) Summary（要点）
+3) Testing（跑了什么）
+4) Risk/rollback
+```
+
+---
+
+## Hooks：事件驱动自动化
+
+### 9.1 Hooks 能做什么
+
+Hooks 在关键节点自动执行或拦截操作：
+
+- 在 Claude 调用工具前/后
+- 在提交 prompt 时
+- 在会话开始/结束
+- 在 compact/子任务结束
+
+### 9.2 推荐落地类型
+
+| Hook 类型 | 功能 | 优先级 |
+|----------|------|--------|
+| **格式化** | 改完文件后自动跑 formatter | 高 |
+| **测试** | 关键模块改动后自动跑测试 | 高 |
+| **危险拦截** | 检测到 `curl | bash` 阻止 | 中 |
+| **PR 质量** | 提交前检查 TODO/敏感信息 | 中 |
+| **SessionStart** | 启动时加载项目环境 | 中 |
+
+### 9.3 Hooks vs Skills 对比
+
+- **Skills**：告诉它"按步骤做事"（流程化）
+- **Hooks**：保证"在关键节点一定发生"（自动化 + 强制）
+
+---
+
+## MCP：外部工具接入
+
+### 10.1 推荐场景
+
+| 场景 | 推荐程度 |
+|------|---------|
+| 访问外部系统数据（Notion/Jira/GitHub/DB） | ✅ 强推荐 |
+| 有状态工具（Playwright） | ⚠️ 谨慎 |
+| 所有内部 API 包进 MCP | ❌ 避免 |
+
+### 10.2 添加 MCP Server
+
+```bash
+# HTTP 方式（推荐）
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+
+# SSE 方式（已废弃）
+claude mcp add --transport sse asana https://mcp.asana.com/sse
+
+# 查看列表
+claude mcp list
+```
+
+### 10.3 核心 MCP 工具
 
 | 工具 | 功能 | 适用场景 |
 |------|------|---------|
-| **Zotero-MCP** | 直接访问本地Zotero文献库 | 文献管理、引用分析 |
-| **Perplexity MCP** | Deep Research模式 | 技术调研、综述写作 |
+| **Zotero-MCP** | 直接访问本地 Zotero 文献库 | 文献管理、引用分析 |
+| **Perplexity MCP** | Deep Research 模式 | 技术调研、综述写作 |
 | **ClickHouse MCP** | 数据库集成 | 大数据分析 |
 | **GitHub MCP** | 仓库操作 | 版本控制自动化 |
 
@@ -124,24 +397,31 @@ Claude Code 适合项目的**构建阶段**，可以开两三个（甚至更多�
 ### 角色分工
 
 | 角色 | 职责 | Claude 实例数 |
-|------|------|-------------|
+|------|------|--------------|
 | Architect | 总体结构与接口设计 | 1-2 |
 | Implementer | 核心模块实现 | 2-3 |
 | Tester | 测试用例与评测 | 1-2 |
 | Reviewer | Code review 与边界检查 | 1-2 |
 
-### 团队记忆 (CLAUDE.md)
+### 7天落地路线
 
-```markdown
-# 项目约定
-- 命名：snake_case for functions, PascalCase for classes
-- 目录：遵循 cookiecutter-data-science 结构
+| 天数 | 任务 |
+|------|------|
+| Day 1 | 编写简洁的 `CLAUDE.md` |
+| Day 2 | 添加底线 `rules`（安全、测试） |
+| Day 3 | 落地核心命令 `/plan` |
+| Day 4 | 落地命令 `/code-review` |
+| Day 5 | 添加提醒型 Hooks |
+| Day 6 | 添加一致性 Hooks |
+| Day 7 | 引入 Subagents |
 
-# 常见坑
-- 数据路径：使用 pathlib 而非相对路径
-- 随机种子：每次实验固定 seed=42
-- 显存：batch_size 先从 32 开始调试
+---
 
-# Debug 流程
-1. 复现 bug → 2. 最小化用例 → 3. 定位 → 4. 修复 → 5. 加测试
-```
+## 下一步行动
+
+1. 在项目里跑一次 `/init`，生成并精简 `CLAUDE.md`
+2. 新建 `.claude/skills/`，把常用 Skills 复制进去
+3. 开始复杂任务前：先 `/plan`，确认后再实现
+4. 跑偏就 `Esc Esc` → rewind
+5. 想减少弹窗就 `/sandbox`
+6. 需要并行就用 Agent Teams
