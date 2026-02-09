@@ -69,19 +69,21 @@ GPT-5.2 系列（2025年12月发布）适合做**细节 review**和**深度分�
 
 ```mermaid
 flowchart TD
-    subgraph 研究流程
-        A[Idea 生成] --> B[项目设计]
-        B --> C[代码实现]
-        C --> D[实验验证]
-        D --> E[论文写作]
+    subgraph ["研究流程"]
+        A(Idea 生成) --> B(项目设计)
+        B --> C(代码实现)
+        C --> D(实验验证)
+        D --> E(论文写作)
     end
 
-    subgraph 工具分工
+    subgraph ["工具分工"]
         F[Claude Opus 4.6] --> A
         G[Claude Code 2.0] --> C
         H[GPT-5.2 Pro] --> D
         I[GPT-5.2 Instant] --> F
     end
+
+
 
 ```
 
@@ -106,7 +108,7 @@ flowchart TD
 # 项目基准文档模板
 
 ## 0. 一页速览（30秒读懂）
-[核心问题 + 核心贡献]
+["核心问题 + 核心贡献"]
 
 ## 1. 研究问题与动机（Problem Statement）
 - 解决什么问题？
@@ -118,17 +120,17 @@ flowchart TD
 - 你的定位
 
 ## 3. 核心研究假设与可验证主张（Claims）
-- Claim 1: [必须对应实验]
-- Claim 2: [必须对应实验]
+- Claim 1: ["必须对应实验"]
+- Claim 2: ["必须对应实验"]
 
 ## 4. 形式化（Problem Formulation）
-[数学形式化]
+["数学形式化"]
 
 ## 5. 系统设计（System Architecture）
-[架构图 + 模块说明]
+["架构图 + 模块说明"]
 
 ## 6. 学习目标（Learning Objective）
-[损失函数 + 优化目标]
+["损失函数 + 优化目标"]
 
 ## 7. 实验与评测（Experiments）
 - 主实验

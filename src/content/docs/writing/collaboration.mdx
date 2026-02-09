@@ -11,18 +11,20 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ```mermaid
 flowchart TD
-    subgraph 写作流程
-        A[大纲生成] --> B[分段写作]
-        B --> C[一致性检查]
-        C --> D[整合优化]
+    subgraph ["写作流程"]
+        A(大纲生成) --> B(分段写作)
+        B --> C(一致性检查)
+        C --> D(整合优化)
     end
 
-    subgraph 模型分工
+    subgraph ["模型分工"]
         E[Claude Opus 4.6] --> A
         F[Claude Code] --> B
         G[GPT-5.2 Pro] --> C
         H[Gemini Pro] --> C
     end
+
+
 
 ```
 
@@ -34,10 +36,12 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    A[检索] --> B[双源验证]
-    B --> C[获取官方 BibTeX]
-    C --> D[核对摘要]
-    D --> E[写入]
+    A(检索) --> B(双源验证)
+    B --> C(获取官方 BibTeX)
+    C --> D(核对摘要)
+    D --> E(写入)
+
+
 
 ```
 
@@ -141,11 +145,13 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A[创建术语表] --> B[推送到共享仓库]
-    B --> C[各实例拉取最新]
-    C --> D[写作时引用]
-    D --> E[发现新术语]
+    A(创建术语表) --> B(推送到共享仓库)
+    B --> C(各实例拉取最新)
+    C --> D(写作时引用)
+    D --> E(发现新术语)
     E --> B
+
+
 
 ```
 

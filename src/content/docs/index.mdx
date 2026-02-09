@@ -22,22 +22,22 @@ hero:
 
 ```mermaid
 flowchart LR
-    subgraph Phase1 ["Phase 1: Idea"]
-        A[文献调研] --> B[创新模式分析]
-        B --> C[Gap 识别]
-        C --> D[Claim 产出]
+    subgraph Phase1 (Phase 1: Idea)
+        A(文献调研) --> B(创新模式分析)
+        B --> C(Gap 识别)
+        C --> D(Claim 产出)
     end
 
-    subgraph Phase2 ["Phase 2: 代码"]
-        D --> E[项目设计]
-        E --> F[Claude Code 构建]
-        F --> G[实验验证]
+    subgraph Phase2 (Phase2:代码)
+        D --> E(项目设计)
+        E --> F(Claude Code 构建)
+        F --> G(实验验证)
     end
 
-    subgraph Phase3 ["Phase 3: 写作"]
-        G --> H[结构化写作]
-        H --> I[图表制作]
-        I --> J[审稿迭代]
+    subgraph Phase3 (Phase3:写作)
+        G --> H(结构化写作)
+        H --> I(图表制作)
+        I --> J(审稿迭代)
     end
 
     Phase1 --> Phase2
@@ -45,6 +45,8 @@ flowchart LR
 
     classDef phase fill:#f8fafc,stroke:#10a37f,stroke-width:1.6px,color:#111827
     class Phase1,Phase2,Phase3 phase
+
+
 ```
 
 ## 快速价值

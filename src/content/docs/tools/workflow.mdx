@@ -33,6 +33,8 @@ gantt
     section 投稿
     最终版           :f1, after e2, 3d
     提交             :f2, 2026-05-20, 1d
+
+
 ```
 
 ---
@@ -46,13 +48,15 @@ gantt
 
 ```mermaid
 flowchart LR
-    A[Elicit 扫描] --> B[Semantic Scholar]
+    A(Elicit 扫描) --> B[Semantic Scholar]
     B --> C[Sci-Reasoning]
-    C --> D[整理研究地图]
-    D --> E[产出 Gap 清单]
+    C --> D(整理研究地图)
+    D --> E(产出 Gap 清单)
 
     classDef key fill:#f8fafc,stroke:#10a37f,stroke-width:1.5px,color:#111827
     class A,C,E key
+
+
 ```
 
 ### 具体任务
@@ -84,14 +88,16 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A[Claude Code 生成文档] --> B[GPT-5.2 审查]
-    B --> C[人工Review]
-    C --> D[确定实验计划]
+    A(Claude Code 生成文档) --> B(GPT-5.2 审查)
+    B --> C(人工Review)
+    C --> D(确定实验计划)
 
     classDef review fill:#f8fafc,stroke:#10a37f,stroke-width:1.5px,color:#111827
     classDef audit fill:#eff6ff,stroke:#2563eb,stroke-width:1.5px,color:#1e3a8a
     class A review
     class B,C audit
+
+
 ```
 
 ### 具体任务
@@ -125,18 +131,20 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    subgraph 开发团队
-        A[Architect x1] --> E[核心模块]
+    subgraph ["开发团队"]
+        A[Architect x1] --> E(核心模块)
         B[Implementer x2] --> E
-        C[Tester x1] --> F[测试评测]
+        C[Tester x1] --> F(测试评测)
     end
 
-    subgraph 质量保障
-        F --> G[自动汇总]
+    subgraph ["质量保障"]
+        F --> G(自动汇总)
     end
 
     classDef role fill:#ecfeff,stroke:#0ea5e9,stroke-width:1.5px,color:#0f172a
     class A,B,C role
+
+
 ```
 
 ### 具体任务
@@ -167,12 +175,14 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    A[Claude Opus 大纲] --> B[多实例并行写作]
-    B --> C[PaperBanana 图表]
-    C --> D[多模型协作完善]
+    A(Claude Opus 大纲) --> B(多实例并行写作)
+    B --> C(PaperBanana 图表)
+    C --> D(多模型协作完善)
 
     classDef writing fill:#f8fafc,stroke:#10a37f,stroke-width:1.5px,color:#111827
     class A,B,C writing
+
+
 ```
 
 ### 具体任务

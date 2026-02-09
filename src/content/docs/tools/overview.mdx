@@ -11,24 +11,26 @@ sidebar:
 
 ```mermaid
 flowchart TD
-    subgraph 调研
-        A[Elicit] --> B[文献检索]
-        C[Sci-Reasoning] --> D[创新分析]
+    subgraph ["调研"]
+        A[Elicit] --> B(文献检索)
+        C[Sci-Reasoning] --> D(创新分析)
     end
 
-    subgraph 实现
-        E[Claude Code] --> F[代码生成]
-        G[LangGraph] --> H[工作流编排]
+    subgraph ["实现"]
+        E[Claude Code] --> F(代码生成)
+        G[LangGraph] --> H(工作流编排)
     end
 
-    subgraph 写作
-        I[Prism] --> J[论文写作]
-        K[PaperBanana] --> L[图表生成]
+    subgraph ["写作"]
+        I[Prism] --> J(论文写作)
+        K[PaperBanana] --> L(图表生成)
     end
 
-    subgraph 审稿
-        M[Claude + GPT-5.2] --> N[多模型审稿]
+    subgraph ["审稿"]
+        M[Claude + GPT-5.2] --> N(多模型审稿)
     end
+
+
 
 ```
 

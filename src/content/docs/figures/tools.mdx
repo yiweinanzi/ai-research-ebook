@@ -29,25 +29,27 @@ sidebar:
 
 ```mermaid
 flowchart TD
-    subgraph 原型阶段
-        A[Mermaid.js] --> B[快速原型]
+    subgraph ["原型阶段"]
+        A[Mermaid.js] --> B(快速原型)
         C[draw.io] --> B
     end
 
-    subgraph 专业阶段
+    subgraph ["专业阶段"]
         B --> D[Figma]
-        D --> E[专业插图]
+        D --> E(专业插图)
     end
 
-    subgraph 自动化阶段
-        F[PaperBanana] --> G[自动生成]
+    subgraph ["自动化阶段"]
+        F[PaperBanana] --> G(自动生成)
         G --> E
     end
 
-    subgraph 整合阶段
-        E --> H[PPT 整合]
-        H --> I[最终发布]
+    subgraph ["整合阶段"]
+        E --> H(PPT 整合)
+        H --> I(最终发布)
     end
+
+
 
 ```
 
@@ -70,7 +72,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[图表类型] --> B{是流程图/时序图?}
+    A(图表类型) --> B{是流程图/时序图?}
     A --> C{需要高度定制?}
     A --> D{团队协作?}
     A --> E{快速原型?}
@@ -79,12 +81,14 @@ flowchart TD
     C -->|是| G[D3.js]
     D -->|是| H[Figma]
     E -->|是| I[draw.io]
-    F --> J[初版]
-    G --> K[精细化]
-    H --> L[协作]
-    I --> M[快速迭代]
+    F --> J(初版)
+    G --> K(精细化)
+    H --> L(协作)
+    I --> M(快速迭代)
 
-    M --> N[PPT 整合]
+    M --> N(PPT 整合)
+
+
 
 ```
 
@@ -97,7 +101,7 @@ flowchart TD
 ```
 你是一位专业的学术插图设计师。请分析以下论文内容：
 
-[粘贴论文的方法部分]
+["粘贴论文的方法部分"]
 
 输出：
 1. 需要可视化的核心概念
@@ -110,7 +114,7 @@ flowchart TD
 ```
 基于以下论文内容, 生成架构图的元素清单：
 
-[论文内容]
+["论文内容"]
 
 请输出：
 1. 所有模块及其功能描述
@@ -124,7 +128,7 @@ flowchart TD
 ```
 请为以下内容设计布局方案：
 
-[元素清单]
+["元素清单"]
 
 考虑：
 - 从左到右还是从上到下？
@@ -136,22 +140,24 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    subgraph 输入处理
-        A[原始数据] --> B[预处理]
+    subgraph ["输入处理"]
+        A(原始数据) --> B(预处理)
     end
 
-    subgraph 核心模型
-        B --> C[特征提取]
-        C --> D[注意力模块]
-        D --> E[输出生成]
+    subgraph ["核心模型"]
+        B --> C(特征提取)
+        C --> D(注意力模块)
+        D --> E(输出生成)
     end
 
-    subgraph 损失函数
-        F[主损失] --> G[多任务Loss]
-        H[正则项] --> G
+    subgraph ["损失函数"]
+        F(主损失) --> G(多任务Loss)
+        H(正则项) --> G
     end
 
-    E --> I[最终输出]
+    E --> I(最终输出)
+
+
 
 ```
 

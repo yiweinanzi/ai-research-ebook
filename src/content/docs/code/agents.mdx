@@ -24,17 +24,19 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ```mermaid
 flowchart TD
-    A[任务类型] --> B{需要复杂工作流?}
+    A(任务类型) --> B{需要复杂工作流?}
     A --> C{需要知识库/RAG?}
     A --> D{需要角色扮演?}
     A --> E{需要对话辩论?}
 
     B -->|是| F[LangGraph]
-    B -->|否| G[简单顺序执行]
+    B -->|否| G(简单顺序执行)
 
     C -->|是| H[LlamaIndex]
     D -->|是| I[CrewAI]
     E -->|是| J[AutoGen]
+
+
 
 ```
 

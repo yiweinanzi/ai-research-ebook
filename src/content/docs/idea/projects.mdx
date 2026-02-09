@@ -11,7 +11,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ### 核心价值
 
-**Sci-Reasoning** 通过 LLM+人工校验的方法, 对 2023–2025 年 NeurIPS、ICML、ICLR 的 **3819 篇 Oral/Spotlight 论文**进行"学术谱系"建模。
+**Sci-Reasoning** 通过 LLM+Human Review的方法, 对 2023–2025 年 NeurIPS、ICML、ICLR 的 **3819 篇 Oral/Spotlight 论文**进行"学术谱系"建模。
 
 **资源链接**:
 - 代码: [Sci-Reasoning GitHub](https://github.com/AmberLJC/Sci-Reasoning)
@@ -19,12 +19,14 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ```mermaid
 flowchart TD
-    A[3819篇顶会论文] --> B[LLM 自动标注]
-    B --> C[人工校验]
-    C --> D[15种科研思维模式]
-    C --> E[创新组合模式]
-    D --> F[科研创新规律]
+    A[3819 Papers] --> B[LLM Annotation]
+    B --> C[Human Review]
+    C --> D[15 Patterns]
+    C --> E[Innovation Recipes]
+    D --> F(科研创新规律)
     E --> F
+
+
 
 ```
 
@@ -70,7 +72,7 @@ flowchart TD
 
 ---
 
-## 创新组合模式（Innovation Recipes）
+## Innovation Recipes（Innovation Recipes）
 
 ### 高价值组合
 
@@ -80,9 +82,11 @@ flowchart LR
     C[Cross-Domain] -->|导入+适配| D[Representation Shift]
     E[Gap-Driven] -->|诊断+借用| F[Cross-Domain]
 
-    B --> G["318 次"]
-    D --> H["233 次"]
-    F --> I["204 次"]
+    B --> G("318次")
+    D --> H("233次")
+    F --> I("204次")
+
+
 
 ```
 
@@ -140,7 +144,7 @@ flowchart LR
    - 每篇论文标注其"创新类型"
    - 便于后续 pattern mining
 
-2. **关注创新组合模式**
+2. **关注Innovation Recipes**
    - 高频组合往往意味着"成熟赛道"
    - 低频组合可能有更大的创新空间
 
