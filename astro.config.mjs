@@ -7,6 +7,7 @@ const githubUsername = process.env.GITHUB_USERNAME ?? 'yiweinanzi';
 const siteUrl = process.env.SITE_URL ?? `https://${githubUsername}.github.io`;
 const basePath = process.env.BASE_PATH ?? `/${repoName}`;
 const normalizedBasePath = basePath === '/' ? '' : basePath;
+const mermaidScriptVersion = process.env.MERMAID_SCRIPT_VERSION ?? '20260209b';
 const repositoryUrl =
 	process.env.GITHUB_REPOSITORY_URL ?? `https://github.com/${githubUsername}/${repoName}`;
 
@@ -28,7 +29,7 @@ export default defineConfig({
 					tag: 'script',
 					attrs: {
 						type: 'module',
-						src: `${normalizedBasePath}/scripts/mermaid-init.js`,
+						src: `${normalizedBasePath}/scripts/mermaid-init.js?v=${mermaidScriptVersion}`,
 					},
 				},
 			],
