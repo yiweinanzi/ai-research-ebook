@@ -11,19 +11,28 @@
     }
 
     function getCode(block) {
-        // Expressive Code 格式：每行在 div.ec-line 中
-        // 需要提取所有行的文本内容
+        // 方法1：优先从 Expressive Code 的 data-code 属性获取（包含换行）
+        const copyButton = block.closest('.expressive-code')?.querySelector('.copy button');
+        if (copyButton) {
+            const dataCode = copyButton.dataset.code;
+            if (dataCode) {
+                // Expressive Code 用特殊字符标记换行 (0x00)
+                return dataCode.replace(/\0/g, '\n');
+            }
+        }
+
+        // 方法2：从 div.ec-line 提取
         const lines = block.querySelectorAll('.ec-line');
         if (lines.length > 0) {
             return Array.from(lines).map(line => {
-                // 获取行的文本，移除缩进空白前缀
                 const codeSpan = line.querySelector('.code');
                 if (!codeSpan) return '';
-                // 获取纯文本内容
+                // 获取原始文本内容
                 return codeSpan.textContent || '';
             }).join('\n');
         }
-        // 回退：获取 code 标签的文本
+
+        // 方法3：回退到 code 标签
         const code = block.querySelector('code');
         return code ? (code.textContent || code.innerText || '') : '';
     }
@@ -41,7 +50,9 @@
             const text = getCode(block);
 
             // 调试：打印获取到的代码
-            console.log('[mermaid] Diagram', i + 1, 'code:\n' + text.substring(0, 200));
+            if (text) {
+                console.log('[mermaid] Diagram', i + 1, 'code:\n' + text.substring(0, 300));
+            }
 
             if (!text.trim()) continue;
 
@@ -65,9 +76,6 @@
             }
         }).catch(function(e) {
             console.warn('[mermaid] Init failed:', e.message);
-            if (e.message.includes('Parse error')) {
-                console.warn('[mermaid] Parse error details:', e);
-            }
         });
     }
 
