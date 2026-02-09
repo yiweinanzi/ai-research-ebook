@@ -28,15 +28,42 @@
 	}
 
 	function fixLegacySubgraphSyntax(code) {
-		return code
-			.split('\n')
-			.map((line) =>
-				line.replace(
-					/^(\s*subgraph\s+([A-Za-z_][\w-]*))\s+\((.+)\)\s*$/,
-					(_, prefix, _id, title) => `${prefix}["${String(title).replace(/"/g, '\\"')}"]`
-				)
-			)
-			.join('\n');
+		let autoSubgraphId = 0;
+		const lines = code.split('\n').map((line) => {
+			// 1) subgraph ID (Title)  ->  subgraph ID["Title"]
+			const legacyParen = line.match(/^(\s*)subgraph\s+([A-Za-z_][\w-]*)\s+\((.+)\)\s*$/);
+			if (legacyParen) {
+				const [, indent, id, title] = legacyParen;
+				return `${indent}subgraph ${id}["${String(title).replace(/"/g, '\\"')}"]`;
+			}
+
+			// 2) subgraph ["Title"] / subgraph [Title]  ->  subgraph SG_AUTO_n["Title"]
+			const bracketOnly = line.match(/^(\s*)subgraph\s+\[(.+)\]\s*$/);
+			if (bracketOnly) {
+				autoSubgraphId += 1;
+				const [, indent, rawTitle] = bracketOnly;
+				const trimmed = String(rawTitle).trim();
+				const title = /^".*"$/.test(trimmed) ? trimmed : `"${trimmed.replace(/"/g, '\\"')}"`;
+				return `${indent}subgraph SG_AUTO_${autoSubgraphId}[${title}]`;
+			}
+
+			// 3) subgraph "Title"  ->  subgraph SG_AUTO_n["Title"]
+			const quoteOnly = line.match(/^(\s*)subgraph\s+"(.+)"\s*$/);
+			if (quoteOnly) {
+				autoSubgraphId += 1;
+				const [, indent, title] = quoteOnly;
+				return `${indent}subgraph SG_AUTO_${autoSubgraphId}["${String(title).replace(/"/g, '\\"')}"]`;
+			}
+
+			return line;
+		});
+
+		// 4) 兜底处理：单行被压缩时也转换 subgraph ID (Title)
+		return lines
+			.join('\n')
+			.replace(/subgraph\s+([A-Za-z_][\w-]*)\s+\(([^\n\)]*)\)/g, (_, id, title) => {
+				return `subgraph ${id}["${String(title).replace(/"/g, '\\"')}"]`;
+			});
 	}
 
 	function finalizeMermaidCode(rawText) {
