@@ -51,9 +51,8 @@ flowchart LR
     C --> D[整理研究地图]
     D --> E[产出 Gap 清单]
 
-    style A fill:#1a3a1a,stroke:#10a37f
-    style C fill:#2a1a3a,stroke:#ab68ff
-    style E fill:#1a2a3a,stroke:#007aff
+    classDef key fill:#f8fafc,stroke:#10a37f,stroke-width:1.5px,color:#111827
+    class A,C,E key
 ```
 
 ### 具体任务
@@ -89,9 +88,10 @@ flowchart TD
     B --> C[人工Review]
     C --> D[确定实验计划]
 
-    style A fill:#1a3a1a,stroke:#10a37f
-    style B fill:#1a2a3a,stroke:#007aff
-    style C fill:#b4b4b4,color:#212121
+    classDef review fill:#f8fafc,stroke:#10a37f,stroke-width:1.5px,color:#111827
+    classDef audit fill:#eff6ff,stroke:#2563eb,stroke-width:1.5px,color:#1e3a8a
+    class A review
+    class B,C audit
 ```
 
 ### 具体任务
@@ -135,9 +135,8 @@ flowchart TD
         F --> G[自动汇总]
     end
 
-    style A fill:#10a37f,color:#fff
-    style B fill:#10a37f,color:#fff
-    style C fill:#007aff,color:#fff
+    classDef role fill:#ecfeff,stroke:#0ea5e9,stroke-width:1.5px,color:#0f172a
+    class A,B,C role
 ```
 
 ### 具体任务
@@ -172,9 +171,8 @@ flowchart LR
     B --> C[PaperBanana 图表]
     C --> D[多模型协作完善]
 
-    style A fill:#1a3a1a,stroke:#10a37f
-    style B fill:#2a1a3a,stroke:#ab68ff
-    style C fill:#1a2a3a,stroke:#007aff
+    classDef writing fill:#f8fafc,stroke:#10a37f,stroke-width:1.5px,color:#111827
+    class A,B,C writing
 ```
 
 ### 具体任务

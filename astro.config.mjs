@@ -6,6 +6,7 @@ const repoName = process.env.GITHUB_REPO ?? 'ai-research-ebook';
 const githubUsername = process.env.GITHUB_USERNAME ?? 'yiweinanzi';
 const siteUrl = process.env.SITE_URL ?? `https://${githubUsername}.github.io`;
 const basePath = process.env.BASE_PATH ?? `/${repoName}`;
+const normalizedBasePath = basePath === '/' ? '' : basePath;
 const repositoryUrl =
 	process.env.GITHUB_REPOSITORY_URL ?? `https://github.com/${githubUsername}/${repoName}`;
 
@@ -17,6 +18,20 @@ export default defineConfig({
 		starlight({
 			title: 'Vibe Research - AI 科研指南',
 			description: 'AI研究电子书 - 从idea到论文的完整指南',
+			head: [
+				{
+					tag: 'script',
+					content:
+						"(() => { try { const key = 'starlight-theme'; const saved = localStorage.getItem(key); if (saved !== 'light' && saved !== 'dark' && saved !== 'auto') { localStorage.setItem(key, 'light'); } if (!saved || saved === 'light') { document.documentElement.dataset.theme = 'light'; } } catch { document.documentElement.dataset.theme = 'light'; } })();",
+				},
+				{
+					tag: 'script',
+					attrs: {
+						type: 'module',
+						src: `${normalizedBasePath}/scripts/mermaid-init.js`,
+					},
+				},
+			],
 			logo: {
 				src: './src/assets/logo.svg',
 				alt: 'Vibe Research',

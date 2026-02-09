@@ -4,7 +4,7 @@ description: AI研究电子书 - 从idea到论文发表的完整指南
 template: splash
 hero:
   title: Vibe Research
-  tagline: 从 Idea 到论文的完整 AI 科研指南
+  tagline: 从 Idea 到顶会投稿的完整 AI 科研操作系统
   actions:
     - text: 开始阅读
       link: idea/research
@@ -13,6 +13,9 @@ hero:
       link: tools/overview
       icon: star
       variant: minimal
+    - text: 完整工作流
+      link: tools/workflow
+      variant: secondary
 ---
 
 ## 研究工作流概览
@@ -40,10 +43,18 @@ flowchart LR
     Phase1 --> Phase2
     Phase2 --> Phase3
 
-    style Phase1 fill:#1a3a1a,stroke:#10a37f,color:#ececec
-    style Phase2 fill:#1a2a3a,stroke:#007aff,color:#ececec
-    style Phase3 fill:#2a1a3a,stroke:#ab68ff,color:#ececec
+    classDef phase fill:#f8fafc,stroke:#10a37f,stroke-width:1.6px,color:#111827
+    class Phase1,Phase2,Phase3 phase
 ```
+
+## 快速价值
+
+<ul class="index-highlights">
+  <li>🚀 用 14 周路线，把科研任务拆成可执行流水线。</li>
+  <li>🧠 用多模型交叉审查，减少方向性失误和实验返工。</li>
+  <li>🧪 用结构化实验与审稿闭环，提升投稿成功率。</li>
+  <li>📊 用流程图与模板化文档，让团队协作更稳定。</li>
+</ul>
 
 ## 核心功能
 
@@ -115,6 +126,11 @@ Elicit、Zotero-MCP、Sci-Reasoning等最新工具，构建完整科研工具链
 - **工业界研究员**: 快速掌握最新工具，提高研发效率
 - **独立研究者**: 建立完整的科研工作流，从零开始发表顶会论文
 
----
+## 从这里开始
 
-**本书持续更新中** | 最后更新: 2026年2月
+- 新手建议先读：[`idea/research`](idea/research) → [`idea/projects`](idea/projects)
+- 需要快速落地：[`tools/workflow`](tools/workflow) + [`review/structured`](review/structured)
+- 关注工程效率：[`code/claude`](code/claude) + [`code/agents`](code/agents)
+
+---
+<p class="index-footnote"><strong>本书持续更新中</strong> · 视觉系统升级：2026-02-09 · 默认主题：浅色</p>
