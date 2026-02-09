@@ -22,7 +22,7 @@ export default defineConfig({
 				{
 					tag: 'script',
 					content:
-						"(() => { try { const key = 'starlight-theme'; const saved = localStorage.getItem(key); if (saved !== 'light' && saved !== 'dark' && saved !== 'auto') { localStorage.setItem(key, 'light'); } if (!saved || saved === 'light') { document.documentElement.dataset.theme = 'light'; } } catch { document.documentElement.dataset.theme = 'light'; } })();",
+						"(() => { try { const key = 'starlight-theme'; localStorage.setItem(key, 'light'); document.documentElement.dataset.theme = 'light'; } catch { document.documentElement.dataset.theme = 'light'; } })();",
 				},
 				{
 					tag: 'script',
@@ -36,9 +36,7 @@ export default defineConfig({
 				src: './src/assets/logo.svg',
 				alt: 'Vibe Research',
 			},
-			social: [
-				{ icon: 'github', label: 'GitHub', href: repositoryUrl },
-			],
+			social: [{ icon: 'github', label: 'GitHub', href: repositoryUrl }],
 			sidebar: [
 				{
 					label: '首页',
@@ -90,11 +88,17 @@ export default defineConfig({
 						{ label: '完整工作流', slug: 'tools/workflow' },
 					],
 				},
+				{
+					label: '7. 资料库',
+					items: [
+						{ label: 'AI research 全量原文', slug: 'library/ai-research-full' },
+						{ label: '根目录项目与论文资源', slug: 'library/root-assets' },
+					],
+				},
 			],
 			customCss: ['./src/styles/custom.css'],
 		}),
 	],
-	// 构建配置
 	output: 'static',
 	build: {
 		format: 'directory',

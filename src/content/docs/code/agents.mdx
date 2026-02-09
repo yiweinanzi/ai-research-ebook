@@ -36,10 +36,6 @@ flowchart TD
     D -->|是| I[CrewAI]
     E -->|是| J[AutoGen]
 
-    style F fill:#1a3a1a,stroke:#10a37f
-    style H fill:#1a2a3a,stroke:#007aff
-    style I fill:#2a1a3a,stroke:#ab68ff
-    style J fill:#1a3a2a,stroke:#19c37d
 ```
 
 ---
@@ -277,3 +273,24 @@ critic.initiate_chat(
 
 
 </div>
+
+---
+
+## Execution-Grounded Agent 实战要点（来自 2601.14525）
+
+为了让多 Agent 真正用于科研而不只是“写建议”，建议采用 execution-grounded 架构：
+
+1. **Idea Agent**：提出可执行改动（不是抽象口号）。
+2. **Patch Agent**：输出可应用的代码 diff。
+3. **Executor Agent**：在标准环境中自动训练/评测（含 GPU 资源调度）。
+4. **Feedback Agent**：回收 Wandb/日志结果，驱动下一轮搜索。
+
+### 两类标准化环境（论文中的典型做法）
+
+- **Post-training 环境**：GRPO + MATH
+- **Pre-training 环境**：nanoGPT + FineWeb
+
+这类环境化设计的价值在于：
+- 可以批量并行比较 idea，不依赖主观判断。
+- 可以把“创新性”转化为“可执行且可复验”的工程流程。
+- 可以把失败样本积累为后续搜索的先验约束。

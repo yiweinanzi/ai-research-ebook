@@ -30,10 +30,6 @@ flowchart TD
         M[Claude + GPT-5.2] --> N[多模型审稿]
     end
 
-    style A fill:#1a3a1a,stroke:#10a37f
-    style E fill:#1a3a1a,stroke:#10a37f
-    style I fill:#2a1a3a,stroke:#ab68ff
-    style M fill:#1a2a3a,stroke:#007aff
 ```
 
 | 任务阶段 | 推荐工具 | 备选方案 | 选择理由 |
@@ -99,3 +95,21 @@ elicit search "topic"  # Elicit 搜索
 | **claude-scientific-skills** | https://github.com/K-Dense-AI/claude-scientific-skills |
 | **LangChain** | https://github.com/langchain-ai |
 | **LlamaIndex** | https://github.com/run-llama |
+
+---
+
+## 根目录项目/论文内容并入说明
+
+以下内容来自你根目录的项目与论文文件，已并入现有章节（未上传 PDF 文件本体）：
+
+| 来源 | 并入内容 | 已落地章节 |
+|---|---|---|
+| 2601.14525 + Automated-AI-Researcher | execution-grounded 自动科研执行闭环（idea→patch→run→feedback） | `idea/projects`, `code/agents` |
+| 2601.20833 + Idea2Paper | pre-computation + KG + anchored review 的叙事生成路线 | `idea/projects` |
+| 2601.23265 + PaperBanana | 自动学术插图框架、基准与工程策略 | `figures/tools` |
+| AutoFigure-edit README | 方法图到可编辑 SVG 的工程流水线实践 | `figures/tools` |
+
+### 额外说明
+
+- `AI research.md` 全量内容已保留于 [`library/ai-research-full`](../library/ai-research-full)。
+- 根目录资源索引页见 [`library/root-assets`](../library/root-assets)。
