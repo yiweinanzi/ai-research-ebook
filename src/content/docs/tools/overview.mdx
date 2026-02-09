@@ -1,0 +1,125 @@
+---
+title: 工具总览
+description: AI 研究全流程工具选择矩阵
+sidebar:
+  order: 1
+---
+
+## 工具选择矩阵
+
+| 任务阶段 | 推荐工具 | 备选方案 | 选择理由 |
+|---------|---------|---------|---------|
+| **文献检索** | Elicit | Consensus, Semantic Scholar | 1.25亿+论文，自动化综述 |
+| **文献管理** | Zotero-MCP | Mendeley, Papers | Claude 集成，语义搜索 |
+| **代码生成** | Claude Code | GPT-5.2, Codex | 200K上下文，80.9% SWE-bench |
+| **Agent编排** | LangChain/LangGraph | CrewAI, AutoGen | 灵活工作流，强大社区 |
+| **论文写作** | Prism | Overleaf | GPT-5.2 集成，LaTeX 原生 |
+| **审稿模拟** | Claude + GPT-5.2 | Gemini Pro | 多模型交叉验证 |
+| **画图** | PaperBanana + Mermaid | D3.js, Figma | 自动化 + 版本控制 |
+
+---
+
+## 按阶段划分的工具链
+
+### Phase 1: 调研阶段
+
+| 工具 | 用途 |
+|------|------|
+| **Elicit** | 快速扫描领域 |
+| **Sci-Reasoning** | 分析创新模式 |
+| **ResearchRabbit** | 持续追踪新论文 |
+
+**产出**: Research Gap 清单
+
+### Phase 2: 项目设计
+
+| 工具 | 用途 |
+|------|------|
+| **Claude Code** | 生成项目文档 |
+| **GPT-5.2** | 审查 claim-实验对齐 |
+
+**产出**: 实验计划
+
+### Phase 3: 代码实现 + 实验
+
+| 工具 | 用途 |
+|------|------|
+| **Claude Code + Sub-agents** | 并行开发 |
+| **LangGraph** | 自动化工作流 |
+
+**产出**: 实验结果
+
+### Phase 4: 论文写作
+
+| 工具 | 用途 |
+|------|------|
+| **Prism + GPT-5.2** | 生成初稿 |
+| **多模型协作** | 完善各章节 |
+| **PaperBanana** | 生成图表 |
+
+**产出**: 论文初稿
+
+### Phase 5: 审稿迭代
+
+| 工具 | 用途 |
+|------|------|
+| **多模型并行** | 10+ 轮自动审稿 |
+| **TODO 驱动** | 修改管理 |
+
+**产出**: 投稿版本
+
+---
+
+## 工具能力对比
+
+### LLM 能力对比
+
+| 模型 | 上下文 | SWE-bench | ARC-AGI | 适用场景 |
+|------|--------|-----------|---------|---------|
+| **Claude Opus 4.6** | 200K | 80.9% | - | 长文档、代码 |
+| **GPT-5.2 Pro** | - | - | 90%+ | 复杂推理 |
+| **GPT-5.2 Thinking** | - | - | - | 深度分析 |
+| **Gemini 2.5 Pro** | 1M+ | - | - | 超长文档 |
+
+### 文献检索工具对比
+
+| 工具 | 论文数 | 特色 | 价格 |
+|------|--------|------|------|
+| **Elicit** | 1.25亿+ | 自动化综述 | 免费+付费 |
+| **Semantic Scholar** | 2亿+ | AI驱动 | 免费 |
+| **Consensus** | - | 证据搜索 | 免费+付费 |
+| **Scite** | - | 引用质量 | 付费 |
+
+---
+
+## 快速参考
+
+### 常用命令速查
+
+```bash
+# Claude Code
+npm run dev          # 启动开发服务器
+astro build          # 构建项目
+astro preview        # 预览构建结果
+
+# MCP
+mcp list             # 列出已安装的 MCP 服务器
+mcp install zotero   # 安装 Zotero-MCP
+
+# 文献检索
+elicit search "topic"  # Elicit 搜索
+```
+
+---
+
+## 关键链接汇总
+
+| 资源 | 链接 |
+|------|------|
+| **Sci-Reasoning** | https://github.com/AmberLJC/Sci-Reasoning |
+| **The AI Scientist** | https://github.com/SakanaAI/AI-Scientist |
+| **Elicit** | https://elicit.com |
+| **Prism** | https://openai.com/prism/ |
+| **claude-scientific-skills** | https://github.com/K-Dense-AI/claude-scientific-skills |
+| **LangChain** | https://github.com/langchain-ai |
+| **LlamaIndex** | https://github.com/run-llama |

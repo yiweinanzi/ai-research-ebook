@@ -1,0 +1,122 @@
+---
+title: 调研项目
+description: 重要调研项目分析，包括 Sci-Reasoning、AI Research、Idea2Story 等
+sidebar:
+  order: 2
+---
+
+## Sci-Reasoning
+
+### 论文信息
+
+**标题**: Sci-Reasoning: A Dataset Decoding AI Innovation Patterns
+
+**核心贡献**: 提出了 **Sci-Reasoning 数据集**，通过 LLM+人工校验的方法，对 2023–2025 年 NeurIPS、ICML、ICLR 的 3819 篇 Oral/Spotlight 论文进行"学术谱系"建模。
+
+**资源链接**:
+- 代码: https://github.com/AmberLJC/Sci-Reasoning
+- 数据集: https://huggingface.co/datasets/AmberLJC/Sci-Reasoning
+
+### 核心发现
+
+论文系统标注了论文如何从前人工作中发现缺口、跨领域融合和重构表示，并总结出 **15 种科研思维模式**：
+
+| 编号 | 模式名称 | 比例 | 描述 |
+|------|---------|------|------|
+| P01 | Gap-Driven Reframing | 24.2% | 转化限制为设计约束，将失败模式显性化 |
+| P02 | Cross-Domain Synthesis | 18.0% | 跨领域融合，引入相邻领域的解决方案 |
+| P03 | Representation Shift | 10.5% | 表示转化，替换问题基本表示单元 |
+| P04 | Modular Pipeline Composition | 4.2% | 模块化组合，分解复杂系统 |
+| P05 | Data & Evaluation Engineering | 5.4% | 数据与评测工程，创建新基准 |
+| P06 | Principled Probabilistic Modeling | 5.4% | 概率建模，形式化框架 |
+| P07 | Formal-Experimental Tightening | 6.7% | 理论实验紧密结合，迭代验证 |
+| P08 | Approximation Engineering | 4.9% | 可扩展性近似，替换不可计算操作 |
+| P09 | Inference-Time Control | 2.4% | 推理时控制，无需重训练 |
+| P10 | Structural Inductive Bias | 5.1% | 结构归纳偏置，硬编码领域知识 |
+| P11 | Multiscale Modeling | 1.4% | 多尺度建模，多粒度层次 |
+| P12 | Mechanistic Decomposition | 1.9% | 机制分解，可解释性分析 |
+| P13 | Adversary Modeling | 1.5% | 对手建模，防御重用 |
+| P14 | Numerics & Systems Co-design | 1.4% | 数值与系统协同设计 |
+| P15 | Data-Centric Optimization | 2.1% | 以数据为中心的优化 |
+
+### 创新组合模式
+
+研究发现了高频组合模式，这些"配方"更容易产生高质量工作：
+
+| 组合 | 出现次数 | 策略 |
+|------|---------|------|
+| Gap-Driven + Representation Shift | 318 | "诊断+重构"：识别问题，换表示解决 |
+| Cross-Domain + Representation Shift | 233 | "导入+适配"：跨域引入，修改表示 |
+| Gap-Driven + Cross-Domain | 204 | "诊断+借用"：识别缺口，跨域寻找方案 |
+
+### 会议偏好分析
+
+- **ICML**: 偏好形式化方法 (8.3% Formal-Experimental, 7.5% Probabilistic)
+- **ICLR**: 强调表示创新 (11.8% Representation Shift, 8.5% Benchmarking)
+- **NeurIPS**: 平衡跨学科覆盖
+
+### LLM 评估基准 (Hit@10)
+
+| 模型 | 得分 |
+|------|------|
+| Gemini 2.5 Pro | 49.35% |
+| Claude Opus 4 | 42.86% |
+| GPT-5.2 | 38.89% |
+| Claude Sonnet 4 | 29.87% |
+
+### 可直接借用的点
+
+- 把"创新"从玄学变成**可标注的轨迹**：
+  - 缺口识别 → 表示/设定重构 → 机制引入 → 实验验证
+- 给你一个非常实用的启发：
+  - 你做自己的调研库时，也可以把每篇论文的"创新类型"做标签化
+
+---
+
+## AI Research
+
+### 论文信息
+
+**标题**: Towards Execution-Grounded Automated AI Research
+
+**核心思想**: 提出了"执行落地"（Execution Grounding）的思路——不仅让AI提想法，还得让它自己把想法变成代码、跑实验、看结果、从反馈中学习。
+
+**代码**: https://github.com/NoviScl/Automated-AI-Researcher
+
+### 可直接借用的点
+
+- idea 不是终点，必须落到"可运行"的实验闭环
+- 自动化的价值：快速做 ablation、stress test、超参扫描，把"可信度"堆出来
+
+---
+
+## Idea2Story
+
+### 论文信息
+
+**标题**: Idea2Story: An Automated Pipeline for Transforming Research Concepts into Complete Scientific Narratives
+
+**核心能力**:
+- 自动生成完整论文结构
+- 从概念到叙事的智能转换
+- 保持科学严谨性的同时提升写作效率
+
+---
+
+## The AI Scientist 系列
+
+自动化科研领域的最新进展：
+
+| 项目 | 发布时间 | 核心特点 |
+|------|---------|---------|
+| **The AI Scientist** | 2024.08 | 完整研究自动化：idea生成→实验→论文写作→同行评审 |
+| **The AI Scientist-v2** | 2025 | 无代码模板的 workshop 级别自动化发现 |
+| **ChemCrow** | 2024 (Nature MI) | 化学研究 Agent，18种集成工具，728+引用 |
+| **Virtual-Scientists** | ACL 2025 | 端到端科研协作模拟，团队组织→idea生成 |
+| **Kosmos** | 2025 | 自主数据驱动的科学发现 |
+| **AI-Researcher** | 2025 | 完全自主的研究系统 |
+
+### 代码资源
+
+- The AI Scientist: https://github.com/SakanaAI/AI-Scientist
+- Virtual-Scientists: https://github.com/InternScience/Virtual-Scientists

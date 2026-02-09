@@ -1,0 +1,154 @@
+---
+title: 多Agent框架
+description: LangChain、LlamaIndex、CrewAI、AutoGen 等多Agent框架对比
+sidebar:
+  order: 3
+---
+
+## 框架对比
+
+当研究任务需要多个Agent协作时，选择合适的框架：
+
+| 框架 | 核心优势 | 研究用途 | GitHub |
+|------|---------|---------|--------|
+| **LangChain/LangGraph** | 复杂推理工作流，状态管理 | 多步骤文献分析、实验设计 | github.com/langchain-ai |
+| **LlamaIndex** | 知识库集成，RAG 优化 | 文档密集型研究、论文库查询 | github.com/run-llama |
+| **CrewAI** | 角色定义清晰，企业级 | 协作研究项目、团队模拟 | github.com/crewAIInc |
+| **Microsoft AutoGen** | 对话优先框架 | 讨论式研究、辩论式分析 | github.com/microsoft/autogen |
+
+---
+
+## 选择建议
+
+### 文献分析 → LangChain
+
+**理由**: 灵活的工作流
+
+**适用场景**:
+- 多步骤文献分析
+- 复杂推理链构建
+- 自定义工具集成
+
+### 知识库查询 → LlamaIndex
+
+**理由**: 优秀的RAG能力
+
+**适用场景**:
+- 文档密集型研究
+- 论文库语义搜索
+- 大规模知识管理
+
+### 团队协作 → CrewAI
+
+**理由**: 清晰的角色定义
+
+**适用场景**:
+- 协作研究项目
+- 多角色任务分配
+- 结构化工作流
+
+### 对话式研究 → AutoGen
+
+**理由**: 对话原语
+
+**适用场景**:
+- 讨论式研究
+- 辩论式分析
+- 多视角观点整合
+
+---
+
+## LangGraph 实战示例
+
+### 定义研究状态
+
+```python
+from typing import TypedDict, List
+from langgraph.graph import StateGraph
+
+class ResearchState(TypedDict):
+    topic: str
+    papers: List[dict]
+    gaps: List[str]
+    claims: List[str]
+
+def search_papers(state: ResearchState) -> ResearchState:
+    # 使用 Elicit API 搜索论文
+    ...
+
+def extract_gaps(state: ResearchState) -> ResearchState:
+    # 使用 Claude 分析研究空白
+    ...
+
+def generate_claims(state: ResearchState) -> ResearchState:
+    # 基于空白生成可验证的主张
+    ...
+
+# 构建工作流
+workflow = StateGraph(ResearchState)
+workflow.add_node("search", search_papers)
+workflow.add_node("extract_gaps", extract_gaps)
+workflow.add_node("generate_claims", generate_claims)
+
+workflow.add_edge("search", "extract_gaps")
+workflow.add_edge("extract_gaps", "generate_claims")
+workflow.set_entry_point("search")
+
+app = workflow.compile()
+```
+
+---
+
+## CrewAI 研究团队配置
+
+```python
+from crewai import Agent, Task, Crew
+
+# 定义角色
+literature_reviewer = Agent(
+    role="文献综述专家",
+    goal="全面梳理指定领域的研究现状",
+    backstory="你是一位经验丰富的研究员...",
+    tools=[elicit_tool, semantic_scholar_tool]
+)
+
+gap_analyst = Agent(
+    role="研究空白分析师",
+    goal="从现有研究中识别可探索的空白",
+    backstory="你擅长发现被忽视的研究方向...",
+    tools=[claude_tool]
+)
+
+claim_validator = Agent(
+    role="主张验证专家",
+    goal="评估研究主张的可验证性",
+    backstory="你严格审查每一个科学主张...",
+    tools=[gpt_tool]
+)
+
+# 定义任务
+task1 = Task(
+    description="调研 {topic} 领域近3年的论文",
+    agent=literature_reviewer
+)
+
+task2 = Task(
+    description="识别研究空白并排序",
+    agent=gap_analyst
+)
+
+task3 = Task(
+    description="验证每个空白的可研究性",
+    agent=claim_validator
+)
+
+# 组建团队
+research_crew = Crew(
+    agents=[literature_reviewer, gap_analyst, claim_validator],
+    tasks=[task1, task2, task3],
+    verbose=True
+)
+
+# 执行
+result = research_crew.kickoff(inputs={"topic": "多模态学习"})
+```

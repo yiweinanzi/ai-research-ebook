@@ -1,0 +1,152 @@
+---
+title: 结构化审稿
+description: 从"让它挑刺"到"迭代闭环"的审稿流水线
+sidebar:
+  order: 1
+---
+
+## 结构化审稿流水线
+
+把审稿输出变成可执行修改任务。
+
+---
+
+## 审稿输出要结构化
+
+审稿必须回答以下问题：
+
+- 哪条 claim 缺证据？
+- 哪个实验最关键但没做？
+- 哪个 baseline 必须补？
+- 哪段叙事最像"空话"？
+- 哪个地方最容易被说不新？
+
+---
+
+## 审稿输出模板
+
+```markdown
+# 审稿意见
+
+## 缺证据的 Claim
+
+1. Claim: "XXX机制是关键创新"
+   - 问题: 没有消融实验
+   - 需要: 去掉XXX后的性能对比
+
+## 缺失的实验
+
+1. 压力测试
+   - 问题: 没有测试低资源场景
+   - 需要: 在资源减少50%时的表现
+
+## 缺失的 Baseline
+
+1. YYYY方法 (2024)
+   - 问题: 这是最新的强baseline
+   - 需要: 补充对比实验
+
+## 空话段落
+
+1. 第3.2节第二段
+   - 问题: "显著提升"但无数据
+   - 需要: 补充具体数字或删除
+
+## 创新性质疑
+
+1. 与ZZZ方法的区别
+   - 问题: 审稿人可能说只是"简单组合"
+   - 需要: 强调我们发现的XXX insight
+```
+
+---
+
+## 把审稿意见变成 TODO 列表
+
+每条意见对应一个"改动 + 验收标准"：
+
+```markdown
+# TODO List
+
+- [ ] 补消融：去掉模块 X → 指标下降 ≥ 某阈值
+- [ ] 补公平对比：训练步数对齐 + 算力对齐
+- [ ] 补压力测试：低资源/噪声/分布外
+- [ ] 重写3.2节：添加具体数据或删除空洞表述
+- [ ] 增加与ZZZ的对比讨论：强调XXX insight
+```
+
+---
+
+## 循环迭代（10+ 次）
+
+每轮只解决最致命的 3–5 条，别贪多。
+
+### 迭代流程
+
+1. **多模型并行审稿**
+   - Claude Opus 4.6
+   - GPT-5.2 Pro
+   - Gemini Pro
+
+2. **交叉验证审稿意见**
+   - 找出真正的问题
+   - 过渡到高优先级
+
+3. **批量修复**
+   - 一次处理3-5条
+   - 确保每条有验收标准
+
+4. **验证修复**
+   - 重新审稿
+   - 确认问题解决
+
+---
+
+## 审稿 Prompt 模板
+
+```python
+"""You are a world-leading expert in the field of [YOUR FIELD].
+
+The following text is a LaTeX draft of a paper intended for submission to [CONFERENCE],
+a top-tier conference.
+
+Please review this manuscript with the MOST CRITICAL, HARSH, STRICT, and MEAN perspective
+possible - like a picky reviewer who rejects most papers.
+
+Focus your review on:
+1. Technical soundness and novelty
+2. Clarity of the contribution and presentation
+3. Experimental evaluation methodology
+4. Comparison with prior art
+5. Writing quality and logical flow
+
+CRITICAL INSTRUCTIONS:
+- Be extremely critical - point out EVERY weakness
+- Question claims that lack proper evidence
+- Highlight vague or hand-wavy descriptions
+- Point out missing baselines or ablation studies
+- Criticize overstatements or exaggerated claims
+- Check if the contribution is truly significant enough
+
+Please write your review in the following format:
+
+---
+Overall Merit: (4-point scale: 1=Accept, 2=Weak Accept, 3=Weak Reject, 4=Reject)
+
+Paper Summary: (1-2 paragraphs)
+
+Strengths: (2-3 bullet points - be sparing)
+
+Weaknesses: (4-6 bullet points - be thorough and harsh)
+
+Subjective Evaluation:
+- Is the contribution significant enough?
+- Are the experiments sufficient? What's missing?
+- Is the comparison fair and complete?
+- Are the claims properly supported?
+- Specific questions to address
+- Recommended improvements
+
+---
+"""
+```
