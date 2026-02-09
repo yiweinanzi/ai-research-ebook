@@ -1,6 +1,6 @@
 ---
 title: 调研项目
-description: 重要调研项目分析，包括 Sci-Reasoning、AI Research、Idea2Story 等
+description: 重要调研项目分析, 包括 Sci-Reasoning、AI Research、Idea2Story 等
 sidebar:
   order: 2
 ---
@@ -11,7 +11,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ### 核心价值
 
-**Sci-Reasoning** 通过 LLM+人工校验的方法，对 2023–2025 年 NeurIPS、ICML、ICLR 的 **3819 篇 Oral/Spotlight 论文**进行"学术谱系"建模。
+**Sci-Reasoning** 通过 LLM+人工校验的方法, 对 2023–2025 年 NeurIPS、ICML、ICLR 的 **3819 篇 Oral/Spotlight 论文**进行"学术谱系"建模。
 
 **资源链接**:
 - 代码: [Sci-Reasoning GitHub](https://github.com/AmberLJC/Sci-Reasoning)
@@ -35,15 +35,15 @@ flowchart TD
 <div class="card-grid">
 
 
-**诊断+重构**：识别当前方法的局限性，将限制转化为设计约束。
+**诊断+重构**：识别当前方法的局限性, 将限制转化为设计约束。
 
 
 
-**跨域融合**：从相邻领域引入解决方案，激活创新可能。
+**跨域融合**：从相邻领域引入解决方案, 激活创新可能。
 
 
 
-**表示转化**：替换问题的基本表示单元，开辟新视角。
+**表示转化**：替换问题的基本表示单元, 开辟新视角。
 
 
 </div>
@@ -106,7 +106,7 @@ flowchart LR
 
 ## LLM 评估基准 (Hit@10)
 
-这个评估衡量：给定前人工作，LLM 能否预测出研究方向的准确度。
+这个评估衡量：给定前人工作, LLM 能否预测出研究方向的准确度。
 
 | 模型 | Hit@10 得分 |
 |------|-------------|
@@ -151,7 +151,7 @@ flowchart LR
 
 <div class="tip">
 
-**核心启示**：创新不是玄学，是可以被系统化分析和复制的模式。
+**核心启示**：创新不是玄学, 是可以被系统化分析和复制的模式。
 
 </div>
 
@@ -161,7 +161,7 @@ flowchart LR
 
 ### 论文一：Towards Execution-Grounded Automated AI Research (2601.14525)
 
-根据原文摘要与项目环境说明，这项工作提出了一个 **execution-grounded** 的自动科研框架，核心不是只生成“看起来合理”的 idea，而是把 idea 真实落地执行并用反馈反哺下一轮搜索。
+根据原文摘要与项目环境说明, 这项工作提出了一个 **execution-grounded** 的自动科研框架, 核心不是只生成“看起来合理”的 idea, 而是把 idea 真实落地执行并用反馈反哺下一轮搜索。
 
 **关键点：**
 - 构建自动执行器：自动打补丁、提交代码、分配 GPU、回收训练日志。
@@ -173,16 +173,16 @@ flowchart LR
 
 ### 论文二：Idea2Story (2601.20833)
 
-该工作把“research idea → 可写论文叙事”的过程做成了结构化流水线，核心贡献是 **pre-computation-driven** 思路：尽量把文献理解和结构化表征前置，降低在线大上下文推理成本与幻觉风险。
+该工作把“research idea → 可写论文叙事”的过程做成了结构化流水线, 核心贡献是 **pre-computation-driven** 思路：尽量把文献理解和结构化表征前置, 降低在线大上下文推理成本与幻觉风险。
 
 **关键点：**
 - 用知识图谱组织 Idea / Pattern / Domain / Paper 节点。
-- 通过模式选择、故事生成、反思修正，产出完整 scientific narrative skeleton。
-- 引入 anchored multi-agent review，使打分更可审计、更可复现。
+- 通过模式选择、故事生成、反思修正, 产出完整 scientific narrative skeleton。
+- 引入 anchored multi-agent review, 使打分更可审计、更可复现。
 - 输出可直接进入写作阶段的结构化结果（title/abstract/problem/method/contrib/experiments）。
 
 ### 并入现有工作流的建议
 
-1. 在 `1.1 调研` 阶段优先落地“可执行环境”，避免只停留在概念验证。
-2. 在 `1.2 项目` 阶段增加“叙事骨架检查”，确保 idea 到论文表达不断层。
-3. 让“执行反馈”与“叙事反馈”双闭环并行：一个校验有效性，一个校验可写性。
+1. 在 `1.1 调研` 阶段优先落地“可执行环境”, 避免只停留在概念验证。
+2. 在 `1.2 项目` 阶段增加“叙事骨架检查”, 确保 idea 到论文表达不断层。
+3. 让“执行反馈”与“叙事反馈”双闭环并行：一个校验有效性, 一个校验可写性。
