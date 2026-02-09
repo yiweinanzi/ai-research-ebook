@@ -4,6 +4,8 @@ description: AI研究电子书 - 从idea到论文发表的完整指南
 template: splash
 hero:
   title: Vibe Research
+  image:
+    file: ../../assets/houston.webp
   tagline: 从 Idea 到论文的完整 AI 科研指南
   actions:
     - text: 开始阅读
@@ -46,7 +48,7 @@ import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 	</Card>
 </CardGrid>
 
-<div class="hero-cta-row">
+<div class="hero-cta-row" role="navigation" aria-label="首页快速导航">
 	<LinkButton href="tools/workflow" icon="right-arrow" variant="secondary">查看完整工作流</LinkButton>
 	<LinkButton href="review/structured" icon="check-circle" variant="minimal">进入审稿迭代章节</LinkButton>
 </div>
@@ -66,5 +68,5 @@ import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 ---
 
 <div class="index-footnote">
-	<p>最后更新: 2026年2月9日 | Astro + Starlight 站点版本</p>
+	<p>最后更新: 2026年2月9日 | 现代科研暗色主题（双主题）</p>
 </div>
