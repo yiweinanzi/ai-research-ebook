@@ -1,98 +1,87 @@
-// Mermaid 初始化 - 使用 init() 方法
+// Mermaid initialization - stable version
 (function() {
-	'use strict';
+    'use strict';
 
-	const MERMAID_SELECTOR = '.sl-markdown-content pre[data-language="mermaid"]';
-	const LOADED_FLAG = '__vrMermaidInit';
+    const SELECTOR = '.sl-markdown-content pre[data-language="mermaid"]';
+    const LOADED = '__vrMermaidInited';
+    let mermaid = null;
 
-	function isDarkTheme() {
-		return document.documentElement.dataset.theme === 'dark';
-	}
+    function isDark() {
+        return document.documentElement.dataset.theme === 'dark';
+    }
 
-	async function initMermaid() {
-		try {
-			const mermaid = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
-			const m = mermaid.default || mermaid;
+    function getCode(block) {
+        const code = block.querySelector('code');
+        return code ? (code.textContent || code.innerText || '') : '';
+    }
 
-			m.initialize({
-				startOnLoad: false,
-				securityLevel: 'loose',
-				theme: isDarkTheme() ? 'dark' : 'base'
-			});
+    function renderAll() {
+        if (!mermaid) return;
 
-			return m;
-		} catch (e) {
-			console.error('[mermaid] Load failed:', e);
-			return null;
-		}
-	}
+        const blocks = document.querySelectorAll(SELECTOR);
+        if (!blocks.length) return;
 
-	async function render() {
-		const mermaid = await initMermaid();
-		if (!mermaid) return;
+        console.log('[mermaid] Found', blocks.length, 'diagrams');
 
-		// 查找所有 mermaid 代码块
-		const blocks = document.querySelectorAll(MERMAID_SELECTOR);
-		if (!blocks.length) return;
+        for (let i = 0; i < blocks.length; i++) {
+            const block = blocks[i];
+            const text = getCode(block);
+            if (!text.trim()) continue;
 
-		console.log('[mermaid] Found', blocks.length, 'diagrams');
+            const div = document.createElement('div');
+            div.className = 'mermaid-diagram';
+            div.style.cssText = 'padding:16px;background:var(--sl-color-bg-nav,#212121);border-radius:8px;margin:1.5rem 0;overflow-x:auto';
 
-		// 为每个代码块创建容器并渲染
-		for (let i = 0; i < blocks.length; i++) {
-			const block = blocks[i];
-			const code = block.querySelector('code');
-			if (!code) continue;
+            const pre = document.createElement('pre');
+            pre.className = 'mermaid';
+            pre.id = 'mermaid-' + i + '-' + Date.now();
+            pre.textContent = text;
 
-			const text = code.textContent || code.innerText || '';
-			if (!text.trim()) continue;
+            div.appendChild(pre);
+            block.parentNode.insertBefore(div, block.nextSibling);
+        }
 
-			// 创建 SVG 容器
-			const div = document.createElement('div');
-			div.className = 'mermaid-diagram';
-			div.style.cssText = 'padding: 16px; background: var(--sl-color-bg-nav, #212121); border-radius: 8px; margin: 1.5rem 0; overflow-x: auto;';
+        mermaid.init(undefined, '.mermaid').then(function() {
+            console.log('[mermaid] Init done');
+            for (let i = 0; i < blocks.length; i++) {
+                blocks[i].style.display = 'none';
+            }
+        }).catch(function(e) {
+            console.warn('[mermaid] Init failed:', e.message);
+        });
+    }
 
-			const pre = document.createElement('pre');
-			pre.className = 'mermaid';
-			pre.id = 'mermaid-' + i + '-' + Date.now();
-			pre.textContent = text;
+    async function load() {
+        if (window[LOADED]) return;
+        window[LOADED] = true;
 
-			div.appendChild(pre);
-			block.insertAdjacentElement('afterend', div);
-		}
+        try {
+            const mod = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+            mermaid = mod.default || mod;
 
-		// 使用 init 初始化所有 mermaid 元素
-		try {
-			await mermaid.init(undefined, '.mermaid');
-			console.log('[mermaid] Init OK');
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: isDark() ? 'dark' : 'base'
+            });
 
-			// 隐藏原始代码块
-			blocks.forEach(b => {
-				b.style.display = 'none';
-				b.classList.add('mermaid-hidden');
-			});
-		} catch (e) {
-			console.warn('[mermaid] Init failed:', e.message);
-		}
-	}
+            console.log('[mermaid] Loaded');
+            setTimeout(renderAll, 500);
+        } catch (e) {
+            console.error('[mermaid] Load failed:', e);
+        }
+    }
 
-	function init() {
-		if (window[LOADED_FLAG]) return;
-		window[LOADED_FLAG] = true;
+    document.addEventListener('astro:after-swap', function() {
+        window[LOADED] = false;
+        load();
+    });
 
-		// 延迟执行
-		setTimeout(() => render(), 300);
-	}
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', load);
+    } else {
+        load();
+    }
 
-	// Astro 页面切换
-	document.addEventListener('astro:after-swap', () => {
-		window[LOADED_FLAG] = false;
-		init();
-	});
-
-	// 启动
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', init);
-	} else {
-		init();
-	}
+    window.renderMermaidDiagrams = renderAll;
 })();
