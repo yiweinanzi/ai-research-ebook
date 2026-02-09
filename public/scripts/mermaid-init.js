@@ -1,6 +1,7 @@
 // Mermaid initialization for Starlight + Expressive Code
 (function () {
 	'use strict';
+	const SCRIPT_VERSION = '20260209d';
 
 	const SOURCE_SELECTOR = '.sl-markdown-content pre[data-language="mermaid"]';
 	const RENDER_CLASS = 'mermaid-diagram';
@@ -98,12 +99,32 @@
 
 	function cleanupRenderedDiagrams() {
 		document.querySelectorAll(`.${RENDER_CLASS}[data-vr-mermaid="true"]`).forEach((node) => node.remove());
-		document.querySelectorAll(`${SOURCE_SELECTOR}.${HIDDEN_CLASS}`).forEach((node) => {
+		document.querySelectorAll(SOURCE_SELECTOR).forEach((node) => {
 			node.classList.remove(HIDDEN_CLASS);
+			node.style.display = '';
 		});
 		document.querySelectorAll(`${SOURCE_SELECTOR}[data-vr-mermaid-rendered="true"]`).forEach((node) => {
 			node.removeAttribute('data-vr-mermaid-rendered');
 		});
+	}
+
+	function buildErrorFallback(message, source) {
+		const wrapper = document.createElement('div');
+		wrapper.className = RENDER_CLASS;
+		wrapper.dataset.vrMermaid = 'true';
+		wrapper.style.borderColor = 'rgba(239, 68, 68, 0.45)';
+
+		const title = document.createElement('div');
+		title.textContent = `[mermaid] render failed: ${message}`;
+		title.style.cssText = 'color:#b91c1c;font-weight:600;margin-bottom:8px;';
+		wrapper.appendChild(title);
+
+		const pre = document.createElement('pre');
+		pre.textContent = source;
+		pre.style.cssText = 'white-space:pre-wrap;word-break:break-word;max-height:320px;overflow:auto;margin:0;';
+		wrapper.appendChild(pre);
+
+		return wrapper;
 	}
 
 	async function ensureMermaid() {
@@ -115,6 +136,7 @@
 
 	async function renderAllDiagrams() {
 		try {
+			console.log('[mermaid] init script', SCRIPT_VERSION);
 			const mermaid = await ensureMermaid();
 			mermaid.initialize({
 				startOnLoad: false,
@@ -153,6 +175,10 @@
 					block.dataset.vrMermaidRendered = 'true';
 				} catch (error) {
 					wrapper.remove();
+					const fallback = buildErrorFallback(error?.message || String(error), source);
+					block.insertAdjacentElement('afterend', fallback);
+					block.classList.remove(HIDDEN_CLASS);
+					block.style.display = '';
 					console.warn(`[mermaid] Diagram ${index + 1} render failed:`, error?.message || error);
 				}
 			}

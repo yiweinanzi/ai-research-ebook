@@ -7,7 +7,7 @@ const githubUsername = process.env.GITHUB_USERNAME ?? 'yiweinanzi';
 const siteUrl = process.env.SITE_URL ?? `https://${githubUsername}.github.io`;
 const basePath = process.env.BASE_PATH ?? `/${repoName}`;
 const normalizedBasePath = basePath === '/' ? '' : basePath;
-const mermaidScriptVersion = process.env.MERMAID_SCRIPT_VERSION ?? '20260209c';
+const mermaidScriptVersion = process.env.MERMAID_SCRIPT_VERSION ?? '20260209d';
 const repositoryUrl =
 	process.env.GITHUB_REPOSITORY_URL ?? `https://github.com/${githubUsername}/${repoName}`;
 
