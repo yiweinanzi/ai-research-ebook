@@ -1,441 +1,439 @@
 /* ========================================
-   Vibe Research Theme System
-   modern research dark theme + optional light theme
+   极简学术风格 - Minimal Academic Style
+   纯白背景 + 黑色文字 + 细边框
    ======================================== */
 
 :root {
-	--vr-radius-xs: 0.375rem;
-	--vr-radius-sm: 0.5rem;
-	--vr-radius-md: 0.75rem;
-	--vr-radius-lg: 1rem;
+	/* 基础色彩 - 极简 */
+	--vr-bg: #ffffff;
+	--vr-surface: #ffffff;
+	--vr-text: #1a1a1a;
+	--vr-text-secondary: #555555;
+	--vr-text-muted: #888888;
+	--vr-border: #e5e5e5;
+	--vr-border-light: #f0f0f0;
+	--vr-accent: #0066cc;
+	--vr-accent-hover: #0052a3;
+	--vr-hover-bg: #f8f9fa;
+	--vr-code-bg: #f8f9fa;
+	--vr-code-text: #c7254e;
 
-	--vr-space-xs: 0.375rem;
-	--vr-space-sm: 0.625rem;
-	--vr-space-md: 0.875rem;
-	--vr-space-lg: 1.25rem;
-	--vr-space-xl: 1.75rem;
+	/* 间距 */
+	--vr-space-xs: 0.25rem;
+	--vr-space-sm: 0.5rem;
+	--vr-space-md: 1rem;
+	--vr-space-lg: 1.5rem;
+	--vr-space-xl: 2rem;
 
-	--vr-shadow-sm: 0 2px 10px rgba(6, 10, 26, 0.24);
-	--vr-shadow-md: 0 10px 26px rgba(6, 10, 26, 0.32);
-	--vr-shadow-lg: 0 18px 44px rgba(6, 10, 26, 0.4);
+	/* 圆角 */
+	--vr-radius-sm: 0.375rem;
+	--vr-radius-md: 0.5rem;
+	--vr-radius-lg: 0.625rem;
 
-	--vr-font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC',
-		'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+	/* 阴影 - 极简 */
+	--vr-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+	--vr-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.04);
+
+	/* 字体 */
+	--vr-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-:root,
-:root[data-theme='dark'] {
-	--vr-bg-0: #0a1020;
-	--vr-bg-1: #0f1830;
-	--vr-bg-2: #161f3f;
-	--vr-surface-1: rgba(18, 27, 54, 0.88);
-	--vr-surface-2: rgba(24, 34, 64, 0.92);
-	--vr-surface-3: rgba(31, 43, 78, 0.92);
-	--vr-border-1: rgba(132, 150, 235, 0.26);
-	--vr-border-2: rgba(115, 136, 226, 0.4);
-	--vr-text-0: #f7faff;
-	--vr-text-1: #d8e2ff;
-	--vr-text-2: #a6b7e8;
-	--vr-accent: #7d9bff;
-	--vr-accent-strong: #5f84ff;
-	--vr-accent-soft: rgba(125, 155, 255, 0.16);
-	--vr-accent-warm: #f7a45f;
-	--vr-hero-grad: linear-gradient(130deg, rgba(106, 130, 255, 0.22), rgba(124, 90, 227, 0.2));
-
-	--sl-color-white: 224 30% 95%;
-	--sl-color-gray-1: 224 22% 88%;
-	--sl-color-gray-2: 223 18% 76%;
-	--sl-color-gray-3: 223 15% 63%;
-	--sl-color-gray-4: 223 15% 46%;
-	--sl-color-gray-5: 224 24% 26%;
-	--sl-color-gray-6: 224 30% 16%;
-	--sl-color-black: 224 45% 9%;
-	--sl-color-text: 223 31% 88%;
-	--sl-color-text-accent: 221 100% 84%;
-	--sl-color-text-invert: 224 45% 9%;
-	--sl-color-bg: 224 45% 9%;
-	--sl-color-bg-nav: 223 41% 11%;
-	--sl-color-bg-sidebar: 224 40% 12%;
-	--sl-color-bg-inline-code: 225 44% 22%;
-	--sl-color-bg-accent: 221 100% 84%;
-	--sl-color-hairline-light: 223 23% 33%;
-	--sl-color-hairline: 223 29% 22%;
-	--sl-color-hairline-shade: 224 50% 7%;
-	--sl-color-accent-low: 224 42% 23%;
-	--sl-color-accent: 221 95% 74%;
-	--sl-color-accent-high: 220 100% 86%;
-
-	--sl-shadow-sm: var(--vr-shadow-sm);
-	--sl-shadow-md: var(--vr-shadow-md);
-	--sl-shadow-lg: var(--vr-shadow-lg);
-}
-
-:root[data-theme='light'] {
-	--vr-bg-0: #f4f7fc;
-	--vr-bg-1: #eef2fb;
-	--vr-bg-2: #e6edf9;
-	--vr-surface-1: rgba(255, 255, 255, 0.92);
-	--vr-surface-2: rgba(250, 252, 255, 0.96);
-	--vr-surface-3: rgba(243, 248, 255, 0.98);
-	--vr-border-1: rgba(102, 125, 184, 0.24);
-	--vr-border-2: rgba(88, 113, 180, 0.34);
-	--vr-text-0: #172033;
-	--vr-text-1: #334361;
-	--vr-text-2: #5c6d8f;
-	--vr-accent: #2d63d6;
-	--vr-accent-strong: #1f4fb8;
-	--vr-accent-soft: rgba(45, 99, 214, 0.12);
-	--vr-accent-warm: #c96e1f;
-	--vr-hero-grad: linear-gradient(130deg, rgba(94, 130, 255, 0.16), rgba(116, 90, 223, 0.1));
-
-	--sl-color-white: 224 20% 16%;
-	--sl-color-gray-1: 224 24% 23%;
-	--sl-color-gray-2: 224 20% 32%;
-	--sl-color-gray-3: 224 16% 46%;
-	--sl-color-gray-4: 223 15% 59%;
-	--sl-color-gray-5: 223 33% 87%;
-	--sl-color-gray-6: 223 36% 94%;
-	--sl-color-gray-7: 220 44% 97%;
-	--sl-color-black: 0 0% 100%;
-	--sl-color-text: 224 20% 32%;
-	--sl-color-text-accent: 218 65% 46%;
-	--sl-color-text-invert: 0 0% 100%;
-	--sl-color-bg: 220 44% 97%;
-	--sl-color-bg-nav: 0 0% 100%;
-	--sl-color-bg-sidebar: 220 50% 98%;
-	--sl-color-bg-inline-code: 220 48% 92%;
-	--sl-color-bg-accent: 218 65% 46%;
-	--sl-color-hairline-light: 220 30% 88%;
-	--sl-color-hairline: 220 28% 84%;
-	--sl-color-hairline-shade: 220 26% 88%;
-	--sl-color-accent-low: 220 55% 91%;
-	--sl-color-accent: 218 65% 46%;
-	--sl-color-accent-high: 221 66% 31%;
-
-	--sl-shadow-sm: 0 1px 3px rgba(26, 39, 71, 0.08);
-	--sl-shadow-md: 0 8px 18px rgba(26, 39, 71, 0.12);
-	--sl-shadow-lg: 0 16px 34px rgba(26, 39, 71, 0.14);
-}
+/* ========================================
+   全局样式
+   ======================================== */
 
 html,
 body {
-	font-family: var(--vr-font-sans);
-	background: radial-gradient(circle at 12% -10%, rgba(124, 149, 255, 0.16), transparent 44%),
-		radial-gradient(circle at 85% 0%, rgba(140, 114, 243, 0.11), transparent 42%),
-		linear-gradient(160deg, var(--vr-bg-0) 0%, var(--vr-bg-1) 100%);
-	color: var(--vr-text-1);
+	font-family: var(--vr-font);
+	background: #ffffff;
+	color: var(--vr-text);
+	line-height: 1.7;
 }
 
-:root[data-theme='light'] body {
-	background: radial-gradient(circle at 12% -10%, rgba(124, 149, 255, 0.12), transparent 42%),
-		linear-gradient(160deg, var(--vr-bg-0) 0%, var(--vr-bg-1) 100%);
-}
+/* ========================================
+   Header - 纯白顶栏
+   ======================================== */
 
 .header {
-	background: color-mix(in oklab, var(--vr-surface-2) 92%, transparent) !important;
-	border-bottom: 1px solid var(--vr-border-1) !important;
-	backdrop-filter: blur(12px);
-	box-shadow: var(--sl-shadow-sm);
+	background: #ffffff !important;
+	border-bottom: 1px solid var(--vr-border) !important;
+	box-shadow: none !important;
 }
 
 .header .site-title {
-	color: var(--vr-text-0);
+	color: var(--vr-text) !important;
 }
+
+/* ========================================
+   Sidebar - 纯白侧边栏
+   ======================================== */
 
 .sidebar-pane {
-	background: color-mix(in oklab, var(--vr-surface-2) 95%, transparent) !important;
-	border-inline-end: 1px solid var(--vr-border-1) !important;
-}
-
-.sidebar-content {
-	padding-top: 1.25rem;
+	background: #ffffff !important;
+	border-inline-end: 1px solid var(--vr-border) !important;
 }
 
 .sidebar-content a {
-	margin: 0.125rem 0.25rem;
-	border: 1px solid transparent;
+	color: var(--vr-text-secondary);
+	padding: 0.4rem 0.75rem;
+	margin: 0.0625rem 0.5rem;
 	border-radius: var(--vr-radius-sm);
-	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+	transition: all 0.15s ease;
 }
 
 .sidebar-content a:hover,
 .sidebar-content a:focus-visible {
-	background: color-mix(in oklab, var(--vr-accent-soft) 88%, transparent);
-	border-color: var(--vr-border-1);
-	color: var(--vr-text-0);
+	background: var(--vr-hover-bg);
+	color: var(--vr-text);
 }
 
 .sidebar-content [aria-current='page'],
-.sidebar-content [aria-current='page']:hover,
-.sidebar-content [aria-current='page']:focus {
-	background: linear-gradient(
-		90deg,
-		color-mix(in oklab, var(--vr-accent-soft) 95%, transparent),
-		transparent
-	);
-	border-color: var(--vr-border-2);
+.sidebar-content [aria-current='page']:hover {
+	background: var(--vr-hover-bg);
 	color: var(--vr-accent);
-	font-weight: 600;
+	font-weight: 500;
 }
+
+/* ========================================
+   Content Panel - 纯白内容区
+   ======================================== */
 
 .content-panel {
-	background: color-mix(in oklab, var(--vr-surface-1) 96%, transparent);
-	border: 1px solid var(--vr-border-1);
-	border-radius: var(--vr-radius-lg);
-	box-shadow: var(--sl-shadow-sm);
-	margin: 1rem 1rem 0.65rem;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
-.content-panel + .content-panel {
-	border-top: 1px solid var(--vr-border-1) !important;
-}
+/* ========================================
+   Hero - 简洁首屏
+   ======================================== */
 
 .hero {
-	background: var(--vr-hero-grad);
-	border: 1px solid var(--vr-border-2);
+	background: #ffffff;
+	border: 1px solid var(--vr-border);
 	border-radius: var(--vr-radius-lg);
-	padding: clamp(1.3rem, 2.2vw, 2rem);
-	box-shadow: var(--sl-shadow-md);
+	padding: 2rem 2.5rem;
+	margin-bottom: 2rem;
 }
 
 .hero h1 {
-	color: var(--vr-text-0);
-	font-weight: 700;
+	color: var(--vr-text);
+	font-size: 2rem;
+	font-weight: 600;
 	letter-spacing: -0.02em;
 }
 
 .hero .tagline {
-	color: var(--vr-text-1);
-	max-width: 44ch;
+	color: var(--vr-text-secondary);
+	font-size: 1.1rem;
+	max-width: 50ch;
 }
 
 .hero .actions .sl-link-button {
-	font-weight: 600;
-	border-radius: 0.55rem;
-	transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+	font-weight: 500;
+	border-radius: var(--vr-radius-md);
+	padding: 0.625rem 1.25rem;
 }
 
 .hero .actions .sl-link-button.primary {
 	background: var(--vr-accent);
 	border-color: var(--vr-accent);
-	color: #fff;
+	color: #ffffff;
 }
 
 .hero .actions .sl-link-button.primary:hover {
-	background: var(--vr-accent-strong);
+	background: var(--vr-accent-hover);
 }
 
 .hero .actions .sl-link-button.secondary,
 .hero .actions .sl-link-button.minimal {
-	background: color-mix(in oklab, var(--vr-surface-2) 86%, transparent);
-	border-color: var(--vr-border-2);
-	color: var(--vr-text-0);
+	background: #ffffff;
+	border-color: var(--vr-border);
+	color: var(--vr-text);
 }
 
-.hero .actions .sl-link-button:hover {
-	transform: translateY(-1px);
-	box-shadow: var(--sl-shadow-sm);
+.hero .actions .sl-link-button.secondary:hover,
+.hero .actions .sl-link-button.minimal:hover {
+	background: var(--vr-hover-bg);
+	border-color: #d1d5db;
 }
+
+/* ========================================
+   Markdown 内容
+   ======================================== */
 
 .sl-markdown-content {
-	max-width: 74ch;
+	max-width: 65ch;
+	color: var(--vr-text);
 }
 
-.sl-markdown-content :is(h1, h2, h3, h4) {
-	color: var(--vr-text-0);
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+	color: var(--vr-text);
+	font-weight: 600;
 	letter-spacing: -0.01em;
 }
 
 .sl-markdown-content h1 {
-	font-size: clamp(1.75rem, 3.2vw, 2.1rem);
+	font-size: 1.875rem;
+	border-bottom: 1px solid var(--vr-border);
 	padding-bottom: 0.5rem;
-	border-bottom: 1px solid var(--vr-border-1);
+	margin-top: 2rem;
+	margin-bottom: 1rem;
 }
 
 .sl-markdown-content h2 {
-	font-size: clamp(1.36rem, 2.4vw, 1.68rem);
-	padding-bottom: 0.3rem;
-	border-bottom: 1px solid color-mix(in oklab, var(--vr-border-1) 82%, transparent);
+	font-size: 1.5rem;
+	border-bottom: 1px solid var(--vr-border-light);
+	padding-bottom: 0.375rem;
+	margin-top: 1.75rem;
+	margin-bottom: 0.875rem;
+}
+
+.sl-markdown-content h3 {
+	font-size: 1.25rem;
+	margin-top: 1.5rem;
+	margin-bottom: 0.75rem;
 }
 
 .sl-markdown-content p,
 .sl-markdown-content li,
-.sl-markdown-content td,
-.sl-markdown-content dd {
-	color: var(--vr-text-1);
-	line-height: 1.76;
+.sl-markdown-content td {
+	color: var(--vr-text-secondary);
 }
 
 .sl-markdown-content a {
 	color: var(--vr-accent);
-	text-decoration-color: color-mix(in oklab, var(--vr-accent) 45%, transparent);
-	text-underline-offset: 2px;
+	text-decoration: none;
 }
 
 .sl-markdown-content a:hover {
-	color: var(--vr-accent-strong);
-	text-decoration-color: currentColor;
+	color: var(--vr-accent-hover);
+	text-decoration: underline;
 }
 
+/* ========================================
+   表格 - 简洁表格
+   ======================================== */
+
 .sl-markdown-content table {
-	border: 1px solid var(--vr-border-1);
-	border-radius: var(--vr-radius-sm);
-	background: color-mix(in oklab, var(--vr-surface-2) 88%, transparent);
+	border: 1px solid var(--vr-border);
+	border-radius: var(--vr-radius-md);
 	overflow: hidden;
+	background: #ffffff;
 }
 
 .sl-markdown-content th {
-	background: color-mix(in oklab, var(--vr-accent-soft) 80%, transparent);
-	color: var(--vr-text-0);
-	border-bottom: 1px solid var(--vr-border-1);
+	background: var(--vr-hover-bg);
+	color: var(--vr-text);
+	font-weight: 600;
+	border-bottom: 1px solid var(--vr-border);
+	padding: 0.75rem 1rem;
 }
 
 .sl-markdown-content td {
-	border-bottom: 1px solid color-mix(in oklab, var(--vr-border-1) 74%, transparent);
+	border-bottom: 1px solid var(--vr-border-light);
+	padding: 0.75rem 1rem;
 }
 
-.sl-markdown-content tr:hover td {
-	background: color-mix(in oklab, var(--vr-accent-soft) 64%, transparent);
+.sl-markdown-content tr:last-child td {
+	border-bottom: none;
 }
+
+.sl-markdown-content tr:hover {
+	background: var(--vr-hover-bg);
+}
+
+/* ========================================
+   代码块 - 浅灰底
+   ======================================== */
 
 .sl-markdown-content pre {
-	background: color-mix(in oklab, var(--vr-bg-1) 90%, #000) !important;
-	border: 1px solid var(--vr-border-2);
+	background: var(--vr-code-bg) !important;
+	border: 1px solid var(--vr-border);
 	border-radius: var(--vr-radius-sm);
-	padding: 0.95rem;
-}
-
-:root[data-theme='light'] .sl-markdown-content pre {
-	background: #f5f8ff !important;
+	padding: 1rem;
 }
 
 .sl-markdown-content code:not(pre code) {
-	padding: 0.15rem 0.4rem;
-	border-radius: 0.35rem;
-	background: color-mix(in oklab, var(--vr-accent-soft) 86%, transparent);
-	color: var(--vr-accent-strong);
-	font-size: 0.88em;
+	padding: 0.125rem 0.375rem;
+	border-radius: 0.25rem;
+	background: var(--vr-code-bg);
+	color: var(--vr-code-text);
+	font-size: 0.875em;
 }
+
+/* ========================================
+   引用块 - 左边框
+   ======================================== */
 
 .sl-markdown-content blockquote {
 	border-inline-start: 3px solid var(--vr-accent);
-	background: color-mix(in oklab, var(--vr-accent-soft) 78%, transparent);
-	border-radius: var(--vr-radius-sm);
-	padding: 0.8rem 1rem;
-	color: var(--vr-text-1);
+	background: var(--vr-hover-bg);
+	padding: 0.75rem 1rem;
+	margin: 1rem 0;
+	color: var(--vr-text-secondary);
 }
+
+/* ========================================
+   折叠详情
+   ======================================== */
 
 .sl-markdown-content details {
-	background: color-mix(in oklab, var(--vr-surface-3) 82%, transparent);
-	border: 1px solid var(--vr-border-1);
+	background: var(--vr-hover-bg);
+	border: 1px solid var(--vr-border);
 	border-radius: var(--vr-radius-sm);
+	padding: 0.5rem 0.75rem;
 }
 
+.sl-markdown-content details summary {
+	cursor: pointer;
+	font-weight: 500;
+}
+
+/* ========================================
+   卡片 - 简洁卡片
+   ======================================== */
+
 .card-grid .card {
-	background: color-mix(in oklab, var(--vr-surface-2) 90%, transparent);
-	border: 1px solid var(--vr-border-1);
+	background: #ffffff;
+	border: 1px solid var(--vr-border);
 	border-radius: var(--vr-radius-md);
-	box-shadow: var(--sl-shadow-sm);
-	transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+	padding: 1.25rem;
+	box-shadow: var(--vr-shadow-sm);
+	transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .card-grid .card:hover {
-	transform: translateY(-2px);
-	border-color: var(--vr-border-2);
-	box-shadow: var(--sl-shadow-md);
+	border-color: var(--vr-border-light);
+	box-shadow: var(--vr-shadow-md);
 }
 
 .card-grid .card .title {
-	color: var(--vr-text-0);
+	color: var(--vr-text);
 }
 
 .card-grid .card .body {
-	color: var(--vr-text-1);
+	color: var(--vr-text-secondary);
 }
 
+/* ========================================
+   链接卡片
+   ======================================== */
+
 .sl-link-card {
-	background: color-mix(in oklab, var(--vr-surface-2) 90%, transparent);
-	border: 1px solid var(--vr-border-1) !important;
+	background: #ffffff;
+	border: 1px solid var(--vr-border) !important;
 	border-radius: var(--vr-radius-md);
-	box-shadow: var(--sl-shadow-sm);
 }
 
 .sl-link-card:hover {
-	border-color: var(--vr-border-2) !important;
-	box-shadow: var(--sl-shadow-md);
+	border-color: var(--vr-border-light) !important;
 }
 
+/* ========================================
+   右侧目录
+   ======================================== */
+
 .right-sidebar {
-	background: color-mix(in oklab, var(--vr-surface-2) 92%, transparent);
-	border-inline-start: 1px solid var(--vr-border-1) !important;
+	background: #ffffff;
+	border-inline-start: 1px solid var(--vr-border) !important;
 }
 
 .right-sidebar-panel a {
-	padding: 0.3rem 0.45rem;
-	margin-inline: -0.2rem;
-	border-radius: var(--vr-radius-xs);
+	color: var(--vr-text-secondary);
 }
 
 .right-sidebar-panel a:hover {
-	background: color-mix(in oklab, var(--vr-accent-soft) 72%, transparent);
-	color: var(--vr-text-0);
-}
-
-.right-sidebar-panel a[aria-current='true'] {
-	background: color-mix(in oklab, var(--vr-accent-soft) 88%, transparent);
 	color: var(--vr-accent);
 }
 
+.right-sidebar-panel a[aria-current='true'] {
+	color: var(--vr-accent);
+}
+
+/* ========================================
+   按钮 - 简洁按钮
+   ======================================== */
+
 button[data-open-modal] {
-	border: 1px solid var(--vr-border-1) !important;
-	background: color-mix(in oklab, var(--vr-surface-2) 92%, transparent) !important;
-	color: var(--vr-text-1) !important;
+	border: 1px solid var(--vr-border) !important;
+	background: #ffffff !important;
+	color: var(--vr-text-secondary) !important;
 	border-radius: var(--vr-radius-sm) !important;
-	box-shadow: var(--sl-shadow-sm);
 }
 
 button[data-open-modal]:hover {
-	border-color: var(--vr-border-2) !important;
-	color: var(--vr-text-0) !important;
+	border-color: var(--vr-border-light) !important;
+	color: var(--vr-text) !important;
 }
 
+/* ========================================
+   分页
+   ======================================== */
+
 .pagination-links a {
-	background: color-mix(in oklab, var(--vr-surface-2) 92%, transparent);
-	border: 1px solid var(--vr-border-1);
+	background: #ffffff;
+	border: 1px solid var(--vr-border);
 	border-radius: var(--vr-radius-md);
-	box-shadow: var(--sl-shadow-sm);
-	transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+	box-shadow: var(--vr-shadow-sm);
+	transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .pagination-links a:hover {
-	transform: translateY(-1px);
-	border-color: var(--vr-border-2);
-	box-shadow: var(--sl-shadow-md);
+	border-color: var(--vr-border-light);
+	box-shadow: var(--vr-shadow-md);
 }
 
 .pagination-links .link-title {
-	color: var(--vr-text-0);
+	color: var(--vr-text);
 }
 
-starlight-theme-select label {
-	padding: 0 0.15rem;
-	border-radius: var(--vr-radius-xs);
+/* ========================================
+   主题选择器 - 隐藏（固定浅色）
+   ======================================== */
+
+starlight-theme-select {
+	display: none !important;
 }
 
-starlight-theme-select label:hover {
-	background: color-mix(in oklab, var(--vr-accent-soft) 70%, transparent);
-}
-
-starlight-menu-button button {
-	border: 1px solid var(--vr-border-2);
-	box-shadow: var(--sl-shadow-md);
-}
+/* ========================================
+   Footer
+   ======================================== */
 
 footer {
-	border-top: 1px solid var(--vr-border-1);
-	padding-top: 1.8rem;
-	margin-top: 2.2rem;
+	background: #ffffff;
+	border-top: 1px solid var(--vr-border);
+	padding-top: 2rem;
+	margin-top: 3rem;
 }
+
+/* ========================================
+   滚动条 - 简洁灰
+   ======================================== */
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #c1c1c1;
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #a8a8a8;
+}
+
+/* ========================================
+   CTA 区域
+   ======================================== */
 
 .hero-cta-row {
 	display: flex;
@@ -444,45 +442,39 @@ footer {
 	margin-top: var(--vr-space-lg);
 }
 
+/* ========================================
+   脚注
+   ======================================== */
+
 .index-footnote {
 	text-align: center;
-	margin-top: 2.6rem;
+	margin-top: 2.5rem;
 	padding-top: 1rem;
-	color: var(--vr-text-2);
-	border-top: 1px dashed var(--vr-border-1);
-	font-size: 0.88rem;
+	color: var(--vr-text-muted);
+	border-top: 1px solid var(--vr-border-light);
+	font-size: 0.875rem;
 }
 
+/* ========================================
+   焦点可见性
+   ======================================== */
+
 :focus-visible {
-	outline: 2px solid color-mix(in oklab, var(--vr-accent) 85%, #fff);
+	outline: 2px solid var(--vr-accent);
 	outline-offset: 2px;
 }
 
-::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
-}
-
-::-webkit-scrollbar-track {
-	background: color-mix(in oklab, var(--vr-bg-2) 45%, transparent);
-}
-
-::-webkit-scrollbar-thumb {
-	background: color-mix(in oklab, var(--vr-accent) 58%, #fff);
-	border-radius: 999px;
-}
+/* ========================================
+   移动端优化
+   ======================================== */
 
 @media (max-width: 72rem) {
-	.content-panel {
-		margin-inline: 0.5rem;
-	}
-
 	.hero {
-		padding: 1.1rem;
+		padding: 1.5rem;
 	}
 
-	.hero .tagline {
-		font-size: 1.02rem;
+	.hero h1 {
+		font-size: 1.5rem;
 	}
 
 	.sl-markdown-content {

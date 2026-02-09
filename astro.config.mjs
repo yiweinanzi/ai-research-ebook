@@ -17,13 +17,6 @@ export default defineConfig({
 		starlight({
 			title: 'Vibe Research - AI 科研指南',
 			description: 'AI研究电子书 - 从idea到论文的完整指南',
-			head: [
-				{
-					tag: 'script',
-					content:
-						"if (typeof localStorage !== 'undefined' && !localStorage.getItem('starlight-theme')) { localStorage.setItem('starlight-theme', 'dark'); }",
-				},
-			],
 			logo: {
 				src: './src/assets/logo.svg',
 				alt: 'Vibe Research',
