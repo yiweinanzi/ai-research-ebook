@@ -1,4 +1,4 @@
-// Mermaid initialization - fixed for Expressive Code
+// Mermaid initialization - final fix for Expressive Code
 (function() {
     'use strict';
 
@@ -10,31 +10,42 @@
         return document.documentElement.dataset.theme === 'dark';
     }
 
+    function cleanText(text) {
+        // 移除所有 Unicode 控制字符，保留基本换行
+        // 包括: DEL (0x7F), PS (0x2029), LS (0x2028), 各种控制字符
+        return text
+            .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\u2028\u2029]/g, '')
+            .replace(/\r\n/g, '\n')
+            .replace(/\r/g, '\n');
+    }
+
     function getCode(block) {
-        // 方法1：优先从 Expressive Code 的 data-code 属性获取（包含换行）
+        // 方法1：优先从 Expressive Code 的 data-code 属性获取
         const copyButton = block.closest('.expressive-code')?.querySelector('.copy button');
         if (copyButton) {
             const dataCode = copyButton.dataset.code;
             if (dataCode) {
-                // Expressive Code 用 DEL 字符 (0x7F) 标记换行
-                return dataCode.replace(/[\x7F\r]/g, '\n');
+                return cleanText(dataCode);
             }
         }
 
         // 方法2：从 div.ec-line 提取
         const lines = block.querySelectorAll('.ec-line');
         if (lines.length > 0) {
-            return Array.from(lines).map(line => {
+            const text = Array.from(lines).map(line => {
                 const codeSpan = line.querySelector('.code');
-                if (!codeSpan) return '';
-                // 获取原始文本内容
-                return codeSpan.textContent || '';
+                return codeSpan ? (codeSpan.textContent || '') : '';
             }).join('\n');
+            return cleanText(text);
         }
 
-        // 方法3：回退到 code 标签
+        // 方法3：回退
         const code = block.querySelector('code');
-        return code ? (code.textContent || code.innerText || '') : '';
+        if (code) {
+            return cleanText(code.textContent || code.innerText || '');
+        }
+
+        return '';
     }
 
     function renderAll() {
@@ -49,12 +60,10 @@
             const block = blocks[i];
             const text = getCode(block);
 
-            // 调试：打印获取到的代码
-            if (text) {
-                console.log('[mermaid] Diagram', i + 1, 'code:\n' + text.substring(0, 300));
-            }
-
             if (!text.trim()) continue;
+
+            // 调试：打印前300字符
+            console.log('[mermaid] Diagram', i + 1, 'code preview:\n' + text.substring(0, 300));
 
             const div = document.createElement('div');
             div.className = 'mermaid-diagram';
@@ -70,7 +79,7 @@
         }
 
         mermaid.init(undefined, '.mermaid').then(function() {
-            console.log('[mermaid] Init done');
+            console.log('[mermaid] Init done - rendered', blocks.length, 'diagrams');
             for (let i = 0; i < blocks.length; i++) {
                 blocks[i].style.display = 'none';
             }
@@ -84,7 +93,8 @@
         window[LOADED] = true;
 
         try {
-            const mod = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+            // 添加版本号到 URL 防止缓存
+            const mod = await import('https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs');
             mermaid = mod.default || mod;
 
             mermaid.initialize({
@@ -93,8 +103,8 @@
                 theme: isDark() ? 'dark' : 'base'
             });
 
-            console.log('[mermaid] Loaded');
-            setTimeout(renderAll, 800);
+            console.log('[mermaid] Loaded v10.9.1');
+            setTimeout(renderAll, 1000);
         } catch (e) {
             console.error('[mermaid] Load failed:', e);
         }
