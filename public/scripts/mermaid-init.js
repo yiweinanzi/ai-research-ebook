@@ -1,4 +1,4 @@
-// Mermaid 初始化脚本 - 支持 classDef 和主题切换
+// Mermaid 初始化脚本 - 修复 getBoundingClientRect 错误
 (function() {
 	'use strict';
 
@@ -14,126 +14,109 @@
 		return theme === 'dark';
 	}
 
-	function getMermaidModule() {
+	async function loadMermaid() {
 		if (!mermaidModulePromise) {
-			mermaidModulePromise = import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
+			mermaidModulePromise = import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs')
 				.then((mod) => {
 					const mermaid = mod.default || mod;
-					// 初始化 mermaid
 					mermaid.initialize({
 						startOnLoad: false,
 						securityLevel: 'loose',
-						suppressErrorRendering: true,
 						theme: isDarkTheme() ? 'dark' : 'base'
 					});
 					return mermaid;
 				})
 				.catch((error) => {
-					console.error('[mermaid] Failed to load module', error);
+					console.error('[mermaid] Failed to load:', error);
 					return null;
 				});
 		}
 		return mermaidModulePromise;
 	}
 
-	function cleanupExistingDiagrams() {
-		document.querySelectorAll('.mermaid-diagram').forEach((node) => {
-			if (node.parentNode) node.remove();
-		});
-		document.querySelectorAll(`${MERMAID_SELECTOR}.mermaid-source-hidden`).forEach((node) => {
+	function cleanup() {
+		document.querySelectorAll('.mermaid-diagram').forEach(node => node.remove());
+		document.querySelectorAll(`${MERMAID_SELECTOR}.mermaid-source-hidden`).forEach(node => {
 			node.classList.remove('mermaid-source-hidden');
+			node.style.display = '';
 		});
 	}
 
-	function sanitizeMermaidCode(block) {
+	function sanitizeCode(block) {
 		const codeNode = block.querySelector('code');
-		const rawText = codeNode?.textContent || codeNode?.innerText || block.innerText || '';
-
-		// 规范化空白字符
-		const normalizedText = rawText
-			.replace(/\u00a0/g, ' ')
-			.replace(/\r\n?/g, '\n')
-			.trim();
-
-		if (!normalizedText) return '';
-
-		// 保留 classDef 和 class 语句（不移除它们）
-		const lines = normalizedText
-			.split('\n')
-			.map((line) => line.replace(/\t/g, '    '));
-
-		return lines.join('\n').trim();
+		const text = codeNode?.textContent || codeNode?.innerText || '';
+		return text.replace(/\u00a0/g, ' ').replace(/\r\n?/g, '\n').trim();
 	}
 
-	function getMermaidThemeConfig() {
+	function getThemeConfig() {
 		if (isDarkTheme()) {
 			return {
 				theme: 'dark',
 				themeVariables: {
-					fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+					fontFamily: 'system-ui, sans-serif',
 					fontSize: '14px',
 					lineColor: '#9ca3af',
-					primaryBorderColor: '#6b7280',
-					clusterBorder: '#6b7280',
-					clusterBkg: '#2f2f2f',
-					tertiaryBkg: '#374151',
-					mainBkg: '#1f2937',
-					nodeBorderColor: '#6b7280',
+					primaryBorderColor: '#10a37f',
+					primaryColor: '#1f2937',
+					nodeBorderColor: '#10a37f',
 					nodeBkg: '#374151',
-				},
+				}
 			};
 		}
-
 		return {
 			theme: 'base',
 			themeVariables: {
-				fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+				fontFamily: 'system-ui, sans-serif',
 				fontSize: '14px',
 				background: '#ffffff',
 				primaryColor: '#ffffff',
 				primaryBorderColor: '#10a37f',
-				primaryTextColor: '#111827',
 				lineColor: '#6b7280',
-				secondaryColor: '#f3f4f6',
-				tertiaryColor: '#ffffff',
-				clusterBkg: '#f8fafc',
-				clusterBorder: '#d1d5db',
-				nodeBorderColor: '#10a37f',
-				nodeBkg: '#ffffff',
-			},
+			}
 		};
 	}
 
-	async function renderSingleDiagram(mermaid, block, index) {
-		const source = sanitizeMermaidCode(block);
-		if (!source) return false;
+	async function renderDiagram(mermaid, block, index) {
+		const code = sanitizeCode(block);
+		if (!code) return false;
 
-		// 查找是否需要特殊处理 classDef
-		const hasClassDef = /classDef\s+\w+/.test(source);
-
+		// 创建 wrapper 和目标容器
 		const wrapper = document.createElement('div');
 		wrapper.className = 'mermaid-diagram';
+		wrapper.style.cssText = 'min-height: 60px; padding: 16px; background: var(--sl-color-bg-nav, #212121); border-radius: 8px; margin: 1.5rem 0;';
+
+		const container = document.createElement('div');
+		container.className = 'mermaid';
+		container.style.cssText = 'display: flex; justify-content: center; align-items: center;';
+		wrapper.appendChild(container);
+
 		block.insertAdjacentElement('afterend', wrapper);
 
-		const host = document.createElement('div');
-		host.className = 'mermaid';
-		host.id = `vr-mermaid-${Date.now()}-${index}`;
-		wrapper.appendChild(host);
+		const uniqueId = `mermaid-${Date.now()}-${index}-${Math.random().toString(36).substr(2, 9)}`;
 
 		try {
-			// 使用唯一 ID 渲染
-			const renderResult = await mermaid.render(host.id, source);
-			host.innerHTML = renderResult.svg;
+			// 确保容器在 DOM 中后再渲染
+			document.body.appendChild(wrapper);
 
-			if (renderResult.bindFunctions) {
-				renderResult.bindFunctions(host);
-			}
+			// 先设置 ID 和内容
+			container.id = uniqueId;
 
+			// 使用 mermaid.run 替代 mermaid.render（更稳定）
+			const { svg } = await mermaid.render(uniqueId, code);
+			container.innerHTML = svg;
+
+			// 隐藏原始代码块
 			block.classList.add('mermaid-source-hidden');
 			block.style.display = 'none';
+
+			// 移出 body（放回原位）
+			wrapper.remove();
+			block.insertAdjacentElement('afterend', wrapper);
+
+			console.log(`[mermaid] Diagram ${index + 1} rendered successfully`);
 			return true;
 		} catch (error) {
-			console.warn(`[mermaid] Render error for diagram #${index + 1}:`, error.message);
+			console.warn(`[mermaid] Render failed for diagram ${index + 1}:`, error.message);
 			wrapper.remove();
 			block.classList.remove('mermaid-source-hidden');
 			block.style.display = '';
@@ -141,41 +124,41 @@
 		}
 	}
 
-	async function renderMermaidDiagrams() {
-		const mermaid = await getMermaidModule();
+	async function renderAll() {
+		const mermaid = await loadMermaid();
 		if (!mermaid) return;
 
-		cleanupExistingDiagrams();
+		cleanup();
 
-		const blocks = Array.from(document.querySelectorAll(MERMAID_SELECTOR));
+		const blocks = document.querySelectorAll(MERMAID_SELECTOR);
 		if (!blocks.length) return;
 
-		console.log(`[mermaid] Found ${blocks.length} diagram(s) to render`);
+		console.log(`[mermaid] Found ${blocks.length} diagram(s)`);
 
-		// 为每个 diagram 设置主题
+		// 更新主题配置
 		mermaid.initialize({
-			...getMermaidThemeConfig(),
+			...getThemeConfig(),
 			startOnLoad: false,
-			securityLevel: 'loose',
-			suppressErrorRendering: false
+			securityLevel: 'loose'
 		});
 
-		let successCount = 0;
-		for (let index = 0; index < blocks.length; index += 1) {
-			const result = await renderSingleDiagram(mermaid, blocks[index], index);
-			if (result) successCount++;
+		let success = 0;
+		for (let i = 0; i < blocks.length; i++) {
+			if (await renderDiagram(mermaid, blocks[i], i)) {
+				success++;
+			}
 		}
 
-		console.log(`[mermaid] Successfully rendered ${successCount}/${blocks.length} diagrams`);
+		console.log(`[mermaid] Completed: ${success}/${blocks.length} rendered`);
 	}
 
-	function observeThemeChanges() {
+	function observeTheme() {
 		const observer = new MutationObserver((mutations) => {
-			for (const mutation of mutations) {
+			for (let i = 0; i < mutations.length; i++) {
+				const mutation = mutations[i];
 				if (mutation.type === 'attributes' &&
 					(mutation.attributeName === 'data-theme' || mutation.attributeName === 'data-shiki-theme')) {
-					console.log('[mermaid] Theme changed, re-rendering diagrams...');
-					setTimeout(() => renderMermaidDiagrams(), 100);
+					renderAll();
 					break;
 				}
 			}
@@ -183,37 +166,27 @@
 		observer.observe(document.documentElement, { attributes: true, subtree: false });
 	}
 
-	function initialize() {
-		if (window[LOADED_FLAG]) {
-			console.log('[mermaid] Already initialized, skipping...');
-			return;
-		}
+	function init() {
+		if (window[LOADED_FLAG]) return;
 		window[LOADED_FLAG] = true;
-		console.log('[mermaid] Initializing...');
 
-		// 延迟渲染以确保 DOM 完全加载
-		setTimeout(() => {
-			renderMermaidDiagrams();
-			observeThemeChanges();
-		}, 50);
+		// 延迟执行确保 DOM 就绪
+		setTimeout(() => renderAll(), 100);
+		observeTheme();
 	}
 
-	// Astro 页面切换支持
-	if (typeof document !== 'undefined') {
-		document.addEventListener('astro:after-swap', () => {
-			console.log('[mermaid] Astro page swap detected, re-initializing...');
-			window[LOADED_FLAG] = false;
-			initialize();
-		});
-	}
+	// Astro 页面切换
+	document.addEventListener('astro:after-swap', () => {
+		window[LOADED_FLAG] = false;
+		init();
+	});
 
-	// 启动初始化
+	// 启动
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initialize, { once: true });
+		document.addEventListener('DOMContentLoaded', init);
 	} else {
-		initialize();
+		init();
 	}
 
-	// 手动触发渲染的全局方法
-	window.renderMermaidDiagrams = renderMermaidDiagrams;
+	window.renderMermaidDiagrams = renderAll;
 })();
