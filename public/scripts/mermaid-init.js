@@ -16,8 +16,8 @@
         if (copyButton) {
             const dataCode = copyButton.dataset.code;
             if (dataCode) {
-                // Expressive Code 用特殊字符标记换行 (0x00)
-                return dataCode.replace(/\0/g, '\n');
+                // Expressive Code 用 DEL 字符 (0x7F) 标记换行
+                return dataCode.replace(/[\x7F\r]/g, '\n');
             }
         }
 
