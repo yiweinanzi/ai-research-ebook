@@ -5,21 +5,38 @@ sidebar:
   order: 1
 ---
 
-## 结构化审稿流水线
 
-把审稿输出变成可执行修改任务。
+
+## 审稿流水线概览
+
+```mermaid
+flowchart TD
+    A[初稿完成] --> B[多模型并行审稿]
+    B --> C[交叉验证意见]
+    C --> D[按优先级排序]
+    D --> E[批量修复]
+    E --> F[验证修复]
+    F --> G{通过?}
+    G -->|否| B
+    G -->|是| H[定稿]
+
+    style A fill:#1a3a1a,stroke:#10a37f
+    style H fill:#10a37f,color:#fff
+```
 
 ---
 
 ## 审稿输出要结构化
 
-审稿必须回答以下问题：
+审稿必须回答以下关键问题：
 
-- 哪条 claim 缺证据？
-- 哪个实验最关键但没做？
-- 哪个 baseline 必须补？
-- 哪段叙事最像"空话"？
-- 哪个地方最容易被说不新？
+| 问题 | 重要性 |
+|------|-------|
+| 哪条 claim 缺证据？ | 🔴 高 |
+| 哪个实验最关键但没做？ | 🔴 高 |
+| 哪个 baseline 必须补？ | 🔴 高 |
+| 哪段叙事最像"空话"？ | 🟡 中 |
+| 哪个地方最容易被说不新？ | 🔴 高 |
 
 ---
 
@@ -28,125 +45,184 @@ sidebar:
 ```markdown
 # 审稿意见
 
-## 缺证据的 Claim
+## 1. 缺证据的 Claim
 
-1. Claim: "XXX机制是关键创新"
-   - 问题: 没有消融实验
-   - 需要: 去掉XXX后的性能对比
+| Claim | 问题 | 需要补充 |
+|-------|------|---------|
+| "XXX机制是关键创新" | 没有消融实验 | 去掉XXX后的性能对比 |
+| "显著优于SOTA" | 评价指标不公平 | 统一指标后重新对比 |
 
-## 缺失的实验
+## 2. 缺失的实验
 
-1. 压力测试
-   - 问题: 没有测试低资源场景
-   - 需要: 在资源减少50%时的表现
+| 实验类型 | 现状 | 需要补充 |
+|---------|------|---------|
+| 压力测试 | 无 | 低资源/噪声/分布外测试 |
+| 消融实验 | 不完整 | 每个模块的独立贡献 |
 
-## 缺失的 Baseline
+## 3. 缺失的 Baseline
 
-1. YYYY方法 (2024)
-   - 问题: 这是最新的强baseline
-   - 需要: 补充对比实验
+| 方法 | 年份 | 问题 | 需要 |
+|------|------|------|------|
+| YYY方法 | 2024 | 最新强baseline | 补充对比 |
 
-## 空话段落
+## 4. 空话段落
 
-1. 第3.2节第二段
-   - 问题: "显著提升"但无数据
-   - 需要: 补充具体数字或删除
+| 位置 | 问题 | 建议 |
+|------|------|------|
+| 3.2节第二段 | "显著提升"无数据 | 补充具体数字或删除 |
 
-## 创新性质疑
+## 5. 创新性质疑预案
 
-1. 与ZZZ方法的区别
-   - 问题: 审稿人可能说只是"简单组合"
-   - 需要: 强调我们发现的XXX insight
+| 可能的质疑 | 应对策略 |
+|-----------|---------|
+| "只是简单组合" | 强调发现的XXX insight |
+| "不公平对比" | 补充公平对比实验 |
 ```
 
 ---
 
-## 把审稿意见变成 TODO 列表
+## TODO 转化模板
 
 每条意见对应一个"改动 + 验收标准"：
 
 ```markdown
 # TODO List
 
-- [ ] 补消融：去掉模块 X → 指标下降 ≥ 某阈值
-- [ ] 补公平对比：训练步数对齐 + 算力对齐
-- [ ] 补压力测试：低资源/噪声/分布外
-- [ ] 重写3.2节：添加具体数据或删除空洞表述
-- [ ] 增加与ZZZ的对比讨论：强调XXX insight
+## 紧急（提交前必须完成）
+
+- [ ] 补消融实验
+  - 内容: 去掉模块 X
+  - 验收: 指标下降 ≥ 5%
+
+- [ ] 补公平对比
+  - 内容: 训练步数对齐 + 算力对齐
+  - 验收: 与 YYY 方法公平对比
+
+- [ ] 补压力测试
+  - 内容: 低资源/噪声/分布外测试
+  - 验收: 每个场景至少 1 组实验
+
+## 重要（提升质量）
+
+- [ ] 重写3.2节
+  - 内容: 添加具体数据或删除空洞表述
+  - 验收: 每段有具体数字支撑
+
+- [ ] 增加与ZZZ的对比讨论
+  - 内容: 强调我们的 XXX insight
+  - 验收: 明确说明区别和优势
+
+## 可选（锦上添花）
+
+- [ ] 补充人类评估实验
+- [ ] 增加可视化分析
 ```
 
 ---
 
-## 循环迭代（10+ 次）
+## 多模型审稿配置
 
-每轮只解决最致命的 3–5 条，别贪多。
+### 模型分工
 
-### 迭代流程
+| 模型 | 侧重点 | Prompt 重点 |
+|------|-------|-----------|
+| Claude Opus 4.6 | 整体逻辑 | 叙事连贯性、创新性 |
+| GPT-5.2 Pro | 技术细节 | 方法正确性、实验设计 |
+| Gemini Pro | 可复现性 | 代码完整性、数据可用性 |
 
-1. **多模型并行审稿**
-   - Claude Opus 4.6
-   - GPT-5.2 Pro
-   - Gemini Pro
-
-2. **交叉验证审稿意见**
-   - 找出真正的问题
-   - 过渡到高优先级
-
-3. **批量修复**
-   - 一次处理3-5条
-   - 确保每条有验收标准
-
-4. **验证修复**
-   - 重新审稿
-   - 确认问题解决
-
----
-
-## 审稿 Prompt 模板
+### 审稿 Prompt
 
 ```python
-"""You are a world-leading expert in the field of [YOUR FIELD].
+"""
+你是一位 [会议] 的资深审稿人。请严格审查以下论文：
 
-The following text is a LaTeX draft of a paper intended for submission to [CONFERENCE],
-a top-tier conference.
+[粘贴论文内容]
 
-Please review this manuscript with the MOST CRITICAL, HARSH, STRICT, and MEAN perspective
-possible - like a picky reviewer who rejects most papers.
+请从以下角度审查：
 
-Focus your review on:
-1. Technical soundness and novelty
-2. Clarity of the contribution and presentation
-3. Experimental evaluation methodology
-4. Comparison with prior art
-5. Writing quality and logical flow
+1. **创新性 (Novelty)**
+   - 主要贡献是什么？
+   - 与之前工作有何不同？
 
-CRITICAL INSTRUCTIONS:
-- Be extremely critical - point out EVERY weakness
-- Question claims that lack proper evidence
-- Highlight vague or hand-wavy descriptions
-- Point out missing baselines or ablation studies
-- Criticize overstatements or exaggerated claims
-- Check if the contribution is truly significant enough
+2. **技术正确性 (Technical Soundness)**
+   - 方法是否正确？
+   - 理论是否成立？
 
-Please write your review in the following format:
+3. **实验完整性 (Experiments)**
+   - Baseline 是否足够？
+   - 消融实验是否完整？
+
+4. **写作质量 (Writing)**
+   - 逻辑是否清晰？
+   - 表述是否准确？
+
+请用以下格式输出：
 
 ---
-Overall Merit: (4-point scale: 1=Accept, 2=Weak Accept, 3=Weak Reject, 4=Reject)
+## Overall Score: (1-5)
 
-Paper Summary: (1-2 paragraphs)
+## Strengths:
+- ...
 
-Strengths: (2-3 bullet points - be sparing)
+## Weaknesses:
+1. [严重] ...
+2. [中等] ...
+3. [轻微] ...
 
-Weaknesses: (4-6 bullet points - be thorough and harsh)
-
-Subjective Evaluation:
-- Is the contribution significant enough?
-- Are the experiments sufficient? What's missing?
-- Is the comparison fair and complete?
-- Are the claims properly supported?
-- Specific questions to address
-- Recommended improvements
-
+## Detailed Comments:
+...
 ---
 """
 ```
+
+---
+
+## 迭代循环
+
+### 10+ 轮迭代流程
+
+```mermaid
+flowchart TD
+    A[第1轮审稿] --> B[整理意见]
+    B --> C[按优先级排序]
+    C --> D[选择 Top 3-5 问题]
+    D --> E[批量修复]
+    E --> F[验证修复]
+    F --> G{满意?}
+    G -->|否| A
+    G -->|是| H[进入下一轮]
+```
+
+### 迭代原则
+
+1. **不要贪多**：每轮只修复 3-5 条
+2. **优先级排序**：先解决最致命的
+3. **验证修复**：修复后重新审稿确认
+4. **记录进度**：保留修改历史
+
+---
+
+## 常见问题与应对
+
+| 问题 | 应对策略 |
+|------|---------|
+| 审稿意见冲突 | 以技术细节为准 |
+| 无法复现的实验 | 补充复现步骤 |
+| 创新性被质疑 | 增加对比实验 |
+| 实验设计被质疑 | 解释设计理由 |
+| 写作被吐槽 | 精修语言表达 |
+
+---
+
+## 审稿检查清单
+
+### 提交前检查
+
+- [ ] 所有 claim 都有实验支撑
+- [ ] 强 baseline 都已对比
+- [ ] 消融实验完整
+- [ ] 压力测试覆盖边界情况
+- [ ] 引用格式正确
+- [ ] 语言表达清晰
+- [ ] 图表清晰可读
+- [ ] 补充材料完整

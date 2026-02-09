@@ -5,11 +5,17 @@ sidebar:
   order: 1
 ---
 
+
+
 ## 写作核心原则
 
 写作最核心的是：**让审稿人相信你的 claim**。
 
-建议按下面顺序推进：
+<div class="tip">
+
+**核心流程**：论证链 → Outline → 文字生成
+
+</div>
 
 ---
 
@@ -17,9 +23,16 @@ sidebar:
 
 先把论文的"论证链"写出来：
 
-- Claim 1 需要哪些证据？
-- 证据是否来自主实验/消融/压力测试？
-- 哪些证据是"必要的"，哪些只是"锦上添花"？
+```mermaid
+flowchart TD
+    A[Claim 1] --> B[需要哪些证据?]
+    A --> C[哪些是必要的?]
+    A --> D[哪些是锦上添花?]
+
+    B --> E[主实验]
+    B --> F[消融实验]
+    B --> G[压力测试]
+```
 
 ### 论证链示例
 
@@ -41,14 +54,17 @@ Claim 2: 方法的关键创新是XXX机制
 
 每小节回答一个问题：
 
-- 这节要说服审稿人什么？
-- 审稿人可能质疑什么？
-- 我用什么证据挡住？
+| 问题 | 含义 |
+|------|------|
+| 这节要说服审稿人什么？ | 核心主张 |
+| 审稿人可能质疑什么？ | 潜在反驳 |
+| 我用什么证据挡住？ | 实验支撑 |
 
 ### Outline 模板
 
 ```markdown
 # 1. Introduction
+
 ## 要回答的问题
 - 这个问题为什么重要？
 - 现有方法有什么问题？
@@ -56,10 +72,9 @@ Claim 2: 方法的关键创新是XXX机制
 
 ## 可能的质疑
 - "这个问题真的重要吗？"
-→ 回答：用具体应用场景和数据说明
-
+  → 回答：用具体应用场景和数据说明
 - "你们只是简单的组合吧？"
-→ 回答：强调我们发现的XXX insight
+  → 回答：强调我们发现的XXX insight
 
 ## 关键证据
 - 实验1: 在3个标准数据集上提升X%
@@ -70,65 +85,68 @@ Claim 2: 方法的关键创新是XXX机制
 
 ## 3. 生成具体文字
 
-最后再让模型生成具体文字
+最后再让模型生成具体文字：
 
-这样生成的文字不会空，不会"像论文但没信息"
+**好处**：
+- 不会空谈
+- 每个观点都有支撑
+- 逻辑清晰
 
 ---
 
 ## MCP 工具与 Skills
 
-### MCP工具（用于文献搜索与访问）
+### MCP工具（文献搜索与访问）
 
 | 工具 | 功能 | 适用场景 |
 |------|------|---------|
-| **Zotero-MCP** | 直接访问本地Zotero文献库 | 文献管理、引用分析 |
-| **Perplexity MCP** | Deep Research模式 | 技术调研、综述写作 |
+| **Zotero-MCP** | 直接访问本地文献库 | 文献管理、引用分析 |
+| **Perplexity MCP** | Deep Research 模式 | 技术调研、综述写作 |
 | **ClickHouse MCP** | 数据库集成 | 大数据分析 |
 | **Zen MCP** | 研究工作流 | 流程自动化 |
 | **Paper Search MCP** | 多数据库搜索 | 快速获取新论文 |
 
-### Skills工具（用于科研分析与写作）
+### Skills工具（科研分析与写作）
 
 | 工具 | 技能数量 | 特色 |
 |------|---------|------|
 | **claude-scientific-skills** | 140+ | 即用型技能，多领域覆盖 |
 | **claude-scientific-writer** | - | 专注科研写作 |
 | **Content-Research-Writer** | - | 长文协作写作 |
-| **20-ml-paper-writing** | 77项AI科研技能 | 完整ML论文写作流程 |
+| **20-ml-paper-writing** | 77项 | 完整 ML 论文写作流程 |
 
 ### GitHub 资源
 
-- claude-scientific-skills: https://github.com/K-Dense-AI/claude-scientific-skills
+- [claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills)
 
 ---
 
-## 多模型协作写作
+## 写作检查清单
 
-### tmux 工作流配置
+<div class="card-grid">
 
-让 Claude / GPT-5.2 / Gemini Pro 分工协作：
 
-| 实例 | 负责内容 | 协作方式 |
-|------|---------|---------|
-| Instance 1 | Related Work | 文献梳理与对比 |
-| Instance 2 | Method 写作 | 方法描述与形式化 |
-| Instance 3 | 实验描述与表格 | 实验设计和结果 |
-| Instance 4 | 一致性校对 | 术语、符号、变量统一 |
+每个 claim 都有对应的实验支撑
 
-### 关键原则
 
-- **同时进行，而非顺序**
-- **定期同步，避免冲突**
-- **共享术语表，确保一致性**
 
-### 术语表示例
+对比了所有强 baseline
 
-```markdown
-# 术语表
 
-| 中文 | 英文 | 缩写 | 定义 |
-|------|------|------|------|
-| 注意力机制 | Attention Mechanism | Attn | ... |
-| 多头注意力 | Multi-Head Attention | MHA | ... |
-```
+
+叙事流畅，无逻辑跳跃
+
+
+
+全文使用统一的术语
+
+
+
+引用格式正确，来源可靠
+
+
+
+图表有清晰的图例和说明
+
+
+</div>

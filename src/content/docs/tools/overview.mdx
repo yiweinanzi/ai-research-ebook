@@ -5,7 +5,36 @@ sidebar:
   order: 1
 ---
 
+
+
 ## 工具选择矩阵
+
+```mermaid
+flowchart TD
+    subgraph 调研
+        A[Elicit] --> B[文献检索]
+        C[Sci-Reasoning] --> D[创新分析]
+    end
+
+    subgraph 实现
+        E[Claude Code] --> F[代码生成]
+        G[LangGraph] --> H[工作流编排]
+    end
+
+    subgraph 写作
+        I[Prism] --> J[论文写作]
+        K[PaperBanana] --> L[图表生成]
+    end
+
+    subgraph 审稿
+        M[Claude + GPT-5.2] --> N[多模型审稿]
+    end
+
+    style A fill:#1a3a1a,stroke:#10a37f
+    style E fill:#1a3a1a,stroke:#10a37f
+    style I fill:#2a1a3a,stroke:#ab68ff
+    style M fill:#1a2a3a,stroke:#007aff
+```
 
 | 任务阶段 | 推荐工具 | 备选方案 | 选择理由 |
 |---------|---------|---------|---------|
@@ -19,57 +48,6 @@ sidebar:
 
 ---
 
-## 按阶段划分的工具链
-
-### Phase 1: 调研阶段
-
-| 工具 | 用途 |
-|------|------|
-| **Elicit** | 快速扫描领域 |
-| **Sci-Reasoning** | 分析创新模式 |
-| **ResearchRabbit** | 持续追踪新论文 |
-
-**产出**: Research Gap 清单
-
-### Phase 2: 项目设计
-
-| 工具 | 用途 |
-|------|------|
-| **Claude Code** | 生成项目文档 |
-| **GPT-5.2** | 审查 claim-实验对齐 |
-
-**产出**: 实验计划
-
-### Phase 3: 代码实现 + 实验
-
-| 工具 | 用途 |
-|------|------|
-| **Claude Code + Sub-agents** | 并行开发 |
-| **LangGraph** | 自动化工作流 |
-
-**产出**: 实验结果
-
-### Phase 4: 论文写作
-
-| 工具 | 用途 |
-|------|------|
-| **Prism + GPT-5.2** | 生成初稿 |
-| **多模型协作** | 完善各章节 |
-| **PaperBanana** | 生成图表 |
-
-**产出**: 论文初稿
-
-### Phase 5: 审稿迭代
-
-| 工具 | 用途 |
-|------|------|
-| **多模型并行** | 10+ 轮自动审稿 |
-| **TODO 驱动** | 修改管理 |
-
-**产出**: 投稿版本
-
----
-
 ## 工具能力对比
 
 ### LLM 能力对比
@@ -79,7 +57,7 @@ sidebar:
 | **Claude Opus 4.6** | 200K | 80.9% | - | 长文档、代码 |
 | **GPT-5.2 Pro** | - | - | 90%+ | 复杂推理 |
 | **GPT-5.2 Thinking** | - | - | - | 深度分析 |
-| **Gemini 2.5 Pro** | 1M+ | - | - | 超长文档 |
+| **Gemini 2.5 Pro** | 1M+ | - | 49.35% | 超长文档 |
 
 ### 文献检索工具对比
 
@@ -110,9 +88,7 @@ mcp install zotero   # 安装 Zotero-MCP
 elicit search "topic"  # Elicit 搜索
 ```
 
----
-
-## 关键链接汇总
+### 关键链接汇总
 
 | 资源 | 链接 |
 |------|------|

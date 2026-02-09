@@ -15,36 +15,99 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+## 研究工作流概览
 
-## 关于本书
+```mermaid
+flowchart LR
+    subgraph Phase1 ["第一阶段：Idea 生成"]
+        A[文献调研] --> B[创新模式分析]
+        B --> C[Gap 识别]
+        C --> D[Claim 产出]
+    end
 
-本书是一份面向 AI 研究者的实用指南，涵盖了从**idea生成**到**论文发表**的完整工作流程。
+    subgraph Phase2 ["第二阶段：代码实现"]
+        D --> E[项目设计]
+        E --> F[Claude Code 构建]
+        F --> G[实验验证]
+    end
 
-无论是刚开始接触 AI 研究，还是希望提升科研效率，本书都提供了可操作的方法、工具推荐和最佳实践。
+    subgraph Phase3 ["第三阶段：论文写作"]
+        G --> H[结构化写作]
+        H --> I[图表制作]
+        I --> J[审稿迭代]
+    end
 
-## 核心内容
+    Phase1 --> Phase2
+    Phase2 --> Phase3
 
-<CardGrid stagger>
-	<Card title="Idea 生成">
-		系统化的文献调研方法，使用多模型交叉验证，从2000+论文中发现可写的研究空白。
-	</Card>
-	<Card title="代码实现">
-		Claude Code、GPT-5.2系列、多Agent框架的最佳实践，高效构建实验系统。
-	</Card>
-	<Card title="论文图表">
-		自动化绘图工具推荐，专业图表设计规范，让论文插图更具说服力。
-	</Card>
-	<Card title="论文写作">
-		论证链构建方法，多模型协作写作，Prism等新一代写作工具使用指南。
-	</Card>
-	<Card title="审稿迭代">
-		结构化审稿流水线，会议特定审稿模板，Rebuttal写作策略。
-	</Card>
-	<Card title="工具生态">
-		Elicit、Zotero-MCP、Sci-Reasoning等最新工具，构建完整科研工具链。
-	</Card>
-</CardGrid>
+    style Phase1 fill:#1a3a1a,stroke:#10a37f,color:#ececec
+    style Phase2 fill:#1a2a3a,stroke:#007aff,color:#ececec
+    style Phase3 fill:#2a1a3a,stroke:#ab68ff,color:#ececec
+```
+
+## 核心功能
+
+### Idea 生成
+系统化的文献调研方法，使用多模型交叉验证，从2000+论文中发现可写的研究空白。
+
+**核心方法：**
+- Related Work Map 构建
+- Assumption Matrix 分析
+- Gap List 产出
+- Claim Candidate Pool
+
+### 代码实现
+Claude Code、GPT-5.2系列、多Agent框架的最佳实践，高效构建实验系统。
+
+**核心能力：**
+- 并行协作架构
+- CLAUDE.md 团队记忆
+- Sub-agents 交叉验证
+- 自动化验证闭环
+
+### 论文图表
+自动化绘图工具推荐，专业图表设计规范，让论文插图更具说服力。
+
+**工具生态：**
+- PaperBanana 自动生成
+- Mermaid 流程图
+- D3.js 自定义可视化
+- Figma 专业设计
+
+### 论文写作
+论证链构建方法，多模型协作写作，Prism等新一代写作工具使用指南。
+
+**写作方法：**
+- Claim → Evidence 论证链
+- 多模型协作 tmux 配置
+- 会议特定写作模板
+
+### 审稿迭代
+结构化审稿流水线，会议特定审稿模板，Rebuttal写作策略。
+
+**审稿流水线：**
+- 10+ 轮自动审稿
+- TODO 驱动修改
+- 分类回应策略
+
+### 工具生态
+Elicit、Zotero-MCP、Sci-Reasoning等最新工具，构建完整科研工具链。
+
+---
+
+## 14 周完整时间线
+
+| 周次 | 阶段 | 核心任务 | 输出 |
+|------|------|---------|------|
+| Week 1-2 | 调研 | Elicit 扫描 + Sci-Reasoning 分析 | Gap 清单 |
+| Week 3 | 设计 | Claude Code 生成文档 | 项目设计 |
+| Week 4-7 | 实现 | Sub-agents 并行开发 | 代码 + 实验 |
+| Week 8-9 | 写作 | Prism + 图表生成 | 初稿 |
+| Week 10 | 审稿 | 10+ 轮自动审稿 | 修改版 |
+| Week 11 | 投稿 | 格式检查 | 最终版 |
+| Week 12+ | Rebuttal | 如有需要 | 录用 |
+
+---
 
 ## 适用场景
 
@@ -52,14 +115,6 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 - **工业界研究员**: 快速掌握最新工具，提高研发效率
 - **独立研究者**: 建立完整的科研工作流，从零开始发表顶会论文
 
-## 快速开始
-
-1. **阅读 [Idea 生成](idea/research)**: 学习如何系统化地进行文献调研
-2. **了解 [代码工具](code/claude)**: 掌握 Claude Code 等高效开发工具
-3. **浏览 [工具总览](tools/overview)**: 了解完整科研工具生态
-
 ---
 
-<div class="index-footnote">
-	<p>最后更新: 2026年2月9日 | 极简学术风格</p>
-</div>
+**本书持续更新中** | 最后更新: 2026年2月
