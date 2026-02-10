@@ -116,3 +116,54 @@ elicit search "topic"  # Elicit 搜索
 - `AI research.md` 的增量内容已融合到现有章节正文（idea / code / figures / writing / review / tools），未新增独立来源页。
 - `vibe` 三文档已先做并集去重，再融合到现有 `2. 代码实现` 及相关工作流章节。
 - 严格来源映射表见 [`library/root-assets`](../library/root-assets) 的“严格映射清单（来源 → 现有章节）”。
+
+---
+
+## Book 实战增补（逐篇并入）
+
+### 1) VSCode Agent Skills：从启用到复用
+
+来源：`book/在_VScode_中玩转_Agent_Skills（科研工作者必备skill推荐_一定要收藏）.md`
+
+#### 详细步骤（VSCode 路线）
+
+1. 打开设置并启用 `chat.useAgentSkills`。
+2. 在项目内创建目录：`.github/skills/<skill-name>/`。
+3. 创建 `SKILL.md`，写清触发条件、输入输出、执行步骤。
+4. 按需添加资源文件（示例、脚本、模板）。
+5. 在会话中通过任务描述触发，验证 skill 是否被自动加载。
+
+#### 复用策略
+
+- 优先复用社区技能库，再做本地改造；
+- 改造时优先替换路径、命名、验证命令；
+- 先用小样本测试，再扩展到完整任务。
+
+### 2) 三 CLI 联动：Claude + Codex + Gemini
+
+来源：`book/老金开源_Claude4_5_Codex5_1_Gemini3_3大顶级CLI终极联动整合技巧_省钱_高质量_快_.md`
+
+#### 详细步骤（最小可跑版）
+
+1. 安装三个 CLI：Claude Code、Codex CLI、Gemini CLI。
+2. 配置 API 与认证（优先图形化管理，避免手工环境变量错误）。
+3. 先从 `Command` 模式启动：分析 → 生成 → 审查。
+4. 任务稳定后升级到 `Skill` 模式（保存中间结果与重试机制）。
+5. 长周期协作用 `MCP` 打通上下文，再按需引入 Subagent 与 Hooks。
+
+#### 五种编排方式对照
+
+| 方式 | 适用 | 风险 |
+|---|---|---|
+| Command | 快速、一次性任务 | 复用差、可观测性弱 |
+| Skill | 多步骤稳定流程 | 初期配置成本较高 |
+| MCP | 长会话与系统互联 | 服务器与权限管理复杂 |
+| Subagent | 并行提速 | token 成本上升 |
+| Hooks | 自动质检 | 误触发与调试复杂 |
+
+#### 常见坑提醒
+
+- CLI 订阅/授权失效；
+- 代理/网络导致认证失败；
+- sandbox 权限不足导致写入失败；
+- 多模型切换后输出格式漂移。

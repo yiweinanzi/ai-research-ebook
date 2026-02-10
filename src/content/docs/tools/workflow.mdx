@@ -314,3 +314,154 @@ flowchart LR
 **核心原则**：工具是辅助, 核心是你的研究洞察力。让 AI 帮你处理重复性工作, 把时间留给真正的思考。
 
 </div>
+
+---
+
+## Book 实战增补（逐篇并入）
+
+> 本节整合 6 篇工作流与 Skill 工程化文章，形成“规范定义 → 任务拆解 → 执行闭环 → 验证交付”的统一流程。
+
+### 1) Skill 开发完全指南：从可用到可复用
+
+来源：`book/Claude_Code_Skill_开发完全指南_从入门到精通.md`
+
+#### 结构化实践
+
+- Skill 本质是标准作业流程（SOP），核心目标是稳定复现而非一次性发挥。
+- 目录按复杂度递进：最小可用 `SKILL.md` → 标准工作流（`workflow/` + `scripts/` + `config/`）。
+- 执行者分工：可确定任务交脚本，不确定任务交 Agent，协调任务交主会话。
+
+#### 关键约束
+
+- 能脚本化就脚本化，减少 token 消耗；
+- Subagent 并行控制节奏（分轮执行 + `/compact`）；
+- 每一步都有验证点与可恢复状态（`progress.json`）。
+
+#### 详细步骤（Skill 从 0 到 1）
+
+1. 先做最小版：只建 `SKILL.md`，跑通单步骤任务。
+2. 任务稳定后再拆 `workflow/stepNN-*.md`。
+3. 把可确定操作下沉到 `scripts/`，并统一 JSON 返回。
+4. 为每步定义检查点（文件存在、格式正确、字段完整、业务通过）。
+5. 增加断点恢复文件，确保中断后可继续执行。
+
+### 2) Skill 最佳实践：文档驱动与需求模板
+
+来源：`book/Claude_Code_Skill_最佳实践与创建规范.md`
+
+#### 三件必做
+
+1. 全局约束写入 `CLAUDE.md`；
+2. 输出样例放入参考资产（结果参照）；
+3. 需求清单模板化（输入、输出、约束、验收）。
+
+#### 工程建议
+
+- Skill 粒度控制在“单一职责 + 可组合”；
+- 强制 Plan → Execute → Review 循环；
+- `assets/` 作为素材库直取直用，减少上下文消耗。
+
+#### 详细步骤（需求模板实装）
+
+1. 新建 `requirements.md`，固定十项：目标、输入、输出、约束、验收等。
+2. 缺失信息先问清，不允许“边做边猜”。
+3. 先用模板生成首版 Skill，再做两轮真实任务回测。
+4. 将回测问题反写到模板，持续迭代。
+
+### 3) Skill Creator MVP：先约束行为，再让 AI 写代码
+
+来源：`book/我是如何用_Skill_Creator_把一个真实项目拆成一整套_Agent_Skills_的（MVP_实战）.md`
+
+#### MVP 六件套（按项目按需启用）
+
+- `product-design.skill`
+- `frontend-dev.skill`
+- `backend-dev.skill`
+- `api-contract.skill`
+- `testing.skill`
+- `deployment.skill`
+
+核心思想：Skill 要服从项目现实，不存在的模块不生成对应技能。
+
+#### 详细步骤（MVP 六件套落地）
+
+1. 扫描仓库判断是否存在前后端/测试/部署。
+2. 仅为存在模块创建 Skill，其他跳过。
+3. `api-contract` 先行，前后端执行都以接口契约为准。
+4. `testing` 明确“什么算完成”，避免功能完成但不可验收。
+
+### 4) Superpowers + Planning-with-Files：流程与记忆分层
+
+来源：`book/大佬的Claude_Code是神器你的像玩具_Superpowers___Planning_with_Files的Skills组合拳让_Coding_Agent效率翻倍.md`
+
+#### 组合策略
+
+- Superpowers：负责“流程纪律”（brainstorm → plan → execute → verify）。
+- Planning-with-Files：负责“外部记忆”（`task_plan.md`、`progress.md`、`knowledge.md`）。
+
+#### 推荐闭环
+
+1. 先澄清目标、受众、约束；
+2. 写入结构化计划与验收；
+3. 执行时持续记录进度；
+4. 结束前跑验证并补齐证据。
+
+#### 详细步骤（Superpowers + Planning Files）
+
+1. 触发 brainstorm 收集关键约束（目标、对象、时间、边界）。
+2. 产出计划并写入 `task_plan.md`。
+3. 每完成子任务更新 `progress.md`（含失败记录）。
+4. 关键决策沉淀到 `knowledge.md`，便于新会话接续。
+5. 交付前执行 verification，保存验证证据。
+
+### 5) 规范驱动开发：拒绝“直接开写”
+
+来源：`book/拒绝屎山代码_让你的_Claude_code_具备类似高级架构师的全局规划与规范执行能力_附实操_.md`
+
+#### 章节增补要点
+
+- AI 本质执行规格，不是自动理解业务语境。
+- 需前置限定：技术栈、目录结构、实现边界、阶段目标。
+- 将“计划文档、执行记录、验证命令”纳入硬门槛，避免伪完成。
+
+#### 详细步骤（规范先行）
+
+1. 在 `CLAUDE.md` 固定四类限制：技术栈、目录、边界、验收。
+2. 任务开始先生成 PLAN，不允许直接进入编码。
+3. 每完成一个任务强制跑测试与审查。
+4. 未通过验证禁止标记完成。
+
+### 6) feature-dev + ralph-loop：规划引擎与长循环执行
+
+来源：`book/用_Claude_Code_搭建_从需求到交付_的自动化工作流.md`
+
+#### 双引擎分工
+
+- `feature-dev`：跑 7 阶段（Discovery → Review → Summary）。
+- `ralph-loop`：针对单任务持续迭代，直到达到 completion promise。
+
+#### 实战模板
+
+```text
+feature-dev 负责：方向、架构、验收标准
+ralph-loop 负责：持续执行、测试打磨、问题收敛
+```
+
+#### 适用场景
+
+- 大特性拆解：先 `feature-dev`，再 `ralph-loop` 跑实现细节。
+- 测试补齐：让 `ralph-loop` 专注覆盖率与边界用例收敛。
+
+#### 详细步骤（双引擎协作）
+
+1. 先用 `feature-dev` 产出设计与实施计划。
+2. 把计划转成 `ralph-loop` 的阶段任务与完成短语。
+3. 设置 `--max-iterations`，避免无限循环。
+4. 循环结束后回到 `feature-dev` 做最终 Review + Summary。
+
+### 本章统一检查清单（新增）
+
+- 是否先完成需求澄清与计划文档？
+- 是否为关键步骤定义了验证标准？
+- 是否记录了执行进度与中断恢复点？
+- 是否把复用能力沉淀为 Skill/命令，而非临时对话？

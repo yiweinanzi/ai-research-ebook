@@ -291,3 +291,64 @@ flowchart LR
 2. **用它做审查**：让它找 bug、提质疑
 3. **用它做分析**：让它分析论文、发现逻辑问题
 4. **多用它的 Thinking 模式**：深度推理输出更可靠
+
+---
+
+## Book 实战增补（逐篇并入）
+
+### Kimi-K2.5 免费通道：作为 GPT/Claude 之外的成本缓冲层
+
+这部分整合自 `book/土豪英伟达_Kimi_K2_5_免费用_API_支持OpenCode.md`，核心价值不是“替代一切”，而是给工作流增加一条**低成本可切换通道**。
+
+#### 实操配置要点
+
+- 平台：NVIDIA Build（注册后获取 API Key）。
+- Base URL：`https://integrate.api.nvidia.com/v1`
+- Model ID：`moonshotai/kimi-k2.5`
+
+#### 推荐使用策略
+
+| 任务类型 | 建议模型层 |
+|---|---|
+| 快速草稿、批量改写、低风险总结 | Kimi-K2.5（成本优先） |
+| 高风险技术决策、关键代码审查 | GPT/Claude 强模型（质量优先） |
+| 大批量流水任务 | Kimi 先跑，再用强模型抽检 |
+
+#### 接入清单
+
+1. 在平台获取 `API Key` 并保存。
+2. 在客户端填入 `base-url + model-id + key`。
+3. 用 3 个固定测试 prompt 做烟雾测试（速度、稳定性、格式）。
+4. 把它加入模型路由规则，作为“降本 fallback”。
+
+#### 详细步骤（可直接执行）
+
+1. 进入 NVIDIA Build 平台创建 key，并记录创建时间与配额说明。
+2. 在工具侧新增供应商：
+   - `base_url`: `https://integrate.api.nvidia.com/v1`
+   - `model`: `moonshotai/kimi-k2.5`
+   - `api_key`: `<你的key>`
+3. 运行三条基准提示词：
+   - 摘要任务（看压缩质量）
+   - 结构化输出（看 JSON 稳定性）
+   - 长文本改写（看一致性）
+4. 记录延迟、失败率、输出格式稳定性，写入模型路由文档。
+5. 配置“降级策略”：主模型失败时自动回退到 Kimi。
+
+#### 最小验证脚本（示意）
+
+```bash
+curl -sS https://integrate.api.nvidia.com/v1/chat/completions \
+  -H "Authorization: Bearer $NVIDIA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "moonshotai/kimi-k2.5",
+    "messages": [{"role":"user","content":"用三点总结RAG评测重点"}],
+    "temperature": 0.2
+  }'
+```
+
+#### 风险提示
+
+- 免费额度/策略可能变化，生产任务需保留备选供应商。
+- 同一任务跨模型切换时，需明确输出格式与验收标准，避免结果漂移。
