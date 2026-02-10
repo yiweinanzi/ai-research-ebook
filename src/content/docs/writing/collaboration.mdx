@@ -7,7 +7,7 @@ sidebar:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## 多模型协作概览
+## 1. 多模型协作概览
 
 ```mermaid
 flowchart TD
@@ -30,7 +30,7 @@ flowchart TD
 
 ---
 
-## AI-research-SKILLs
+## 2. AI-research-SKILLs
 
 "20-ml-paper-writing"模块制定了严格规则：**绝不凭记忆生成引用**, 强制 5 步：
 
@@ -49,7 +49,7 @@ flowchart LR
 
 ---
 
-## tmux 工作流配置
+## 3. tmux 工作流配置
 
 让 Claude / GPT-5.2 / Gemini Pro 分工协作：
 
@@ -62,9 +62,9 @@ flowchart LR
 
 ---
 
-## 协作写作流程
+## 4. 协作写作流程
 
-### 阶段 1: 大纲生成
+### 4.1 阶段 1: 大纲生成
 
 使用 Claude Opus 4.6 生成长大纲（200K 上下文）
 
@@ -97,7 +97,7 @@ flowchart LR
 - 未来方向
 ```
 
-### 阶段 2: 分段写作
+### 4.2 阶段 2: 分段写作
 
 各实例并行处理不同章节：
 
@@ -111,7 +111,7 @@ flowchart LR
 # 窗口 5: 整合校对
 ```
 
-### 阶段 3: 一致性检查
+### 4.3 阶段 3: 一致性检查
 
 使用专门实例校对一致性：
 
@@ -121,15 +121,15 @@ flowchart LR
 | 符号一致性 | GPT-5.2 Pro | 数学符号检查 |
 | 引用格式 | Gemini Pro | BibTeX 格式 |
 
-### 阶段 4: 整合优化
+### 4.4 阶段 4: 整合优化
 
 由最强模型整合所有内容, 确保叙事流畅。
 
 ---
 
-## 术语表管理
+## 5. 术语表管理
 
-### 术语表示例
+### 5.1 术语表示例
 
 ```markdown
 # 术语表 (GLOSSARY.md)
@@ -141,7 +141,7 @@ flowchart LR
 | 自注意力 | Self-Attention | SA | ... |
 ```
 
-### 共享术语表工作流
+### 5.2 共享术语表工作流
 
 ```mermaid
 flowchart TD
@@ -155,7 +155,7 @@ flowchart TD
 
 ```
 
-### 使用建议
+### 5.3 使用建议
 
 <div class="card-grid">
 
@@ -179,7 +179,7 @@ flowchart TD
 
 ---
 
-## 会议特定建议
+## 6. 会议特定建议
 
 | 会议 | 偏好 | 写作建议 |
 |------|------|---------|
@@ -191,7 +191,7 @@ flowchart TD
 
 ---
 
-## 常见写作误区
+## 7. 常见写作误区
 
 <div class="warning">
 
@@ -207,7 +207,7 @@ flowchart TD
 
 ---
 
-## 协作检查清单
+## 8. 协作检查清单
 
 - [ ] 术语表已创建并同步
 - [ ] 各章节使用统一格式

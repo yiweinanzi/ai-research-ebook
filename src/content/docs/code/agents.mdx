@@ -7,7 +7,7 @@ sidebar:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## 框架对比概览
+## 1. 框架对比概览
 
 当研究任务需要多个Agent协作时，选择合适的框架：
 
@@ -20,7 +20,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ---
 
-## 选择决策树
+## 2. 选择决策树
 
 ```mermaid
 flowchart TD
@@ -39,9 +39,9 @@ flowchart TD
 
 ---
 
-## Claude Agent Teams
+## 3. Claude Agent Teams
 
-### 核心能力
+### 3.1 核心能力
 
 Agent Teams 让多个 Claude Code 会话并行协作：
 
@@ -51,21 +51,21 @@ Agent Teams 让多个 Claude Code 会话并行协作：
 | **Teammates** | 独立执行，各自有上下文窗口 |
 | **Delegate mode** | 队长只调度不实现，队友执行 |
 
-### 两种展示方式
+### 3.2 两种展示方式
 
 | 模式 | 说明 |
 |------|------|
 | **In-process** | 都在同一个终端里跑（无需额外配置） |
 | **Split panes** | 每个队友一个 pane（需要 tmux 或 iTerm2） |
 
-### Agent Teams 四步法
+### 3.3 Agent Teams 四步法
 
 1. **队长会话（Lead）先进入 Plan/Delegate**：先拆任务，不急着写代码
 2. 把任务拆成：可并行、低耦合、验收明确的子任务
 3. 每个子任务指定：输入、输出、验收（DoD）
 4. 队友完成后，Lead 做集成、跑全套测试、开 PR
 
-### Claude Code SDK 实战
+### 3.4 Claude Code SDK 实战
 
 ```python
 from claude_code import ClaudeAgent, TaskResult
@@ -83,7 +83,7 @@ results = agent_team.run_parallel(agents, task="实现特征提取模块")
 
 ---
 
-## LangGraph 实战：科研状态机
+## 4. LangGraph 实战：科研状态机
 
 ```python
 from typing import TypedDict, List, Optional
@@ -146,7 +146,7 @@ app = workflow.compile()
 
 ---
 
-## CrewAI 研究团队配置
+## 5. CrewAI 研究团队配置
 
 ```python
 from crewai import Agent, Task, Crew, Process
@@ -209,7 +209,7 @@ result = research_crew.kickoff(inputs={"topic": "多模态学习"})
 
 ---
 
-## AutoGen 对话式研究
+## 6. AutoGen 对话式研究
 
 ```python
 import autogen
@@ -237,9 +237,9 @@ critic.initiate_chat(
 
 ---
 
-## Ralph 循环：简单而强大的自治模式
+## 7. Ralph 循环：简单而强大的自治模式
 
-### 核心原理
+### 7.1 核心原理
 
 Ralph 循环通过简单的 bash 循环重复执行操作，直到任务成功：
 
@@ -259,7 +259,7 @@ echo "Reached MAX_ITERS=$MAX_ITERS without passing. Stop."
 exit 1
 ```
 
-### 关键技巧
+### 7.2 关键技巧
 
 | 技巧 | 说明 |
 |------|------|
@@ -268,7 +268,7 @@ exit 1
 | **反馈循环** | 集成自动化检查确保每轮结果有效 |
 | **安全限制** | 设置迭代次数上限（20-50次） |
 
-### 适用场景
+### 7.3 适用场景
 
 | 适合 | 不适合 |
 |------|--------|
@@ -278,15 +278,15 @@ exit 1
 
 ---
 
-## 实战案例：16 个 Claude 写 C 编译器
+## 8. 实战案例：16 个 Claude 写 C 编译器
 
-### 实验概览
+### 8.1 实验概览
 
 - **目标**：让 16 个 Claude 并行开发一个能编译 Linux 内核的 C 编译器
 - **成果**：两周内，近 2000 次会话，$2 万成本，10 万行代码
 - **支持架构**：x86、ARM、RISC-V
 
-### 成功的关键
+### 8.2 成功的关键
 
 1. **极高质量的测试体系**：引入成熟测试集，CI 强制要求新提交不破坏功能
 2. **站在 AI 视角设计系统**：
@@ -297,9 +297,9 @@ exit 1
 
 ---
 
-## Everything Claude Code 项目
+## 9. Everything Claude Code 项目
 
-### 项目概览
+### 9.1 项目概览
 
 | 项目 | 说明 |
 |------|------|
@@ -307,7 +307,7 @@ exit 1
 | **定位** | 完整配置集合，将 Claude 升级为"虚拟开发团队" |
 | **GitHub** | [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) |
 
-### 核心组件
+### 9.2 核心组件
 
 | 组件 | 功能 |
 |------|------|
@@ -318,7 +318,7 @@ exit 1
 | **Hooks** | 提交前检查、console.log 检测 |
 | **MCP** | 外部工具连接 |
 
-### 实战效果
+### 9.3 实战效果
 
 | 指标 | 提升 |
 |------|------|
@@ -329,9 +329,9 @@ exit 1
 
 ---
 
-## 多终端并行配置
+## 10. 多终端并行配置
 
-### tmux 工作流
+### 10.1 tmux 工作流
 
 ```bash
 # 安装 tmux (macOS)
@@ -345,14 +345,14 @@ bind-key C-d set -g mouse on
 ./start-ai-agents.sh
 ```
 
-### 多模型同步控制
+### 10.2 多模型同步控制
 
 | 快捷键 | 功能 |
 |--------|------|
 | `Ctrl+b D` | 切换同步模式 |
 | `Ctrl+b X` | 退出多窗口模式 |
 
-### 适用场景
+### 10.3 适用场景
 
 - **同时对比**：Claude、Codex、Gemini、OpenCode
 - **并行实现**：多个 worktree 同时推进
@@ -360,7 +360,7 @@ bind-key C-d set -g mouse on
 
 ---
 
-## 使用建议
+## 11. 使用建议
 
 <CardGrid>
 
@@ -392,7 +392,7 @@ bind-key C-d set -g mouse on
 
 ---
 
-## Execution-Grounded Agent 实战要点
+## 12. Execution-Grounded Agent 实战要点
 
 为了让多 Agent 真正用于科研而不只是"写建议"，建议采用 execution-grounded 架构：
 
@@ -401,7 +401,7 @@ bind-key C-d set -g mouse on
 3. **Executor Agent**：在标准环境中自动训练/评测（含 GPU 资源调度）
 4. **Feedback Agent**：回收 Wandb/日志结果，驱动下一轮搜索
 
-### 两类标准化环境
+### 12.1 两类标准化环境
 
 | 环境 | 典型配置 |
 |------|---------|
@@ -415,7 +415,7 @@ bind-key C-d set -g mouse on
 
 ---
 
-## AI Scientist 系列脉络（补充）
+## 13. AI Scientist 系列脉络（补充）
 
 为避免把自动化科研理解成“单一框架”，这里补一条系列演进视角（来自 `AI research.md`）：
 
@@ -429,19 +429,19 @@ bind-key C-d set -g mouse on
 
 ---
 
-## Book 实战增补（逐篇并入）
+## 14. Book 实战增补（逐篇并入）
 
-> 本节并入 3 篇与多 Agent 协作强相关的文章，统一为“何时用团队协作、如何控成本、如何防跑偏”的实操框架。
+> 本节并入 3 篇与多 Agent 协作强相关的文章，统一为"何时用团队协作、如何控成本、如何防跑偏"的实操框架。
 
-### 1) Agent Swarm（蜂群）实战：从单助手到数字团队
+### 14.1 1) Agent Swarm（蜂群）实战：从单助手到数字团队
 
-#### 核心机制（可落地）
+#### 14.1.1 核心机制（可落地）
 
 1. **共享任务列表**：统一看板，便于并行认领和状态同步。
 2. **消息邮箱系统**：队员间可直接通信，减少 Lead 中转瓶颈。
 3. **独立上下文**：每个 Agent 独立窗口，避免大任务互相污染。
 
-#### 六种典型玩法（按成熟度）
+#### 14.1.2 六种典型玩法（按成熟度）
 
 - 新手：提示词里显式要求“尽可能拆分并行 + 尽可能调用 skill”。
 - 进阶：主模型统筹，便宜模型执行（文档/测试等）做成本分层。
@@ -450,7 +450,7 @@ bind-key C-d set -g mouse on
 - 大项目：Lead-Member 架构，分角色并行交付。
 - 深水区：Hooks/动态路由/Subagent Fork 等做质量与成本精调。
 
-#### 详细步骤（从 0 开始跑 Swarm）
+#### 14.1.3 详细步骤（从 0 开始跑 Swarm）
 
 1. 先写任务卡：目标、范围、交付物、验收标准（四项缺一不可）。
 2. 指定 Lead 只做拆解与验收，不直接写核心实现代码。
@@ -459,7 +459,7 @@ bind-key C-d set -g mouse on
 5. Lead 在每个里程碑做一次冲突检查（文件冲突、接口冲突、依赖冲突）。
 6. 最后统一跑集成验证，再回到主分支合并。
 
-#### 文章细节补充（Swarm 六玩法模板）
+#### 14.1.4 文章细节补充（Swarm 六玩法模板）
 
 ##### 玩法1：新手并行提示模板
 
@@ -501,20 +501,20 @@ bind-key C-d set -g mouse on
 - 动态模型路由控成本；
 - Subagent Fork 隔离上下文污染。
 
-#### 实战摘录
+#### 14.1.5 实战摘录
 
-> Swarm 不是“更会聊天”，而是“可协作的生产组织”。核心收益来自任务拆解质量，而不是 agent 数量。
+> Swarm 不是"更会聊天"，而是"可协作的生产组织"。核心收益来自任务拆解质量，而不是 agent 数量。
 
-### 2) Agent Teams 团战模式：并行收益与协调成本
+### 14.2 2) Agent Teams 团战模式：并行收益与协调成本
 
-#### 适用/不适用边界
+#### 14.2.1 适用/不适用边界
 
 | 任务类型 | 建议 |
 |---|---|
 | 研究审查、多假设调试、跨层联动 | 优先 Agent Teams |
 | 顺序任务、同文件高冲突、强依赖链 | 优先单会话或 Subagent |
 
-#### 启用与操作要点
+#### 14.2.2 启用与操作要点
 
 ```json
 {
@@ -529,7 +529,7 @@ bind-key C-d set -g mouse on
 - 文件级分工防冲突：每个队员拥有独立文件集。
 - 控 token：团队规模与任务收益匹配，避免“并行过度”。
 
-#### 详细步骤（Agent Teams 落地）
+#### 14.2.3 详细步骤（Agent Teams 落地）
 
 1. 在 `settings.json` 打开 `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`。
 2. 重启会话，确认团队模式已可用（可看到 team/teammates 指令反馈）。
@@ -538,7 +538,7 @@ bind-key C-d set -g mouse on
 5. 执行中每 20~30 分钟做一次状态同步：完成/阻塞/待协作。
 6. 收尾时执行“等待队员完成”策略，再统一集成测试。
 
-#### 文章细节补充（Teams 全流程）
+#### 14.2.4 文章细节补充（Teams 全流程）
 
 1. 升级到支持 Teams 的版本（必要时先执行更新命令）。
 2. 在 `settings.json` 注入实验开关并重启会话。
@@ -548,28 +548,28 @@ bind-key C-d set -g mouse on
 6. 执行阶段每轮只推进一个里程碑，防止团队漂移。
 7. 全部成员完成后再统一回归测试与文档收口。
 
-#### 限制说明（实操前必读）
+#### 14.2.5 限制说明（实操前必读）
 
 - 每会话仅一个团队；
 - 不支持嵌套团队；
 - 进程内成员恢复能力有限；
 - 分屏依赖终端能力（tmux/iTerm2 等）。
 
-### 3) 进阶实战（Skills/Subagents/MCP 组合）
+### 14.3 3) 进阶实战（Skills/Subagents/MCP 组合）
 
-#### 组合原则
+#### 14.3.1 组合原则
 
 - **Skill**：固化团队规则与复用流程（先描述触发条件，后写具体动作）。
 - **Subagent**：把高噪声探索外包，主上下文只保留摘要结论。
 - **MCP**：把外部系统接入同一会话，减少标签页切换与复制粘贴。
 
-#### Subagent 设计建议
+#### 14.3.2 Subagent 设计建议
 
 - 明确 `description` 与输出格式，避免“回传整段上下文”。
 - 只给必要工具权限（只读审查与可写实现分离）。
 - 推荐链路：Explore → Implementer → Tester，主代理只做整合与决策。
 
-#### 详细步骤（Subagents + MCP 组合）
+#### 14.3.3 详细步骤（Subagents + MCP 组合）
 
 1. 先定义 Explore 输出格式：只返回“文件路径 + 关键结论 + 风险点”。
 2. Implementer 仅接收结构化输入，不接收原始长对话。
@@ -577,7 +577,7 @@ bind-key C-d set -g mouse on
 4. 主代理整合三者输出后，再调用 MCP 写回 issue/文档系统。
 5. 若发现信息漂移，回滚到 Explore 结果重建链路，不在末端硬修。
 
-#### 文章细节补充（命令级落地）
+#### 14.3.4 文章细节补充（命令级落地）
 
 ```bash
 # 查看可用 subagents
@@ -595,13 +595,13 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp
 3. 所有 subagent 返回统一格式：`summary / changed_files / risks`。
 4. MCP 只接入本任务必要服务，避免权限过大。
 
-#### MCP 使用建议
+#### 14.3.5 MCP 使用建议
 
 - 优先接入：GitHub、Slack、DB、文档系统。
 - 第三方连接器先做安全评估（权限、日志、凭证范围）。
 - 通过 `/mcp` 定期盘点已加载连接，避免“隐式工具漂移”。
 
-#### 常见坑与处理
+#### 14.3.6 常见坑与处理
 
 - **坑1：并行太多导致 token 爆涨** → 限制活跃队员数量，优先高价值并行。
 - **坑2：成员写同一文件互相覆盖** → 启动前做文件分区。

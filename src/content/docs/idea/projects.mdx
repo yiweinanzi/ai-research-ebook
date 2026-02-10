@@ -7,9 +7,9 @@ sidebar:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Sci-Reasoning 数据集
+## 1. Sci-Reasoning 数据集
 
-### 核心价值
+### 1.1 核心价值
 
 **Sci-Reasoning** 通过 LLM+Human Review的方法, 对 2023–2025 年 NeurIPS、ICML、ICLR 的 **3819 篇 Oral/Spotlight 论文**进行"学术谱系"建模。
 
@@ -32,7 +32,7 @@ flowchart TD
 
 ---
 
-## 15 种科研思维模式详解
+## 2. 15 种科研思维模式详解
 
 <div class="card-grid">
 
@@ -50,7 +50,7 @@ flowchart TD
 
 </div>
 
-### 完整模式列表
+### 2.1 完整模式列表
 
 | 编号 | 模式 | 比例 | 核心价值 |
 |------|------|------|---------|
@@ -72,9 +72,9 @@ flowchart TD
 
 ---
 
-## Innovation Recipes（Innovation Recipes）
+## 3. Innovation Recipes（Innovation Recipes）
 
-### 高价值组合
+### 3.1 高价值组合
 
 ```mermaid
 flowchart LR
@@ -98,7 +98,7 @@ flowchart LR
 
 ---
 
-## 会议偏好分析
+## 4. 会议偏好分析
 
 | 会议 | 偏好模式 | 写作建议 |
 |------|---------|---------|
@@ -108,7 +108,7 @@ flowchart LR
 
 ---
 
-## LLM 评估基准 (Hit@10)
+## 5. LLM 评估基准 (Hit@10)
 
 这个评估衡量：给定前人工作, LLM 能否预测出研究方向的准确度。
 
@@ -121,9 +121,9 @@ flowchart LR
 
 ---
 
-## AI Scientist 系列
+## 6. AI Scientist 系列
 
-### 完整对比
+### 6.1 完整对比
 
 | 项目 | 时间 | 核心特点 | 代码 |
 |------|------|---------|------|
@@ -136,9 +136,9 @@ flowchart LR
 
 ---
 
-## 实践建议
+## 7. 实践建议
 
-### 如何借鉴 Sci-Reasoning
+### 7.1 如何借鉴 Sci-Reasoning
 
 1. **构建调研库时做标签化**
    - 每篇论文标注其"创新类型"
@@ -161,9 +161,9 @@ flowchart LR
 
 ---
 
-## 根目录论文内容整合（不上传 PDF 本体）
+## 8. 根目录论文内容整合（不上传 PDF 本体）
 
-### 论文一：Towards Execution-Grounded Automated AI Research (2601.14525)
+### 8.1 论文一：Towards Execution-Grounded Automated AI Research (2601.14525)
 
 根据原文摘要与项目环境说明, 这项工作提出了一个 **execution-grounded** 的自动科研框架, 核心不是只生成“看起来合理”的 idea, 而是把 idea 真实落地执行并用反馈反哺下一轮搜索。
 
@@ -175,9 +175,9 @@ flowchart LR
 - 研究目标从“语言 plausibility”转为“执行后有效性”。
 - 强调 execution feedback 对后续 idea 迭代的价值。
 
-### 论文二：Idea2Story (2601.20833)
+### 8.2 论文二：Idea2Story (2601.20833)
 
-该工作把“research idea → 可写论文叙事”的过程做成了结构化流水线, 核心贡献是 **pre-computation-driven** 思路：尽量把文献理解和结构化表征前置, 降低在线大上下文推理成本与幻觉风险。
+该工作把"research idea → 可写论文叙事"的过程做成了结构化流水线, 核心贡献是 **pre-computation-driven** 思路：尽量把文献理解和结构化表征前置, 降低在线大上下文推理成本与幻觉风险。
 
 **关键点：**
 - 用知识图谱组织 Idea / Pattern / Domain / Paper 节点。
@@ -185,7 +185,7 @@ flowchart LR
 - 引入 anchored multi-agent review, 使打分更可审计、更可复现。
 - 输出可直接进入写作阶段的结构化结果（title/abstract/problem/method/contrib/experiments）。
 
-### 并入现有工作流的建议
+### 8.3 并入现有工作流的建议
 
 1. 在 `1.1 调研` 阶段优先落地“可执行环境”, 避免只停留在概念验证。
 2. 在 `1.2 项目` 阶段增加“叙事骨架检查”, 确保 idea 到论文表达不断层。
