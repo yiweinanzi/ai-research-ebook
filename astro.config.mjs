@@ -92,7 +92,7 @@ export default defineConfig({
 				{
 					label: '7. 资料库',
 					items: [
-						{ label: '根目录项目与论文资源', slug: 'library/root-assets' },
+						{ label: '科研圣经', slug: 'library/root-assets' },
 					],
 				},
 			],
