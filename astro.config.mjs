@@ -85,14 +85,14 @@ export default defineConfig({
 				{
 					label: '6. 工具生态',
 					items: [
-						{ label: '工具总览', slug: 'tools/overview' },
-						{ label: '完整工作流', slug: 'tools/workflow' },
+						{ label: '6.1 工具总览', slug: 'tools/overview' },
+						{ label: '6.2 完整工作流', slug: 'tools/workflow' },
 					],
 				},
 				{
 					label: '7. 资料库',
 					items: [
-						{ label: '科研圣经', slug: 'library/root-assets' },
+						{ label: '7.1 科研圣经', slug: 'library/root-assets' },
 					],
 				},
 			],
