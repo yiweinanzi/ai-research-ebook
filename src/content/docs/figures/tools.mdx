@@ -287,6 +287,13 @@ PaperBanana 采用 agentic pipeline, 将插图生成拆为可控阶段：
 4. 对照正文逐项核验：术语一致、关系一致、无缺漏模块。
 5. 导出两份：投稿图 + 可编辑源文件（SVG/分层）。
 
+#### 文章细节补充（质量核验表）
+
+- 语义一致：图中术语与正文完全一致；
+- 逻辑一致：箭头方向与流程关系无冲突；
+- 审美一致：配色、字号、间距统一；
+- 投稿可用：分辨率与版式满足会议模板要求。
+
 ### 2) PPT Skills：从静态页面到转场视频
 
 来源：`book/学会了PPTSkills_豆包Kimi都感觉不香了_但90_的人卡在第一步_Gemini_NanoBananaPro_API国内用不了_这篇帮你全解决（8个坑_国内可用）.md`
@@ -326,6 +333,30 @@ cp .env.example .env
 4. 先做 API 连接测试（返回 200 再继续主流程）。
 5. 官方 SDK 不稳定时切 HTTP 直调，便于定位原始请求/响应。
 6. 生成完成后再执行转场视频流水线，避免前置失败放大损失。
+
+#### 文章细节补充（可复制命令顺序）
+
+```bash
+# 初始化
+cd <project>
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 生成静态页
+python generate_ppt.py --plan plans/demo.md --style styles/vector-illustration.md --resolution 2K
+
+# 生成转场视频（按项目脚本）
+python generate_transition.py --input outputs/<run>/images --output outputs/<run>/videos
+ffmpeg -f concat -safe 0 -i outputs/<run>/videos/list.txt -c copy outputs/<run>/full_ppt_video.mp4
+```
+
+#### 常见问题排查（细化）
+
+1. **API 连通失败**：先用独立脚本验证请求，再跑主流程。
+2. **模型返回空结果**：检查模型名是否与供应商兼容。
+3. **转场合成失败**：检查 ffmpeg 是否安装、输入列表是否存在。
+4. **分辨率不一致**：统一生成参数，避免混用 2K/4K 导致拼接失败。
 
 #### 高频坑位清单
 
@@ -369,6 +400,22 @@ npm run replace-images <article-slug>
 3. 依次执行四个命令：生图 → 压缩 → 上传 → 链接替换。
 4. 每一步检查输出目录是否存在且非空。
 5. 替换完成后抽查 3 处图片链接，确认 CDN 可访问。
+
+#### 文章细节补充（目录规范建议）
+
+```text
+articles/<slug>.md
+prompts/<slug>/*.md
+images/<slug>/*.png
+images/<slug>/*.webp
+```
+
+建议每一步都写入一个 `status.json`，用于中断后恢复：
+
+- `step`
+- `ok`
+- `updated_at`
+- `error`
 
 #### 章节衔接说明
 

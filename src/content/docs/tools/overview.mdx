@@ -139,6 +139,18 @@ elicit search "topic"  # Elicit 搜索
 - 改造时优先替换路径、命名、验证命令；
 - 先用小样本测试，再扩展到完整任务。
 
+#### 文章细节补充（VSCode 实操顺序）
+
+1. 先创建一个最小 skill（仅 1 个步骤），验证可触发。
+2. 再添加 `workflow-example` 与脚本资源，验证可读取。
+3. 最后引入社区 skill 并本地改造，避免一次导入过大难排错。
+
+#### 推荐社区资源（与原文一致）
+
+- `awesome-copilot`（社区技能集合）
+- `anthropics/skills`（官方参考）
+- `K-Dense-AI/claude-scientific-skills`（科研场景）
+
 ### 2) 三 CLI 联动：Claude + Codex + Gemini
 
 来源：`book/老金开源_Claude4_5_Codex5_1_Gemini3_3大顶级CLI终极联动整合技巧_省钱_高质量_快_.md`
@@ -167,3 +179,27 @@ elicit search "topic"  # Elicit 搜索
 - 代理/网络导致认证失败；
 - sandbox 权限不足导致写入失败；
 - 多模型切换后输出格式漂移。
+
+#### 文章细节补充（三CLI联动最小命令）
+
+```bash
+# 1) 安装
+npm i -g @anthropic-ai/claude-code
+npm i -g @openai/codex
+npm i -g @google/gemini-cli
+
+# 2) 鉴权（示意，按各自官方流程）
+gemini auth login
+codex auth login
+
+# 3) 在 Claude 内先跑 Command 模式
+/ai-team "实现一个最小登录接口并附测试"
+```
+
+#### 五编排方式的选型建议（更细）
+
+- 30 分钟内一次性任务：`Command`
+- 反复执行的标准流程：`Skill`
+- 需要跨系统持久上下文：`MCP`
+- 模块可并行且预算允许：`Subagent`
+- 固定时机自动质检：`Hooks`
