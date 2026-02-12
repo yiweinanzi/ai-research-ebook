@@ -10,9 +10,9 @@ export default {
         mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
       },
       colors: {
-        primary: '#0a0a0a',
-        secondary: '#141414',
-        tertiary: '#1a1a1a',
+        primary: '#f6f7fb',
+        secondary: '#ffffff',
+        tertiary: '#eef2f8',
         accent: {
           DEFAULT: '#3b82f6',
           hover: '#2563eb',

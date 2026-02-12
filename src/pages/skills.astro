@@ -50,12 +50,12 @@ const skills = [
 <Layout title="Skills - Vibe Research">
   <div class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-accent mb-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/5 border border-slate-900/10 rounded-full text-sm text-accent mb-6">
         <span>✨</span>
         <span>Research Skills</span>
       </div>
       <h1 class="text-4xl md:text-5xl font-bold mb-6">Agent Skills 库</h1>
-      <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+      <p class="text-slate-600 max-w-2xl mx-auto text-lg">
         这里收录的是 AI 科研工作流的技能模块。<br />
         覆盖调研、实验、写作、审稿与 rebuttal 的关键场景。
       </p>
@@ -63,16 +63,16 @@ const skills = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {skills.map((skill) => (
-        <div class="bg-secondary border border-white/10 rounded-xl p-6 hover:border-accent/50 transition-all duration-300 group">
+        <div class="bg-secondary border border-slate-900/10 rounded-xl p-6 hover:border-accent/50 transition-all duration-300 group">
           <div class="flex justify-between items-start mb-4">
-            <div class="text-3xl bg-white/5 p-3 rounded-lg group-hover:bg-accent/10 transition-colors">{skill.icon}</div>
-            <span class="px-2 py-1 bg-white/5 rounded text-xs font-mono text-gray-400 border border-white/5">{skill.type}</span>
+            <div class="text-3xl bg-slate-900/5 p-3 rounded-lg group-hover:bg-accent/10 transition-colors">{skill.icon}</div>
+            <span class="px-2 py-1 bg-slate-900/5 rounded text-xs font-mono text-slate-500 border border-slate-900/10">{skill.type}</span>
           </div>
 
-          <h3 class="text-xl font-bold mb-2 text-gray-100">{skill.name}</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed h-10">{skill.description}</p>
+          <h3 class="text-xl font-bold mb-2 text-slate-900">{skill.name}</h3>
+          <p class="text-slate-600 text-sm mb-6 leading-relaxed h-10">{skill.description}</p>
 
-          <div class="bg-black/30 rounded-lg p-3 border border-white/5 group-hover:border-accent/20 transition-colors">
+          <div class="bg-slate-900/5 rounded-lg p-3 border border-slate-900/10 group-hover:border-accent/20 transition-colors">
             <code class="text-xs font-mono text-accent break-all">{skill.command}</code>
           </div>
         </div>

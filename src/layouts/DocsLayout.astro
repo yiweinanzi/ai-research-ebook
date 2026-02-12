@@ -41,11 +41,11 @@ const withBase = (path: string) => (base === '/' ? path : `${base.replace(/\/$/,
     <div class="max-w-[1500px] mx-auto px-4 md:px-6 xl:px-8 flex flex-col lg:flex-row gap-5 xl:gap-7">
       <Sidebar groups={groups} currentSlug={currentSlug} />
 
-      <article class="flex-1 min-w-0 bg-secondary/60 border border-white/10 rounded-2xl p-6 md:p-9 backdrop-blur-sm">
-        <div class="mb-7 pb-6 border-b border-white/10">
-          <p class="text-xs font-mono tracking-widest text-gray-500 mb-2">DOCS</p>
-          <h1 class="text-3xl md:text-[2.55rem] font-bold text-white leading-tight">{title}</h1>
-          {description && <p class="mt-3 text-gray-400 text-[1.02rem] leading-relaxed">{description}</p>}
+      <article class="flex-1 min-w-0 bg-secondary/70 border border-slate-900/10 rounded-2xl p-6 md:p-9 backdrop-blur-sm">
+        <div class="mb-7 pb-6 border-b border-slate-900/10">
+          <p class="text-xs font-mono tracking-widest text-slate-500 mb-2">DOCS</p>
+          <h1 class="text-3xl md:text-[2.55rem] font-bold text-slate-900 leading-tight">{title}</h1>
+          {description && <p class="mt-3 text-slate-600 text-[1.02rem] leading-relaxed">{description}</p>}
         </div>
 
         <div class="markdown-content">
@@ -53,20 +53,20 @@ const withBase = (path: string) => (base === '/' ? path : `${base.replace(/\/$/,
         </div>
 
         {(prev || next) && (
-          <div class="mt-10 pt-6 border-t border-white/10 grid gap-4 sm:grid-cols-2">
+          <div class="mt-10 pt-6 border-t border-slate-900/10 grid gap-4 sm:grid-cols-2">
             <div>
               {prev && (
-                <a href={withBase(`/docs/${prev.slug}`)} class="block rounded-xl border border-white/10 p-4 hover:border-accent/40 transition-colors bg-white/5">
-                  <p class="text-xs text-gray-500 mb-2">上一篇</p>
-                  <p class="font-semibold text-white">{prev.title}</p>
+                <a href={withBase(`/docs/${prev.slug}`)} class="block rounded-xl border border-slate-900/10 p-4 hover:border-accent/40 transition-colors bg-slate-50">
+                  <p class="text-xs text-slate-500 mb-2">上一篇</p>
+                  <p class="font-semibold text-slate-900">{prev.title}</p>
                 </a>
               )}
             </div>
             <div>
               {next && (
-                <a href={withBase(`/docs/${next.slug}`)} class="block rounded-xl border border-white/10 p-4 hover:border-accent/40 transition-colors bg-white/5 text-right">
-                  <p class="text-xs text-gray-500 mb-2">下一篇</p>
-                  <p class="font-semibold text-white">{next.title}</p>
+                <a href={withBase(`/docs/${next.slug}`)} class="block rounded-xl border border-slate-900/10 p-4 hover:border-accent/40 transition-colors bg-slate-50 text-right">
+                  <p class="text-xs text-slate-500 mb-2">下一篇</p>
+                  <p class="font-semibold text-slate-900">{next.title}</p>
                 </a>
               )}
             </div>

@@ -93,7 +93,7 @@ const getPath = (path: string) => {
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-gray-400 mb-8 animate-fade-in-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/5 border border-slate-900/10 rounded-full text-sm text-slate-500 mb-8 animate-fade-in-up">
           <span class="flex h-2 w-2 relative">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
@@ -109,15 +109,15 @@ const getPath = (path: string) => {
           </div>
         </h1>
 
-        <p class="text-lg text-gray-400 text-center mb-8 max-w-3xl mx-auto">
+        <p class="text-lg text-slate-600 text-center mb-8 max-w-3xl mx-auto">
           面向 AI 科研场景的完整执行手册：从 Idea、实现、图表、写作到审稿闭环。<br />
           <span class="text-base opacity-70 block mt-2">From ideation to submission, every step is measurable and executable.</span>
-          <span class="text-xs text-gray-500 mt-3 block font-mono">18 Chapters · 7 Modules · Continuous Updates</span>
+          <span class="text-xs text-slate-500 mt-3 block font-mono">18 Chapters · 7 Modules · Continuous Updates</span>
         </p>
 
-        <div class="text-2xl md:text-3xl text-gray-300 font-bold mb-12 space-y-4">
+        <div class="text-2xl md:text-3xl text-slate-800 font-bold mb-12 space-y-4">
           <p>Just Build. Then Verify.</p>
-          <p class="text-gray-500 text-lg font-normal max-w-2xl mx-auto leading-relaxed">
+          <p class="text-slate-500 text-lg font-normal max-w-2xl mx-auto leading-relaxed">
             AI 负责加速实现，人负责研究判断。<br />
             把科研任务拆成可执行单元，持续验证，持续迭代。
           </p>
@@ -127,20 +127,20 @@ const getPath = (path: string) => {
           <a href={getPath('/docs/intro/01-overview')} class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors text-lg">
             开始阅读
           </a>
-          <a href="#chapters" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/15 rounded-lg font-semibold hover:bg-white/10 transition-colors text-lg">
+          <a href="#chapters" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-900/5 border border-slate-900/15 rounded-lg font-semibold hover:bg-slate-900/10 transition-colors text-lg">
             查看章节
           </a>
         </div>
 
-        <div class="mt-12 pt-8 border-t border-white/5">
-          <p class="text-sm text-gray-500 mb-6 font-mono">MODULES</p>
+        <div class="mt-12 pt-8 border-t border-slate-900/10">
+          <p class="text-sm text-slate-500 mb-6 font-mono">MODULES</p>
           <div class="flex flex-wrap gap-4 justify-center">
             {chapterCards.map((chapter) => (
-              <a href={chapter.first ? getPath(`/docs/${chapter.first.slug}`) : '#'} class="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300 group min-w-[170px]">
+              <a href={chapter.first ? getPath(`/docs/${chapter.first.slug}`) : '#'} class="flex items-center gap-3 px-4 py-2 bg-slate-900/5 border border-slate-900/10 rounded-lg hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300 group min-w-[170px]">
                 <span class="text-xl group-hover:scale-110 transition-transform">{chapter.icon}</span>
                 <div class="text-left">
-                  <div class="text-xs font-bold text-gray-300 group-hover:text-blue-400">{chapter.title}</div>
-                  <div class="text-[10px] text-gray-500 font-mono">{chapter.count} chapters</div>
+                  <div class="text-xs font-bold text-slate-700 group-hover:text-blue-400">{chapter.title}</div>
+                  <div class="text-[10px] text-slate-500 font-mono">{chapter.count} chapters</div>
                 </div>
               </a>
             ))}
@@ -150,23 +150,23 @@ const getPath = (path: string) => {
     </div>
   </section>
 
-  <section id="workflow" class="py-24 bg-white/5 relative overflow-hidden">
+  <section id="workflow" class="py-24 bg-slate-900/5 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">科研执行工作流</h2>
-        <p class="text-gray-400">章节命名对齐你的体系，结构与交互风格靠齐 adongwanai 站点</p>
+        <p class="text-slate-600">章节命名对齐你的体系，结构与交互风格靠齐 adongwanai 站点</p>
       </div>
 
       <div class="flex flex-col md:flex-row justify-between items-stretch gap-4 relative">
         <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-500/20 to-transparent -translate-y-1/2 z-0"></div>
 
         {timeline.map((item) => (
-          <div class="relative z-10 bg-secondary border border-white/10 p-6 rounded-xl w-full md:flex-1 hover:-translate-y-2 transition-transform duration-300 min-w-0">
+          <div class="relative z-10 bg-secondary border border-slate-900/10 p-6 rounded-xl w-full md:flex-1 hover:-translate-y-2 transition-transform duration-300 min-w-0">
             <div class="text-4xl mb-4">{item.icon}</div>
             <div class="text-xs font-mono text-accent mb-2">STEP {item.step}</div>
             <h3 class="text-lg font-bold mb-1">{item.title}</h3>
             <div class="text-xs text-blue-400 mb-3 font-mono">{item.tool}</div>
-            <p class="text-sm text-gray-500 line-clamp-2">{item.desc}</p>
+            <p class="text-sm text-slate-500 line-clamp-2">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -177,7 +177,7 @@ const getPath = (path: string) => {
     <div class="max-w-7xl mx-auto px-6">
       <div class="mb-16 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">章节模块</h2>
-        <p class="text-gray-400">按你的 7 大章节体系组织，卡片密度与参考站的项目区块靠齐</p>
+        <p class="text-slate-600">按你的 7 大章节体系组织，卡片密度与参考站的项目区块靠齐</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -198,17 +198,17 @@ const getPath = (path: string) => {
     <div class="max-w-7xl mx-auto px-6">
       <div class="mb-16 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">学习路径</h2>
-        <p class="text-gray-400">按不同目标快速进入你的章节体系</p>
+        <p class="text-slate-600">按不同目标快速进入你的章节体系</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
         {quickPaths.map((path) => (
-          <div class="bg-secondary border border-white/10 rounded-xl p-7 hover:border-accent/50 hover:-translate-y-1 transition-all duration-300">
+          <div class="bg-secondary border border-slate-900/10 rounded-xl p-7 hover:border-accent/50 hover:-translate-y-1 transition-all duration-300">
             <h3 class="text-xl font-bold mb-3">{path.title}</h3>
-            <p class="text-sm text-gray-400 mb-6 leading-relaxed">{path.desc}</p>
+            <p class="text-sm text-slate-600 mb-6 leading-relaxed">{path.desc}</p>
             <div class="space-y-2">
               {path.docs.map((doc) => (
-                <a href={getPath(doc)} class="block text-sm bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-gray-300 hover:text-white hover:border-accent/40 transition-colors">
+                <a href={getPath(doc)} class="block text-sm bg-slate-900/5 border border-slate-900/10 rounded-lg px-3 py-2 text-slate-700 hover:text-slate-900 hover:border-accent/40 transition-colors">
                   {doc.replace('/docs/', '')}
                 </a>
               ))}
@@ -219,14 +219,14 @@ const getPath = (path: string) => {
     </div>
   </section>
 
-  <section id="about" class="py-24 bg-white/5">
+  <section id="about" class="py-24 bg-slate-900/5">
     <div class="max-w-5xl mx-auto px-6">
       <h2 class="text-3xl font-bold mb-16">关于这本书</h2>
 
       <div class="space-y-16">
         <div class="grid md:grid-cols-4 gap-8">
           <div class="text-accent font-mono text-sm tracking-widest uppercase pt-1">01. 定位</div>
-          <div class="md:col-span-3 text-gray-300 leading-relaxed">
+          <div class="md:col-span-3 text-slate-700 leading-relaxed">
             这不是“工具清单”，而是“可执行的科研操作系统”。每一章都强调输入、执行、验证和产出，目标是减少返工、提高投稿稳定性。
           </div>
         </div>
@@ -234,8 +234,8 @@ const getPath = (path: string) => {
         <div class="grid md:grid-cols-4 gap-8">
           <div class="text-accent font-mono text-sm tracking-widest uppercase pt-1">02. 方法论</div>
           <div class="md:col-span-3">
-            <p class="text-xl text-gray-200 leading-relaxed mb-4 font-light">"Claim without evidence is noise."</p>
-            <p class="text-gray-400 leading-relaxed text-base">
+            <p class="text-xl text-slate-800 leading-relaxed mb-4 font-light">"Claim without evidence is noise."</p>
+            <p class="text-slate-600 leading-relaxed text-base">
               用结构化的 Idea 产出可验证 claim，用工程化代码保障可复现，用图表和写作形成可审稿的叙事，最后用审稿闭环把风险提前暴露。
             </p>
           </div>
@@ -244,17 +244,17 @@ const getPath = (path: string) => {
         <div class="grid md:grid-cols-4 gap-8">
           <div class="text-accent font-mono text-sm tracking-widest uppercase pt-1">03. 适用对象</div>
           <div class="md:col-span-3">
-            <div class="flex flex-wrap gap-x-8 gap-y-4 font-mono text-sm text-gray-400">
+            <div class="flex flex-wrap gap-x-8 gap-y-4 font-mono text-sm text-slate-600">
               <div>
-                <div class="text-white text-xs opacity-50 mb-1">研究生 / 博士生</div>
+                <div class="text-slate-800 text-xs opacity-60 mb-1">研究生 / 博士生</div>
                 <div>建立稳定投稿流程</div>
               </div>
               <div>
-                <div class="text-white text-xs opacity-50 mb-1">工业研究员</div>
+                <div class="text-slate-800 text-xs opacity-60 mb-1">工业研究员</div>
                 <div>缩短研发验证周期</div>
               </div>
               <div>
-                <div class="text-white text-xs opacity-50 mb-1">独立研究者</div>
+                <div class="text-slate-800 text-xs opacity-60 mb-1">独立研究者</div>
                 <div>从 0 到 1 搭建科研系统</div>
               </div>
             </div>
@@ -264,23 +264,23 @@ const getPath = (path: string) => {
     </div>
   </section>
 
-  <section id="cooperation" class="py-24 border-t border-white/5">
+  <section id="cooperation" class="py-24 border-t border-slate-900/10">
     <div class="max-w-7xl mx-auto px-6">
       <div class="mb-16 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">章节协作区</h2>
-        <p class="text-gray-400">结构复刻参考站的合作模块，但内容改为科研章节入口</p>
+        <p class="text-slate-600">结构复刻参考站的合作模块，但内容改为科研章节入口</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {cooperationCards.map((card) => (
           <div class:list={[
-            'border border-white/10 rounded-2xl p-6 hover:border-accent/40 transition-colors',
+            'border border-slate-900/10 rounded-2xl p-6 hover:border-accent/40 transition-colors',
             card.style,
           ]}>
             <div class="text-4xl mb-6">{card.icon}</div>
             <h3 class="text-xl font-bold mb-2">{card.title}</h3>
-            <p class="text-gray-400 mb-6 leading-relaxed text-sm">{card.desc}</p>
-            <a href={getPath(card.href)} class="block w-full text-center py-3 bg-white/10 text-white font-bold rounded-lg hover:bg-white/20 transition-colors border border-white/10 text-sm">
+            <p class="text-slate-600 mb-6 leading-relaxed text-sm">{card.desc}</p>
+            <a href={getPath(card.href)} class="block w-full text-center py-3 bg-slate-900 text-white font-bold rounded-lg hover:bg-slate-800 transition-colors border border-slate-900 text-sm">
               {card.cta}
             </a>
           </div>

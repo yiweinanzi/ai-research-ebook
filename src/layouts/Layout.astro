@@ -36,21 +36,21 @@ const getPath = (path: string) => {
     <script is:inline type="module" src={getPath('/scripts/mermaid-init.js')}></script>
     <title>{title}</title>
   </head>
-  <body class="bg-primary text-gray-100 min-h-screen flex flex-col font-sans selection:bg-accent selection:text-white">
-    <header class="fixed top-0 left-0 right-0 bg-primary/80 backdrop-blur-md border-b border-white/10 z-50">
+  <body class="bg-primary text-slate-900 min-h-screen flex flex-col font-sans selection:bg-accent/25 selection:text-slate-900">
+    <header class="fixed top-0 left-0 right-0 bg-primary/80 backdrop-blur-md border-b border-slate-900/10 z-50">
       <nav class="max-w-7xl mx-auto px-6 h-[70px] flex justify-between items-center">
         <a href={getPath('/')} class="text-xl font-bold">
           <span class="bg-gradient-to-br from-blue-500 to-violet-600 bg-clip-text text-transparent">Vibe Research</span>
         </a>
 
         <ul class="hidden md:flex gap-8 items-center">
-          <li><a href={getPath('/')} class="text-gray-400 hover:text-white transition-colors text-sm font-medium">首页</a></li>
-          <li><a href={getPath('/#chapters')} class="text-gray-400 hover:text-white transition-colors text-sm font-medium">章节</a></li>
-          <li><a href={getPath('/#workflow')} class="text-gray-400 hover:text-white transition-colors text-sm font-medium">工作流</a></li>
-          <li><a href={getPath('/#about')} class="text-gray-400 hover:text-white transition-colors text-sm font-medium">关于</a></li>
-          <li><a href={getPath('/docs/intro/01-overview')} class="text-gray-400 hover:text-white transition-colors text-sm font-medium">文档</a></li>
-          <li><a href={getPath('/skills')} class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Skills</a></li>
-          <li><a href="https://github.com/yiweinanzi/ai-research-ebook" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">GitHub</a></li>
+          <li><a href={getPath('/')} class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">首页</a></li>
+          <li><a href={getPath('/#chapters')} class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">章节</a></li>
+          <li><a href={getPath('/#workflow')} class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">工作流</a></li>
+          <li><a href={getPath('/#about')} class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">关于</a></li>
+          <li><a href={getPath('/docs/intro/01-overview')} class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">文档</a></li>
+          <li><a href={getPath('/skills')} class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Skills</a></li>
+          <li><a href="https://github.com/yiweinanzi/ai-research-ebook" target="_blank" rel="noopener" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">GitHub</a></li>
         </ul>
       </nav>
     </header>
@@ -59,12 +59,12 @@ const getPath = (path: string) => {
       <slot />
     </main>
 
-    <footer class="bg-secondary border-t border-white/10 py-8 mt-auto">
+    <footer class="bg-secondary border-t border-slate-900/10 py-8 mt-auto">
       <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Vibe Research. Built with Astro + Tailwind.</p>
+        <p class="text-slate-500 text-sm">&copy; {new Date().getFullYear()} Vibe Research. Built with Astro + Tailwind.</p>
         <div class="flex gap-6">
-          <a href="https://github.com/yiweinanzi/ai-research-ebook" target="_blank" rel="noopener" class="text-gray-400 hover:text-accent transition-colors text-sm">GitHub</a>
-          <a href={getPath('/docs/intro/01-overview')} class="text-gray-400 hover:text-accent transition-colors text-sm">开始阅读</a>
+          <a href="https://github.com/yiweinanzi/ai-research-ebook" target="_blank" rel="noopener" class="text-slate-500 hover:text-accent transition-colors text-sm">GitHub</a>
+          <a href={getPath('/docs/intro/01-overview')} class="text-slate-500 hover:text-accent transition-colors text-sm">开始阅读</a>
         </div>
       </div>
     </footer>
