@@ -302,6 +302,22 @@ a {
   background-color: var(--bg-secondary) !important;
 }
 
+.bg-secondary\/60 {
+  background-color: color-mix(in srgb, var(--bg-secondary) 60%, transparent) !important;
+}
+
+.bg-secondary\/70 {
+  background-color: color-mix(in srgb, var(--bg-secondary) 70%, transparent) !important;
+}
+
+.bg-secondary\/75 {
+  background-color: color-mix(in srgb, var(--bg-secondary) 75%, transparent) !important;
+}
+
+.bg-secondary\/85 {
+  background-color: color-mix(in srgb, var(--bg-secondary) 85%, transparent) !important;
+}
+
 .bg-tertiary {
   background-color: var(--bg-tertiary) !important;
 }
@@ -322,12 +338,20 @@ a {
   background-color: var(--bg-muted-strong) !important;
 }
 
+.bg-slate-900 {
+  background-color: var(--text-main) !important;
+}
+
 .border-slate-900\/10 {
   border-color: var(--border) !important;
 }
 
 .border-slate-900\/15 {
   border-color: var(--border-strong) !important;
+}
+
+.border-slate-900\/20 {
+  border-color: color-mix(in srgb, var(--border-strong) 90%, transparent) !important;
 }
 
 .text-slate-900 {
@@ -359,8 +383,26 @@ a {
   background-color: var(--bg-muted-strong) !important;
 }
 
+.hover\:bg-slate-800:hover {
+  background-color: color-mix(in srgb, var(--text-main) 90%, #475569) !important;
+}
+
+.hover\:border-slate-900\/20:hover {
+  border-color: color-mix(in srgb, var(--border-strong) 90%, transparent) !important;
+}
+
 .border-white\/10 {
   border-color: var(--border) !important;
+}
+
+.from-secondary {
+  --tw-gradient-from: var(--bg-secondary) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: color-mix(in srgb, var(--bg-secondary) 0%, transparent) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.to-tertiary {
+  --tw-gradient-to: var(--bg-tertiary) var(--tw-gradient-to-position) !important;
 }
 
 :root[data-theme='dark'] .text-black {
